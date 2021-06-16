@@ -21,6 +21,7 @@ const getObservable = (collection: AngularFirestoreCollection<Task>) => {
 })
 export class AppComponent {
   todo = getObservable(this.store.collection('todo')) as Observable<Task[]>;
+  inReview = getObservable(this.store.collection('inReview')) as Observable<Task[]>;
   inProgress = getObservable(this.store.collection('inProgress')) as Observable<Task[]>;
   done = getObservable(this.store.collection('done')) as Observable<Task[]>;
 
@@ -38,7 +39,7 @@ export class AppComponent {
       .subscribe((result: TaskDialogResult) => this.store.collection('todo').add(result.task));
   }
 
-  editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
+  editTask(list: 'done' | 'todo' | 'inProgress' | 'inReview', task: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '270px',
       data: {
