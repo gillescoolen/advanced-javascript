@@ -35,7 +35,7 @@ export class AppComponent {
     });
     dialogRef
       .afterClosed()
-      .subscribe((result: TaskDialogResult) => this.store.collection('done').add(result));
+      .subscribe((result: TaskDialogResult) => this.store.collection('todo').add(result.task));
   }
 
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
