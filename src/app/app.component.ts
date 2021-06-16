@@ -53,10 +53,8 @@ export class AppComponent {
   }
 
   drop(event: CdkDragDrop<Task[] | null>): void {
-    if (event.previousContainer.data === null) return;
-    if (event.container.data === null) return;
+    if (event.previousContainer.data === null || event.container.data === null) return;
     if (event.previousContainer === event.container) return;
-  
    
     const item = event.previousContainer.data[event.previousIndex];
     
