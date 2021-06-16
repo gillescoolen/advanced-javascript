@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "kanban-advanced-javascript": {
+      "hosting": {
+        "kanban": [
+          "kanban-advanced-javascript"
+        ]
+      }
+    }
+  }
+}
