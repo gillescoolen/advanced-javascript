@@ -1,9 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-  MatMomentDateModule,
-  MomentDateAdapter
-} from "@angular/material-moment-adapter";
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule } from "@angular/material-moment-adapter";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,24 +18,6 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [],
-  imports: [
-    MatMomentDateModule,
-    DragDropModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatSortModule,
-    MatTableModule,
-    MatToolbarModule
-  ],
   exports: [
     MatMomentDateModule,
     DragDropModule,
