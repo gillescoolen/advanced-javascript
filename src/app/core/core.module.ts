@@ -29,7 +29,7 @@ import { MemberService } from './services/member.service';
       guardProtectedRoutesUntilEmailIsVerified: false,
       toastMessageOnAuthSuccess: false,
       toastMessageOnAuthError: false,
-      authGuardFallbackURL: '/auth/sign-in',
+      authGuardFallbackURL: '/auth/login',
       authGuardLoggedInURL: 'project'
     })
   ],

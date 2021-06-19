@@ -9,7 +9,7 @@ import { LayoutComponent } from './core/layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/sign-in',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
   },
   {

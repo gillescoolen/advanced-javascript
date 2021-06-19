@@ -16,11 +16,11 @@ export class AuthService {
 
   constructor(
     private readonly afs: AngularFirestore,
-    private readonly afAuth: AngularFireAuth,
+    private readonly fireAuth: AngularFireAuth,
     private readonly router: Router,
     private readonly firestore: AngularFirestore
   ) {
-    this.user$ = this.afAuth.authState.pipe(
+    this.user$ = this.fireAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
@@ -31,23 +31,23 @@ export class AuthService {
     );
   }
 
-  async emailSignIn() {
-    return this.signIn(new auth.EmailAuthProvider());
+  async emailLogin() {
+    return this.login(new auth.EmailAuthProvider());
   }
 
   async googleSignIn() {
-    return this.signIn(new auth.GoogleAuthProvider());
+    return this.login(new auth.GoogleAuthProvider());
   }
 
-  private async signIn(provider) {
-    const credential = await this.afAuth.signInWithPopup(provider);
+  private async login(provider) {
+    const credential = await this.fireAuth.signInWithPopup(provider);
     // @ts-ignore
     return this.updateUserData(credential.user);
   }
 
-  async signOut() {
-    await this.afAuth.signOut();
-    return this.router.navigate(['/auth/sign-in']);
+  async logout() {
+    await this.fireAuth.signOut();
+    return this.router.navigate(['/auth/login']);
   }
 
   public updateUserData({uid, email, displayName}: User) {
@@ -69,7 +69,7 @@ export class AuthService {
   }
 
   public getCurrentUser() {
-    return this.afAuth.authState.pipe(first(), switchMap(user => {
+    return this.fireAuth.authState.pipe(first(), switchMap(user => {
       if (user) {
         return this.getUser(user.uid).pipe(first()).toPromise();
       }
@@ -80,5 +80,9 @@ export class AuthService {
 
   public getCurrentUserRef(user: User) {
     return this.firestore.collection<User>('users').doc(user?.uid).ref;
+  }
+
+  public isLoggedIn() {
+    
   }
 }
