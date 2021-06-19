@@ -23,12 +23,10 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
     <mat-error *ngIf="formGroup.get('start').invalid">
-      {{ this.getErrorMessage('start', 'min') }}
-      {{ this.getErrorMessage('start', 'max') }}
+      {{ this.getErrorMessage('start', 'required') }}
     </mat-error>
     <mat-error *ngIf="formGroup.get('end').invalid">
-      {{ this.getErrorMessage('end', 'min') }}
-      {{ this.getErrorMessage('end', 'max') }}
+      {{ this.getErrorMessage('end', 'required') }}
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">

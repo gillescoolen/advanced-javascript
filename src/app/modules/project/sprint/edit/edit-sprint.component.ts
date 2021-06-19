@@ -30,10 +30,10 @@ export class EditSprintComponent implements OnInit {
       maxLength: 'Description can not exceed 1024 characters'
     },
     start: {
-      required: 'A start date is required'
+      required: 'Start date is required'
     },
     end: {
-      required: 'A end date is required'
+      required: 'End date is required'
     },
     tasks: {
       required: 'You need to select at least one task'
