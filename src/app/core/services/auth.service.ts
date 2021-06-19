@@ -15,7 +15,6 @@ export class AuthService {
   user$: Observable<User | null | undefined>;
 
   constructor(
-    private readonly afs: AngularFirestore,
     private readonly fireAuth: AngularFireAuth,
     private readonly router: Router,
     private readonly firestore: AngularFirestore
@@ -23,7 +22,7 @@ export class AuthService {
     this.user$ = this.fireAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.firestore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -41,7 +40,7 @@ export class AuthService {
 
   private async login(provider) {
     const credential = await this.fireAuth.signInWithPopup(provider);
-    // @ts-ignore
+    
     return this.updateUserData(credential.user);
   }
 
@@ -51,7 +50,7 @@ export class AuthService {
   }
 
   public updateUserData({uid, email, displayName}: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${uid}`);
 
     const data: User = {
       uid,
@@ -70,9 +69,7 @@ export class AuthService {
 
   public getCurrentUser() {
     return this.fireAuth.authState.pipe(first(), switchMap(user => {
-      if (user) {
-        return this.getUser(user.uid).pipe(first()).toPromise();
-      }
+      if (user) return this.getUser(user.uid).pipe(first()).toPromise();
 
       return EMPTY;
     })).toPromise();
@@ -80,9 +77,5 @@ export class AuthService {
 
   public getCurrentUserRef(user: User) {
     return this.firestore.collection<User>('users').doc(user?.uid).ref;
-  }
-
-  public isLoggedIn() {
-    
   }
 }

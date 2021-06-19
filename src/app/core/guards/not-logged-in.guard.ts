@@ -17,11 +17,9 @@ export class NotLoggedInGuard implements CanActivate {
     return this.fireAuth.user.pipe(map((user) => {
       if (user === undefined || user == null) return true;
       
-      
       this.router.navigate(['/project']);
 
       return false;
     }));
   }
-
 }
