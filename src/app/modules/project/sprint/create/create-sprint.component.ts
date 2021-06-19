@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SprintService } from '../../../../core/services/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
-import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { UserStory } from '../../../../core/types/user-story.type';
 import { BacklogService } from '../../../../core/services/backlog.service';
+import * as moment from "moment";
+import firebase from "firebase";
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'app-create',
@@ -28,20 +28,23 @@ export class CreateSprintComponent {
 
   private readonly errorMessages = {
     title : {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'Title can not exceed 255 characters'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters!'
+      maxLength: 'Description can not exceed 1024 characters'
     },
-    startDate: {
+    start: {
       required: 'A start date is required'
     },
-    endDate: {
+    end: {
       required: 'A end date is required'
     },
+    tasks: {
+      required: 'You need to select at least one task'
+    },
     active: {
-      required: 'Archived is required to be set on either true/false!',
+      required: 'Archived is required',
     }
   };
 
@@ -61,18 +64,12 @@ export class CreateSprintComponent {
   async create() {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
-      const start = Timestamp.fromDate(moment(values.startDate).toDate());
-      const end = values.endDate ? Timestamp.fromDate(moment(values.endDate).toDate()) : null;
-
-      if (end && !moment(values.endDate).isAfter(start.toDate())) {
-        return;
-      }
 
       await this.sprintService.create({
         title: values.title,
         description: values.description,
-        startAt: start,
-        endAt: end,
+        startAt: Timestamp.fromDate(moment(values.start).toDate()),
+        endAt: Timestamp.fromDate(moment(values.end).toDate()),
         active: values.active,
         tasks: values.tasks,
       }, this.id);
