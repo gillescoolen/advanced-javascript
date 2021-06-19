@@ -1,0 +1,30 @@
+<form class="form-column" *ngIf="formGroup.controls['name']" [formGroup]="formGroup" (submit)="create()">
+  <mat-form-field appearance="standard">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput formControlName="name">
+    <mat-error *ngIf="formGroup.controls['name'].invalid">
+      {{ this.getErrorMessage('name', 'required') }}
+      {{ this.getErrorMessage('name', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <mat-error *ngIf="formGroup.controls['description'].invalid">
+      {{ this.getErrorMessage('description', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Status</mat-label>
+    <input type="text" matInput formControlName="status">
+    <mat-error *ngIf="formGroup.controls['status'].invalid">
+      {{ this.getErrorMessage('status', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-checkbox formControlName="archived">Archived</mat-checkbox>
+  <mat-error *ngIf="formGroup.controls['archived'].invalid">
+    {{ this.getErrorMessage('archived', 'required') }}
+  </mat-error>
+  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Create</button>
+</form>
+

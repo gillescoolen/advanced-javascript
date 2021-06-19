@@ -1,0 +1,19 @@
+<div class="padding-vertical">
+  <button mat-raised-button color="primary" [disabled]="activeSprint" (click)="navigateToSprint()">Current sprint</button> &nbsp;
+  <button mat-raised-button color="primary" (click)="navigateCreateSprint()">Create new sprint</button>
+</div>
+<app-table [data$]="sprints$" [hiddenColumns]="['id']" (editEvent)="navigateEditSprint($event)"></app-table>
+
+<div class="padding-vertical">
+  <div class="padding-vertical">
+    <button mat-raised-button color="primary" (click)="navigateToCreate()">Create new item</button> &nbsp;
+    <button mat-raised-button color="primary" (click)="navigateToArchivedUserStories()">Archived user stories</button>
+  </div>
+  <app-table [data$]="userStories$" [hiddenColumns]="['archived', 'id']"
+             (editEvent)="navigateEditUserStory($event)"></app-table>
+</div>
+
+<div class="padding-vertical">
+  <button mat-raised-button color="primary" (click)="navigateToMember()">Add new member</button>
+</div>
+<app-table [data$]="members$" [hiddenColumns]="['id']" (editEvent)="navigateToEditMember($event)"></app-table>

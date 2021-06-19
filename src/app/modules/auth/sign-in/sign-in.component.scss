@@ -1,0 +1,23 @@
+.form-column {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .form-row {
+    margin-top: 0.5rem;
+    flex-direction: row;
+  }
+  .form-row > :first-child {
+    margin-right: 0.5rem;
+  }
+  .form-row > *:not(:first-child) {
+    margin: 0.5rem;
+  }
+
+  a {
+    text-decoration: none;
+    background-color: initial;
+    color: #0366d6;
+  }
+}

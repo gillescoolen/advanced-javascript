@@ -1,0 +1,47 @@
+<form class="form-column" [formGroup]="formGroup" (submit)="create()">
+  <mat-form-field appearance="standard">
+    <mat-label>Title</mat-label>
+    <input type="text" matInput formControlName="title">
+    <mat-error *ngIf="formGroup.controls['title'].invalid">
+      {{ this.getErrorMessage('title', 'required') }}
+      {{ this.getErrorMessage('title', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <mat-error *ngIf="formGroup.controls['description'].invalid">
+      {{ this.getErrorMessage('description', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Start at</mat-label>
+    <input type="datetime-local" matInput formControlName="startAt">
+    <mat-error *ngIf="formGroup.controls['startAt'].invalid">
+      {{ this.getErrorMessage('startAt', 'min') }}
+      {{ this.getErrorMessage('startAt', 'max') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>End at</mat-label>
+    <input type="datetime-local" matInput formControlName="endAt">
+    <mat-error *ngIf="formGroup.controls['endAt'].invalid">
+      {{ this.getErrorMessage('endAt', 'min') }}
+      {{ this.getErrorMessage('endAt', 'max') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Tasks</mat-label>
+    <mat-select formControlName="tasks" multiple>
+      <mat-option *ngFor="let task of pickAbleTasks$ | async" [value]="task.id">
+        {{ task.title }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-checkbox formControlName="active">Active</mat-checkbox>
+  <mat-error *ngIf="formGroup.controls['active'].invalid">
+    {{ this.getErrorMessage('active', 'required') }}
+  </mat-error>
+  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Create</button>
+</form>
+

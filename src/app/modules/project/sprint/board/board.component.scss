@@ -1,0 +1,43 @@
+$board-width: 85%;
+$user-column-width: 15%;
+
+.board {
+  padding: 1rem;
+
+  .column-1 {
+    width: $user-column-width;
+    padding-right: 1rem;
+  }
+
+  .column-2 {
+    width: $board-width;
+  }
+
+  .card-column {
+    width: calc(#{$board-width} * calc(1 / 3));
+  }
+
+  .container {
+    margin: 0.2rem;
+    border: 1px solid black;
+    padding: 0.5rem;
+
+    mat-card {
+      margin-bottom: 0.4rem;
+
+      mat-card-title {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.user-name-column {
+  min-width: $user-column-width;
+}
+
+.chart-container {
+  padding: 1rem;
+  display: block;
+  width: 100%;
+}

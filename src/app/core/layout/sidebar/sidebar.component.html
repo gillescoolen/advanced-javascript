@@ -1,0 +1,25 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="'dialog'" [mode]="'over'" [opened]="!closed">
+    <div *ngIf="authService.user$ | async as user; else loggedOut">
+      <mat-toolbar>
+        <div>
+          {{ user.displayName }}
+        </div>
+      </mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/" routerLinkActive="active">Home</a>
+        <a mat-list-item routerLink="/project" routerLinkActive="active">Projects</a>
+        <a mat-list-item routerLink="/archived/project" routerLinkActive="active">Archived Projects</a>
+        <button mat-button (click)="this.authService.signOut()">Logout</button>
+      </mat-nav-list>
+    </div>
+    <ng-template #loggedOut>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/" routerLinkActive="active">Home</a>
+      </mat-nav-list>
+    </ng-template>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
