@@ -33,17 +33,29 @@ export class BoardComponent implements OnInit {
   public chartOptions: ChartOptions = {
     responsive: true,
     scales: {
-      xAxes: [{}],
       yAxes: [
         {
-          id: 'y-axis-0',
-          position: 'left',
           ticks: {
             min: 0,
             stepSize: 1
           }
         }
       ]
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          let label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+          if (label) {
+            label += ': ';
+          }
+
+          label += +(Math.round(Number(Number(tooltipItem.yLabel) + "e+" + 1)) + "e-" + 1);
+
+          return label + 'sp';
+        }
+      }
     }
   };
   public lineChartColors: Color[] = [
