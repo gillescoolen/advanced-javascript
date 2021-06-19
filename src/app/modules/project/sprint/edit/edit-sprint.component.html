@@ -44,5 +44,5 @@
   <mat-error *ngIf="formGroup.controls['active'].invalid">
     {{ this.getErrorMessage('active', 'required') }}
   </mat-error>
-  <button [disabled]="formGroup.invalid" id="edit" type="submit" mat-raised-button color="primary">Edit</button>
+  <button [disabled]="formGroup.invalid" id="edit" type="submit" mat-flat-button color="accent">Edit</button>
 </form>

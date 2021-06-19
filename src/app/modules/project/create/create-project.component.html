@@ -25,5 +25,5 @@
   <mat-error *ngIf="formGroup.controls['archived'].invalid">
     {{ this.getErrorMessage('archived', 'required') }}
   </mat-error>
-  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Create</button>
+  <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">Create</button>
 </form>
