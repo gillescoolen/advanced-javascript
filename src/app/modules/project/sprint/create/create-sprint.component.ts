@@ -20,8 +20,8 @@ export class CreateSprintComponent {
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
     description: new FormControl('', [Validators.maxLength(500)]),
-    endAt: new FormControl('', [Validators.required]),
-    startAt: new FormControl('', [Validators.required]),
+    start: new FormControl('', [Validators.required]),
+    end: new FormControl('', [Validators.required]),
     tasks: new FormControl('', [Validators.required]),
     active: new FormControl(false, [Validators.required])
   });
@@ -34,10 +34,10 @@ export class CreateSprintComponent {
     description: {
       maxLength: 'Description can not exceed 1024 characters!'
     },
-    startAt: {
+    startDate: {
       required: 'A start date is required'
     },
-    endAt: {
+    endDate: {
       required: 'A end date is required'
     },
     active: {
@@ -51,7 +51,7 @@ export class CreateSprintComponent {
   }
 
   getErrorMessage(field: string, error: string): string {
-    if (this.formGroup.controls[field].hasError(error)) {
+    if (this.formGroup.get(field).hasError(error)) {
       return this.errorMessages[field][error] ?? '';
     }
 
@@ -61,18 +61,18 @@ export class CreateSprintComponent {
   async create() {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
-      const startAt = Timestamp.fromDate(moment(values.startAt).toDate());
-      const endAt = values.endAt ? Timestamp.fromDate(moment(values.endAt).toDate()) : null;
+      const start = Timestamp.fromDate(moment(values.startDate).toDate());
+      const end = values.endDate ? Timestamp.fromDate(moment(values.endDate).toDate()) : null;
 
-      if (endAt && !moment(values.endAt).isAfter(startAt.toDate())) {
+      if (end && !moment(values.endDate).isAfter(start.toDate())) {
         return;
       }
 
       await this.sprintService.create({
         title: values.title,
         description: values.description,
-        startAt,
-        endAt,
+        startAt: start,
+        endAt: end,
         active: values.active,
         tasks: values.tasks,
       }, this.id);

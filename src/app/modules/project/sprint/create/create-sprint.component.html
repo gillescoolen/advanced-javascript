@@ -14,24 +14,21 @@
       {{ this.getErrorMessage('description', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>Start at</mat-label>
-    <input matInput type="text" [matDatepicker]="pickerStart" formControlName="startAt">
-    <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
-    <mat-datepicker #pickerStart></mat-datepicker>
-    <mat-error *ngIf="formGroup.controls['startAt'].invalid">
-      {{ this.getErrorMessage('startAt', 'min') }}
-      {{ this.getErrorMessage('startAt', 'max') }}
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error *ngIf="formGroup.get('start').invalid">
+      {{ this.getErrorMessage('start', 'min') }}
+      {{ this.getErrorMessage('start', 'max') }}
     </mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="standard">
-    <mat-label>End at</mat-label>
-    <input matInput type="text" [matDatepicker]="pickerEnd" formControlName="endAt">
-    <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
-    <mat-datepicker #pickerEnd></mat-datepicker>
-    <mat-error *ngIf="formGroup.controls['endAt'].invalid">
-      {{ this.getErrorMessage('endAt', 'min') }}
-      {{ this.getErrorMessage('endAt', 'max') }}
+    <mat-error *ngIf="formGroup.get('end').invalid">
+      {{ this.getErrorMessage('end', 'min') }}
+      {{ this.getErrorMessage('end', 'max') }}
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="standard">

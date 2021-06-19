@@ -1,4 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import {
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+  MatMomentDateModule,
+  MomentDateAdapter
+} from "@angular/material-moment-adapter";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,10 +18,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [],
   imports: [
+    MatMomentDateModule,
     DragDropModule,
     MatButtonModule,
     MatCardModule,
@@ -30,9 +37,11 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatSlideToggleModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule
   ],
   exports: [
+    MatMomentDateModule,
     DragDropModule,
     MatButtonModule,
     MatCardModule,
@@ -46,7 +55,11 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatSlideToggleModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule
+  ],
+  providers: [
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ]
 })
 export class MaterialModule {
