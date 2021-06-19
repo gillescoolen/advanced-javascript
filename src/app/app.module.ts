@@ -11,12 +11,12 @@ import { SharedModule } from './core/shared/shared.module';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { ChartsModule } from 'ng2-charts';
 import { ArchivedModule } from './modules/archived/archived.module';
-import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
+import { NotFoundComponent } from './modules/page-not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    NotFoundComponent
   ],
   imports: [
     ChartsModule,

@@ -12,7 +12,6 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { ProjectService } from './services/project.service';
 import { UserService } from './services/user.service';
 import { UserResolver } from './resolvers/user.resolver';
-import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { BacklogService } from './services/backlog.service';
 import { MemberService } from './services/member.service';
 
@@ -25,7 +24,7 @@ import { MemberService } from './services/member.service';
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
-    NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'kanban-Brian-Raul', {
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase, () => 'kanban', {
       enableEmailVerification: false,
       guardProtectedRoutesUntilEmailIsVerified: false,
       toastMessageOnAuthSuccess: false,
@@ -35,10 +34,8 @@ import { MemberService } from './services/member.service';
     })
   ],
   providers: [AuthService, ProjectService, UserService, BacklogService, MemberService],
-  exports: [LayoutModule, AngularFireModule, AngularFirestoreModule, AngularFireAuthModule, EnumToArrayPipe],
-  declarations: [
-    EnumToArrayPipe
-  ]
+  exports: [LayoutModule, AngularFireModule, AngularFirestoreModule, AngularFireAuthModule],
+  declarations: []
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders<CoreModule> {
