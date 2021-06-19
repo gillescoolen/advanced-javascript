@@ -8,7 +8,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './core/shared/shared.module';
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { ChartsModule } from 'ng2-charts';
 import { ArchivedModule } from './modules/archived/archived.module';
 import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
@@ -27,8 +26,7 @@ import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.c
     MatToolbarModule,
     MatIconModule,
     SharedModule.forRoot(),
-    CoreModule.forRoot(),
-    MatPasswordStrengthModule.forRoot()
+    CoreModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
