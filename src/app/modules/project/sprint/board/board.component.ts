@@ -24,13 +24,20 @@ export class BoardComponent implements OnInit {
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
 
+  public lineChartLegend = true;
+  public lineChartType: ChartType = 'line';
   public chartDataSets: ChartDataSets[] = [];
   public chartLabels: Label[] = [];
+  private startDate: Date;
+  private endDate: Date;
   public chartOptions: ChartOptions = {
     responsive: true,
     scales: {
+      xAxes: [{}],
       yAxes: [
         {
+          id: 'y-axis-0',
+          position: 'left',
           ticks: {
             min: 0,
             stepSize: 1
@@ -57,8 +64,6 @@ export class BoardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     }
   ];
-  public lineChartLegend = true;
-  public lineChartType: ChartType = 'line';
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
@@ -72,51 +77,58 @@ export class BoardComponent implements OnInit {
     this.stories$.subscribe(stories => {
       this.chartDataSets = [];
 
-      const total = stories.reduce((a, b) => b.storyPoints + a, 0);
-      const data = [total];
-      const storyData = [total];
+      const total = stories.reduce((sum, u) => u.storyPoints + sum, 0);
+      const estimatedData = [total];
+      const actualData = [total];
 
       for (let i = 0; i < this.chartLabels.length - 1; ++i) {
-        data.push(i + 1 === this.chartLabels.length - 1 ? 0 : data[i] - total / (this.chartLabels.length - 1));
+        estimatedData.push(i + 1 === this.chartLabels.length - 1 ? 0 : estimatedData[i] - total / (this.chartLabels.length - 1));
       }
 
-      for (const label of this.chartLabels) {
-        const date = moment(label);
+      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
         const currentStories = stories.filter(s => {
-
-          if (!s || s.status !== 'Done') {
-            return;
-          }
+          if (!s || s.status !== 'Done') return;
 
           const storyDate = moment(s.updatedAt.toDate());
-
-          if (storyDate.isSame(date, 'day')) {
+          if (storyDate.isSame(d, 'day')) {
             return s;
           }
         });
 
-        const totalPoints = currentStories.reduce((a, b) => b.storyPoints + a, 0);
-
-        if (date.isBefore(moment())) {
+        const totalPoints = currentStories.reduce((sum, u) => u.storyPoints + sum, 0);
+        if (d.isBefore(moment())) {
           if (total - totalPoints < total) {
-            storyData.push(storyData[storyData.length - 1] - totalPoints);
+            actualData.push(actualData[actualData.length - 1] - totalPoints);
           } else {
-            storyData.push(total > storyData[storyData.length - 1] ? storyData[storyData.length - 1] : total);
+            actualData.push(total > actualData[actualData.length - 1] ? actualData[actualData.length - 1] : total);
           }
         }
-      }
+      });
 
-      this.chartDataSets.push({ data, label: 'Time' });
-      this.chartDataSets.push({ data: storyData, label: 'Progress', lineTension: 0.0 });
+      this.chartDataSets.push({ data: estimatedData, label: 'Estimated Effort' });
+      this.chartDataSets.push({ data: actualData, label: 'Actual Effort', lineTension: 0.0 });
     });
 
     this.sprint$.subscribe(sprint => {
       this.chartLabels = [];
+      this.startDate = sprint[0].startDate.toDate();
+      this.endDate = sprint[0].endDate.toDate();
 
-      for (const m = moment(sprint[0].startDate.toDate()); m.isBefore(moment(sprint[0].endDate.toDate())); m.add(1, 'days')) {
-        this.chartLabels.push(m.format('MMMM Do'));
-      }
+      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
+        this.chartLabels.push(d.format('MMMM Do'));
+      });
     });
+  }
+
+  getRange(startDate, endDate, type): moment.Moment[] {
+    let fromDate = moment(startDate)
+    let toDate = moment(endDate)
+    let diff = toDate.diff(fromDate, type)
+    let range = []
+    for (let i = 0; i <= diff; i++) {
+      range.push(moment(startDate).add(i, type))
+    }
+    return range;
   }
 
   getByStatus(status: string, tasks: UserStory[]) {
