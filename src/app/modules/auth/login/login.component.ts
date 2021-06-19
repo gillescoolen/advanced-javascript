@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SignInComponent implements OnInit {
+export class LoginComponent implements OnInit {
   providers = AuthProvider;
 
   constructor(public router: Router, public authService: AuthService) { }
@@ -17,6 +17,6 @@ export class SignInComponent implements OnInit {
   }
 
   async goToRegisterPage() {
-    return this.router.navigate(['/auth/sign-up']);
+    return this.router.navigate(['/auth/register']);
   }
 }
