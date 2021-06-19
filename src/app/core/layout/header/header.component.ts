@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Input() closed!: boolean;
-  @Output() toggle = new EventEmitter<void>();
-
-  toggleSidebar(): void {
-    this.toggle.emit();
+  constructor(public authService: AuthService) {
   }
 }

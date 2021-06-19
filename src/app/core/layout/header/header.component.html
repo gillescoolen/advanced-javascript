@@ -1,6 +1,8 @@
 <mat-toolbar color="primary">
-  <a id="sidebar" mat-icon-button color="accent" aria-label="Sidenav toggle" (click)="toggleSidebar()">
-    <mat-icon>menu</mat-icon>
-  </a>
-  <span>kanban</span>
+  <span>Kanban</span>
+  <div class="navigation">
+    <a routerLink="/project">Projects</a>
+    <a routerLink="/archived/project">Archived Projects</a>
+    <button mat-button (click)="this.authService.logout()">Logout</button>
+  </div>
 </mat-toolbar>

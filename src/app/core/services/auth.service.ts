@@ -15,15 +15,14 @@ export class AuthService {
   user$: Observable<User | null | undefined>;
 
   constructor(
-    private readonly afs: AngularFirestore,
-    private readonly afAuth: AngularFireAuth,
+    private readonly fireAuth: AngularFireAuth,
     private readonly router: Router,
     private readonly firestore: AngularFirestore
   ) {
-    this.user$ = this.afAuth.authState.pipe(
+    this.user$ = this.fireAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          return this.firestore.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -31,27 +30,27 @@ export class AuthService {
     );
   }
 
-  async emailSignIn() {
-    return this.signIn(new auth.EmailAuthProvider());
+  async emailLogin() {
+    return this.login(new auth.EmailAuthProvider());
   }
 
   async googleSignIn() {
-    return this.signIn(new auth.GoogleAuthProvider());
+    return this.login(new auth.GoogleAuthProvider());
   }
 
-  private async signIn(provider) {
-    const credential = await this.afAuth.signInWithPopup(provider);
-    // @ts-ignore
+  private async login(provider) {
+    const credential = await this.fireAuth.signInWithPopup(provider);
+    
     return this.updateUserData(credential.user);
   }
 
-  async signOut() {
-    await this.afAuth.signOut();
-    return this.router.navigate(['/auth/sign-in']);
+  async logout() {
+    await this.fireAuth.signOut();
+    return this.router.navigate(['/auth/login']);
   }
 
   public updateUserData({uid, email, displayName}: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
+    const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${uid}`);
 
     const data: User = {
       uid,
@@ -69,10 +68,8 @@ export class AuthService {
   }
 
   public getCurrentUser() {
-    return this.afAuth.authState.pipe(first(), switchMap(user => {
-      if (user) {
-        return this.getUser(user.uid).pipe(first()).toPromise();
-      }
+    return this.fireAuth.authState.pipe(first(), switchMap(user => {
+      if (user) return this.getUser(user.uid).pipe(first()).toPromise();
 
       return EMPTY;
     })).toPromise();

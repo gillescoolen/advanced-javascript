@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { from, Observable, of } from 'rxjs';
 import { MaterialModule } from '../../shared/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { first } from 'rxjs/operators';
 
 describe('TableComponent', () => {
   let component: TableComponent<any>;
