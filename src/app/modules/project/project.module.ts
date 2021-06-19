@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ArchivedComponent } from './backlog/archived/archived.component';
 import { CreateMemberComponent } from './member/create/create-member.component';
 import { EditMemberComponent } from './member/edit/edit-member.component';
+import { ChartComponent } from './sprint/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { EditMemberComponent } from './member/edit/edit-member.component';
     EditUserStoryComponent,
     ArchivedComponent,
     CreateMemberComponent,
-    EditMemberComponent
+    EditMemberComponent,
+    ChartComponent
   ],
   imports: [
     ProjectRoutingModule,
