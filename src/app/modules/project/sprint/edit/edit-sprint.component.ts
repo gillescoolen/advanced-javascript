@@ -64,8 +64,8 @@ export class EditSprintComponent implements OnInit {
       await this.sprintService.update({
         title: values.title,
         description: values.description,
-        startAt: Timestamp.fromDate(moment(values.start).toDate()),
-        endAt: Timestamp.fromDate(moment(values.end).toDate()),
+        startDate: Timestamp.fromDate(moment(values.start).toDate()),
+        endDate: Timestamp.fromDate(moment(values.end).toDate()),
         tasks: values.tasks,
         active: values.active
       }, this.id, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
@@ -79,8 +79,8 @@ export class EditSprintComponent implements OnInit {
       this.formGroup = new FormGroup({
         title: new FormControl(sprint.title, [Validators.required, Validators.maxLength(60)]),
         description: new FormControl(sprint.description, [Validators.maxLength(500)]),
-        start: new FormControl(moment(sprint.startAt.toDate()), [Validators.required]),
-        end: new FormControl(moment(sprint.endAt.toDate()), [Validators.required]),
+        start: new FormControl(moment(sprint.startDate.toDate()), [Validators.required]),
+        end: new FormControl(moment(sprint.endDate.toDate()), [Validators.required]),
         tasks: new FormControl(sprint.tasks.map(t => t.id), [Validators.required]),
         active: new FormControl(sprint.active, [Validators.required])
       });

@@ -31,8 +31,8 @@ export class SprintService {
         return {
           title: data.title,
           description: data.description,
-          startAt: moment(sprint.payload.doc.data().startAt.toDate()).format('YYYY-MM-DD H:mm'),
-          endAt: sprint.payload.doc.data().endAt ? moment(sprint.payload.doc.data().endAt.toDate()).format('YYYY-MM-DD H:mm') : 'No end',
+          startDate: moment(sprint.payload.doc.data().startDate.toDate()).format('YYYY-MM-DD H:mm'),
+          endDate: sprint.payload.doc.data().endDate ? moment(sprint.payload.doc.data().endDate.toDate()).format('YYYY-MM-DD H:mm') : 'No end',
           active: sprint.payload.doc.data().active,
           id: sprint.payload.doc.id
         };
@@ -116,8 +116,8 @@ export class SprintService {
     return await this.firestore.collection('projects').doc(projectId).collection<Sprint>('sprints').add({
       title: data.title,
       description: data.description,
-      startAt: data.startAt,
-      endAt: data.endAt,
+      startDate: data.startDate,
+      endDate: data.endDate,
       tasks,
       active: data.active
     });
@@ -137,8 +137,8 @@ export class SprintService {
     return await this.firestore.collection('projects').doc(projectId).collection<Sprint>('sprints').doc(sprintId).update({
       title: data.title,
       description: data.description,
-      startAt: data.startAt,
-      endAt: data.endAt,
+      startDate: data.startDate,
+      endDate: data.endDate,
       tasks,
       active: data.active
     });

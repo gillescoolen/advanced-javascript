@@ -5,27 +5,27 @@ import Timestamp = firebase.firestore.Timestamp;
 
 export type Sprint = {
   title: string,
-  endAt: Timestamp | null,
-  startAt: Timestamp,
-  tasks: DocumentReference<UserStory>[] | undefined,
   description: string,
+  startDate: Timestamp,
+  endDate: Timestamp | null,
+  tasks: DocumentReference<UserStory>[] | undefined,
   active: boolean
 };
 
 export type AbstractSprint = {
   id: string,
   title: string,
-  endAt: string,
-  startAt: string,
   description: string,
+  startDate: string,
+  endDate: string,
   active: boolean
 };
 
 export type CreateSprint = {
-  active: boolean,
   title: string,
-  endAt: Timestamp | null,
-  startAt: Timestamp,
+  description: string,
+  startDate: Timestamp,
+  endDate: Timestamp | null,
   tasks: string[],
-  description: string
+  active: boolean
 };
