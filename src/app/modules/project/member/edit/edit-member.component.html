@@ -1,0 +1,13 @@
+<form class="form-column" [formGroup]="formGroup" (submit)="update()">
+  <mat-form-field appearance="standard">
+    <mat-label>Role</mat-label>
+    <mat-select formControlName="role">
+      <mat-option><-- Select --></mat-option>
+      <mat-option *ngFor="let role of getRoles()" [value]="role">
+        {{ role }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Update rol
+    for {{displayName}}</button>
+</form>
