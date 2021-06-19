@@ -20,7 +20,7 @@ export class ProjectService {
 
     return this.firestore.collection<Project>('projects').doc().set({
       name: project.name,
-      members: [{ user: ref, role: MemberRole.OWNER }],
+      members: [{ user: ref, role: MemberRole.MANAGER }],
       flatMembers: [ref.id],
       description: project.description ?? '',
       status: project.status ?? '',
@@ -37,9 +37,9 @@ export class ProjectService {
     return this.firestore.collection<Project>('projects', query => {
       return query
         .where('members', 'array-contains-any', [
-          { user: this.authService.getCurrentUserRef(user), role: MemberRole.OWNER },
+          { user: this.authService.getCurrentUserRef(user), role: MemberRole.MANAGER },
           { user: this.authService.getCurrentUserRef(user), role: MemberRole.DEVELOPER },
-          { user: this.authService.getCurrentUserRef(user), role: MemberRole.CLIENT }
+          { user: this.authService.getCurrentUserRef(user), role: MemberRole.CUSTOMER }
         ])
         .where('archived', '==', archived);
     })

@@ -25,7 +25,7 @@
   </mat-form-field>
   <mat-form-field appearance="standard">
     <mat-label>Story points</mat-label>
-    <input type="number" matInput formControlName="storyPoints">
+    <input type="number" matInput formControlName="storyPoints" min="0" max="24">
     <mat-error *ngIf="formGroup.controls['storyPoints'].invalid">
       {{ this.getErrorMessage('storyPoints', 'min') }}
       {{ this.getErrorMessage('storyPoints', 'max') }}
