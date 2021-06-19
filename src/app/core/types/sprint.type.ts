@@ -7,7 +7,7 @@ export type Sprint = {
   title: string,
   description: string,
   startDate: Timestamp,
-  endDate: Timestamp | null,
+  endDate: Timestamp,
   tasks: DocumentReference<UserStory>[] | undefined,
   active: boolean
 };
@@ -25,7 +25,7 @@ export type CreateSprint = {
   title: string,
   description: string,
   startDate: Timestamp,
-  endDate: Timestamp | null,
+  endDate: Timestamp,
   tasks: string[],
   active: boolean
 };
