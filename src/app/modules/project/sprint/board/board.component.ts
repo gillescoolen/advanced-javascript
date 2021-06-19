@@ -24,40 +24,69 @@ export class BoardComponent implements OnInit {
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
 
-  public lineChartData: ChartDataSets[] = [];
-  public lineChartLabels: Label[] = [];
-  public lineChartOptions: ChartOptions = {
-    responsive: true,
-    scales: {
-      xAxes: [{}],
-      yAxes: [
-        {
-          id: 'y-axis-0',
-          position: 'left',
-        }
-      ]
-    }
-  };
-  public lineChartColors: Color[] = [
-    {
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    {
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    }
-  ];
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
+  public chartDataSets: ChartDataSets[] = [];
+  public chartLabels: Label[] = [];
+
+  public chartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            min: 0,
+            stepSize: 1
+          }
+        }
+      ]
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          let label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+          if (label) {
+            label += ': ';
+          }
+
+          label += +(Math.round(Number(Number(tooltipItem.yLabel) + "e+" + 1)) + "e-" + 1);
+
+          return label + 'sp';
+        }
+      }
+    }
+  };
+
+  public lineChartColors: Color[] = [
+    {
+      backgroundColor: '#00000000',
+      borderColor: '#4D5360FF',
+      pointBackgroundColor: '#00000000',
+      pointBorderColor: '#00000000',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#949FB1CC'
+    },
+    {
+      backgroundColor: '#00000000',
+      borderColor: '#3F51B5FF',
+      pointBackgroundColor: '#949FB1',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#949FB1CC'
+    },
+    {
+      backgroundColor: '#00000000',
+      borderColor: '#27D507FF',
+      pointBackgroundColor: '#949FB1',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#949FB1CC'
+    }
+  ];
+
+  private startDate: Date;
+  private endDate: Date;
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
@@ -68,54 +97,65 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.stories$.subscribe(stories => {
-        this.lineChartData = [];
+    this.stories$.subscribe(stories => {
+      this.chartDataSets = [];
 
-        const total = stories.reduce((a, b) => b.storyPoints + a, 0);
-        const data = [total];
-        const storyData = [total];
+      const total = stories.reduce((sum, u) => u.storyPoints + sum, 0);
+      const estimatedData = [total];
+      const actualData = [total];
+      const finishedTasks = [];
 
-        for (let i = 0; i < this.lineChartLabels.length - 1; ++i) {
-          data.push(i + 1 === this.lineChartLabels.length - 1 ? 0 : data[i] - total / (this.lineChartLabels.length - 1));
-        }
+      for (let i = 0; i < this.chartLabels.length - 1; ++i) {
+        estimatedData.push(i + 1 === this.chartLabels.length - 1 ? 0 : estimatedData[i] - total / (this.chartLabels.length - 1));
+      }
 
-        for (const label of this.lineChartLabels) {
-          const date = moment(label);
-          const currentStories = stories.filter(s => {
+      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
+        const currentStories = stories.filter(s => {
+          if (!s || s.status !== 'Done') return;
 
-            if (!s || s.status !== 'Done') {
-              return;
-            }
+          const storyDate = moment(s.updatedAt.toDate());
+          if (storyDate.isSame(d, 'day')) {
+            return s;
+          }
+        });
 
-            const storyDate = moment(s.updatedAt.toDate());
-
-            if (storyDate.isSame(date, 'day')) {
-              return s;
-            }
-          });
-
-          const totalPoints = currentStories.reduce((a, b) => b.storyPoints + a, 0);
-
-          if (date.isBefore(moment())) {
-            if (total - totalPoints < total) {
-              storyData.push(storyData[storyData.length - 1] - totalPoints);
-            } else {
-              storyData.push(total > storyData[storyData.length - 1] ? storyData[storyData.length - 1] : total);
-            }
+        const totalPoints = currentStories.reduce((sum, u) => u.storyPoints + sum, 0);
+        if (d.isBefore(moment())) {
+          if (total - totalPoints < total) {
+            actualData.push(actualData[actualData.length - 1] - totalPoints);
+          } else {
+            actualData.push(total > actualData[actualData.length - 1] ? actualData[actualData.length - 1] : total);
           }
         }
 
-        this.lineChartData.push({data, label: 'Time'});
-        this.lineChartData.push({data: storyData, label: 'Progress', lineTension: 0.0});
+        finishedTasks.push(currentStories.length);
       });
 
-      this.sprint$.subscribe(sprint => {
-        this.lineChartLabels = [];
+      this.chartDataSets.push({ data: estimatedData, label: 'Estimated Effort', borderDash: [5, 5] });
+      this.chartDataSets.push({ data: actualData, label: 'Actual Effort', lineTension: 0.0 });
+      this.chartDataSets.push({ data: finishedTasks, label: 'Finished Tasks', lineTension: 0.0 });
+    });
 
-        for (const m = moment(sprint[0].startAt.toDate()); m.isBefore(moment(sprint[0].endAt.toDate())); m.add(1, 'days')) {
-          this.lineChartLabels.push(m.format('YYYY-MM-DD'));
-        }
+    this.sprint$.subscribe(sprint => {
+      this.chartLabels = [];
+      this.startDate = sprint[0].startDate.toDate();
+      this.endDate = sprint[0].endDate.toDate();
+
+      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
+        this.chartLabels.push(d.format('MMMM Do'));
       });
+    });
+  }
+
+  getRange(startDate, endDate, type): moment.Moment[] {
+    let fromDate = moment(startDate)
+    let toDate = moment(endDate)
+    let diff = toDate.diff(fromDate, type)
+    let range = []
+    for (let i = 0; i <= diff; i++) {
+      range.push(moment(startDate).add(i, type))
+    }
+    return range;
   }
 
   getByStatus(status: string, tasks: UserStory[]) {
