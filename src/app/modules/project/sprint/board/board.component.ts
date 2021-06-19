@@ -28,8 +28,7 @@ export class BoardComponent implements OnInit {
   public lineChartType: ChartType = 'line';
   public chartDataSets: ChartDataSets[] = [];
   public chartLabels: Label[] = [];
-  private startDate: Date;
-  private endDate: Date;
+
   public chartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -75,8 +74,19 @@ export class BoardComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: '#949FB1CC'
+    },
+    {
+      backgroundColor: '#00000000',
+      borderColor: '#27D507FF',
+      pointBackgroundColor: '#949FB1',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: '#949FB1CC'
     }
   ];
+
+  private startDate: Date;
+  private endDate: Date;
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
@@ -93,6 +103,7 @@ export class BoardComponent implements OnInit {
       const total = stories.reduce((sum, u) => u.storyPoints + sum, 0);
       const estimatedData = [total];
       const actualData = [total];
+      const finishedTasks = [];
 
       for (let i = 0; i < this.chartLabels.length - 1; ++i) {
         estimatedData.push(i + 1 === this.chartLabels.length - 1 ? 0 : estimatedData[i] - total / (this.chartLabels.length - 1));
@@ -116,10 +127,13 @@ export class BoardComponent implements OnInit {
             actualData.push(total > actualData[actualData.length - 1] ? actualData[actualData.length - 1] : total);
           }
         }
+
+        finishedTasks.push(currentStories.length);
       });
 
       this.chartDataSets.push({ data: estimatedData, label: 'Estimated Effort', borderDash: [5, 5] });
       this.chartDataSets.push({ data: actualData, label: 'Actual Effort', lineTension: 0.0 });
+      this.chartDataSets.push({ data: finishedTasks, label: 'Finished Tasks', lineTension: 0.0 });
     });
 
     this.sprint$.subscribe(sprint => {
