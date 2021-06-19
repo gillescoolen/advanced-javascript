@@ -1,6 +1,4 @@
-<app-sidebar #sidebar (closed)="onSideBarClosed($event)">
-  <app-header (toggle)="toggleSidebar()" [closed]="sideBarClosed"></app-header>
-  <section class="main">
-    <router-outlet></router-outlet>
-  </section>
-</app-sidebar>
+<app-header></app-header>
+<section class="main">
+  <router-outlet></router-outlet>
+</section>

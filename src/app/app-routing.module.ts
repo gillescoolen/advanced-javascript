@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotLoggedInGuard } from './core/guards/not-logged-in.guard';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
 import { UserResolver } from './core/resolvers/user.resolver';
-import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
+import { NotFoundComponent } from './modules/page-not-found/not-found.component';
 import { LayoutComponent } from './core/layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/sign-in',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
   },
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
     children: [
       {
         path: '**',
-        component: PageNotFoundComponent
+        component: NotFoundComponent
       },
     ]
   }
