@@ -12,7 +12,6 @@ import { CreateUserStoryComponent } from './backlog/create-user-story/create-use
 import { ChartsModule } from 'ng2-charts';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditUserStoryComponent } from './backlog/edit-user-story/edit-user-story.component';
 import { FormsModule } from '@angular/forms';
 import { ArchivedComponent } from './backlog/archived/archived.component';
@@ -41,7 +40,6 @@ import { EditMemberComponent } from './member/edit/edit-member.component';
     SharedModule.forRoot(),
     FlexModule,
     ChartsModule,
-    MatCheckboxModule,
     FormsModule
   ]
 })

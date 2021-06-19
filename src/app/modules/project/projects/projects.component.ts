@@ -3,7 +3,6 @@ import { ProjectService } from '../../../core/services/project.service';
 import { Observable, of } from 'rxjs';
 import { AbstractProject } from '../../../core/types/project.type';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../../core/services/user';
 
 @Component({
   selector: 'app-all-projects',
@@ -17,7 +16,7 @@ export class ProjectsComponent {
     this.projects$ = this.projectService.allAbstract(this.activatedRoute.snapshot.data.user);
   }
 
-  showActions(project: AbstractProject) {
+  showInteract(project: AbstractProject) {
     return this.activatedRoute.snapshot.data.user.uid === project.ownerId;
   }
 

@@ -1,5 +1,5 @@
 <form class="form-column" [formGroup]="formGroup" (submit)="create()">
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Title</mat-label>
     <input type="text" matInput formControlName="title">
     <mat-error *ngIf="formGroup.controls['title'].invalid">
@@ -7,14 +7,14 @@
       {{ this.getErrorMessage('title', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
     <mat-error *ngIf="formGroup.controls['description'].invalid">
       {{ this.getErrorMessage('description', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="picker">
       <input matStartDate formControlName="start" placeholder="Start date">
@@ -31,7 +31,7 @@
       {{ this.getErrorMessage('end', 'max') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Tasks</mat-label>
     <mat-select formControlName="tasks" multiple>
       <mat-option *ngFor="let task of pickAbleTasks$ | async" [value]="task.id">
@@ -39,10 +39,9 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-checkbox formControlName="active">Active</mat-checkbox>
+  <mat-slide-toggle formControlName="active">Active</mat-slide-toggle>
   <mat-error *ngIf="formGroup.controls['active'].invalid">
     {{ this.getErrorMessage('active', 'required') }}
   </mat-error>
   <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Create</button>
 </form>
-

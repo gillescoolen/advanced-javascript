@@ -75,7 +75,7 @@ export class AuthService {
     })).toPromise();
   }
 
-  public getCurrentUserRef(user: User) {
+  public getUserRef(user: User) {
     return this.firestore.collection<User>('users').doc(user?.uid).ref;
   }
 }

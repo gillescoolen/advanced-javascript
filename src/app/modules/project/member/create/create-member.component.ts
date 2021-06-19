@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { User } from '../../../../core/services/user';
-import { MemberRole } from '../../../../core/types/member-role.enum';
+import { Role } from '../../../../core/types/role.enum';
 import { ProjectService } from '../../../../core/services/project.service';
 import { MemberService } from '../../../../core/services/member.service';
 
@@ -48,7 +48,7 @@ export class CreateMemberComponent {
   }
 
   getRoles(): string[] {
-    return Object.values(MemberRole);
+    return Object.values(Role);
   }
 
   async add() {

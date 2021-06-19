@@ -1,2 +1,2 @@
 <button mat-raised-button (click)="navigateBack()">Create new item</button>
-<app-table [data$]="userStories$" [hiddenColumns]="['archived', 'id']" (editEvent)="navigateEditUserStory($event)"></app-table>
+<app-table [data$]="userStories$" [showColumns]="['title', 'status']" (editEvent)="navigateEditUserStory($event)"></app-table>
