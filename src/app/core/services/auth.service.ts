@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { User } from './user';
 import firebase from 'firebase';
 import { EMPTY, Observable, of } from 'rxjs';
-import { first, map, switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import auth = firebase.auth;
 
 @Injectable({
@@ -40,7 +40,7 @@ export class AuthService {
 
   private async login(provider) {
     const credential = await this.fireAuth.signInWithPopup(provider);
-    
+
     return this.updateUserData(credential.user);
   }
 

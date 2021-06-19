@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BacklogService } from '../../../../core/services/backlog.service';
-import { SprintService } from '../../../../core/services/sprint.service';
-import { MemberService } from '../../../../core/services/member.service';
 import { Observable, of } from 'rxjs';
 import { AbstractUserStory } from '../../../../core/types/user-story.type';
 

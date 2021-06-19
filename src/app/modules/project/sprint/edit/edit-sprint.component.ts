@@ -7,8 +7,8 @@ import { BacklogService } from '../../../../core/services/backlog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
 import { Sprint } from '../../../../core/types/sprint.type';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'app-edit-sprint',

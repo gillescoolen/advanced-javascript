@@ -8,9 +8,9 @@ import { Project } from '../types/project.type';
 import { Member } from '../types/member.type';
 import { AbstractSprint, CreateSprint, Sprint } from '../types/sprint.type';
 import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
 import { UserStory } from '../types/user-story.type';
 import * as moment from 'moment';
+import Timestamp = firebase.firestore.Timestamp;
 import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable({
