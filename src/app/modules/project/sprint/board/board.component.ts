@@ -24,16 +24,17 @@ export class BoardComponent implements OnInit {
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
 
-  public lineChartData: ChartDataSets[] = [];
-  public lineChartLabels: Label[] = [];
-  public lineChartOptions: ChartOptions = {
+  public chartDataSets: ChartDataSets[] = [];
+  public chartLabels: Label[] = [];
+  public chartOptions: ChartOptions = {
     responsive: true,
     scales: {
-      xAxes: [{}],
       yAxes: [
         {
-          id: 'y-axis-0',
-          position: 'left',
+          ticks: {
+            min: 0,
+            stepSize: 1
+          }
         }
       ]
     }
@@ -68,54 +69,54 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.stories$.subscribe(stories => {
-        this.lineChartData = [];
+    this.stories$.subscribe(stories => {
+      this.chartDataSets = [];
 
-        const total = stories.reduce((a, b) => b.storyPoints + a, 0);
-        const data = [total];
-        const storyData = [total];
+      const total = stories.reduce((a, b) => b.storyPoints + a, 0);
+      const data = [total];
+      const storyData = [total];
 
-        for (let i = 0; i < this.lineChartLabels.length - 1; ++i) {
-          data.push(i + 1 === this.lineChartLabels.length - 1 ? 0 : data[i] - total / (this.lineChartLabels.length - 1));
-        }
+      for (let i = 0; i < this.chartLabels.length - 1; ++i) {
+        data.push(i + 1 === this.chartLabels.length - 1 ? 0 : data[i] - total / (this.chartLabels.length - 1));
+      }
 
-        for (const label of this.lineChartLabels) {
-          const date = moment(label);
-          const currentStories = stories.filter(s => {
+      for (const label of this.chartLabels) {
+        const date = moment(label);
+        const currentStories = stories.filter(s => {
 
-            if (!s || s.status !== 'Done') {
-              return;
-            }
+          if (!s || s.status !== 'Done') {
+            return;
+          }
 
-            const storyDate = moment(s.updatedAt.toDate());
+          const storyDate = moment(s.updatedAt.toDate());
 
-            if (storyDate.isSame(date, 'day')) {
-              return s;
-            }
-          });
+          if (storyDate.isSame(date, 'day')) {
+            return s;
+          }
+        });
 
-          const totalPoints = currentStories.reduce((a, b) => b.storyPoints + a, 0);
+        const totalPoints = currentStories.reduce((a, b) => b.storyPoints + a, 0);
 
-          if (date.isBefore(moment())) {
-            if (total - totalPoints < total) {
-              storyData.push(storyData[storyData.length - 1] - totalPoints);
-            } else {
-              storyData.push(total > storyData[storyData.length - 1] ? storyData[storyData.length - 1] : total);
-            }
+        if (date.isBefore(moment())) {
+          if (total - totalPoints < total) {
+            storyData.push(storyData[storyData.length - 1] - totalPoints);
+          } else {
+            storyData.push(total > storyData[storyData.length - 1] ? storyData[storyData.length - 1] : total);
           }
         }
+      }
 
-        this.lineChartData.push({data, label: 'Time'});
-        this.lineChartData.push({data: storyData, label: 'Progress', lineTension: 0.0});
-      });
+      this.chartDataSets.push({ data, label: 'Time' });
+      this.chartDataSets.push({ data: storyData, label: 'Progress', lineTension: 0.0 });
+    });
 
-      this.sprint$.subscribe(sprint => {
-        this.lineChartLabels = [];
+    this.sprint$.subscribe(sprint => {
+      this.chartLabels = [];
 
-        for (const m = moment(sprint[0].startAt.toDate()); m.isBefore(moment(sprint[0].endAt.toDate())); m.add(1, 'days')) {
-          this.lineChartLabels.push(m.format('YYYY-MM-DD'));
-        }
-      });
+      for (const m = moment(sprint[0].startDate.toDate()); m.isBefore(moment(sprint[0].endDate.toDate())); m.add(1, 'days')) {
+        this.chartLabels.push(m.format('MMMM Do'));
+      }
+    });
   }
 
   getByStatus(status: string, tasks: UserStory[]) {
