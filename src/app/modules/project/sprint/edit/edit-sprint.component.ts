@@ -23,23 +23,23 @@ export class EditSprintComponent implements OnInit {
 
   private readonly errorMessages = {
     title : {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'Title can not exceed 255 characters'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters!'
+      maxLength: 'Description can not exceed 1024 characters'
     },
-    startAt: {
+    start: {
       required: 'A start date is required'
     },
-    tasks: {
-      required: 'You need to select at least one task!'
-    },
-    endAt: {
+    end: {
       required: 'A end date is required'
     },
+    tasks: {
+      required: 'You need to select at least one task'
+    },
     active: {
-      required: 'Archived is required to be set on either true/false!',
+      required: 'Archived is required',
     }
   };
 
@@ -60,18 +60,12 @@ export class EditSprintComponent implements OnInit {
   async edit() {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
-      const startAt = Timestamp.fromDate(moment(values.startAt).toDate());
-      const endAt = values.endAt ? Timestamp.fromDate(moment(values.endAt).toDate()) : null;
-
-      if (endAt && !moment(values.endAt).isAfter(startAt.toDate())) {
-        return;
-      }
 
       await this.sprintService.update({
         title: values.title,
         description: values.description,
-        startAt,
-        endAt,
+        startAt: Timestamp.fromDate(moment(values.start).toDate()),
+        endAt: Timestamp.fromDate(moment(values.end).toDate()),
         tasks: values.tasks,
         active: values.active
       }, this.id, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
@@ -85,8 +79,8 @@ export class EditSprintComponent implements OnInit {
       this.formGroup = new FormGroup({
         title: new FormControl(sprint.title, [Validators.required, Validators.maxLength(60)]),
         description: new FormControl(sprint.description, [Validators.maxLength(500)]),
-        endAt: new FormControl(sprint.endAt ? moment(sprint.endAt.toDate()).format('YYYY-MM-DDTH:mm') : '', [Validators.required]),
-        startAt: new FormControl(moment(sprint.startAt.toDate()).format('YYYY-MM-DDTH:mm'), [Validators.required]),
+        start: new FormControl(moment(sprint.startAt.toDate()), [Validators.required]),
+        end: new FormControl(moment(sprint.endAt.toDate()), [Validators.required]),
         tasks: new FormControl(sprint.tasks.map(t => t.id), [Validators.required]),
         active: new FormControl(sprint.active, [Validators.required])
       });

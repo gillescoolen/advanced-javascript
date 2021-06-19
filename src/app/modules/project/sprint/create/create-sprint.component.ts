@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SprintService } from '../../../../core/services/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
-import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { UserStory } from '../../../../core/types/user-story.type';
 import { BacklogService } from '../../../../core/services/backlog.service';
+import * as moment from "moment";
+import firebase from "firebase";
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
   selector: 'app-create',
@@ -20,28 +20,31 @@ export class CreateSprintComponent {
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
     description: new FormControl('', [Validators.maxLength(500)]),
-    endAt: new FormControl('', [Validators.required]),
-    startAt: new FormControl('', [Validators.required]),
+    start: new FormControl('', [Validators.required]),
+    end: new FormControl('', [Validators.required]),
     tasks: new FormControl('', [Validators.required]),
     active: new FormControl(false, [Validators.required])
   });
 
   private readonly errorMessages = {
     title : {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'Title can not exceed 255 characters'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters!'
+      maxLength: 'Description can not exceed 1024 characters'
     },
-    startAt: {
+    start: {
       required: 'A start date is required'
     },
-    endAt: {
+    end: {
       required: 'A end date is required'
     },
+    tasks: {
+      required: 'You need to select at least one task'
+    },
     active: {
-      required: 'Archived is required to be set on either true/false!',
+      required: 'Archived is required',
     }
   };
 
@@ -51,7 +54,7 @@ export class CreateSprintComponent {
   }
 
   getErrorMessage(field: string, error: string): string {
-    if (this.formGroup.controls[field].hasError(error)) {
+    if (this.formGroup.get(field).hasError(error)) {
       return this.errorMessages[field][error] ?? '';
     }
 
@@ -61,18 +64,12 @@ export class CreateSprintComponent {
   async create() {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
-      const startAt = Timestamp.fromDate(moment(values.startAt).toDate());
-      const endAt = values.endAt ? Timestamp.fromDate(moment(values.endAt).toDate()) : null;
-
-      if (endAt && !moment(values.endAt).isAfter(startAt.toDate())) {
-        return;
-      }
 
       await this.sprintService.create({
         title: values.title,
         description: values.description,
-        startAt,
-        endAt,
+        startAt: Timestamp.fromDate(moment(values.start).toDate()),
+        endAt: Timestamp.fromDate(moment(values.end).toDate()),
         active: values.active,
         tasks: values.tasks,
       }, this.id);
