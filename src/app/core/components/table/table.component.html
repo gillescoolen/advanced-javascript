@@ -5,7 +5,7 @@
       <td mat-cell *matCellDef="let element">{{element[column]}}</td>
     </ng-container>
     <ng-container *ngIf="canInteract" matColumnDef="interactions">
-      <th mat-header mat-header-cell *matHeaderCellDef>Interact</th>
+      <th mat-header mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
         <button mat-button *ngIf="canView" (click)="viewEvent.emit(element['id'])">View</button>
         <button mat-button *ngIf="canEdit && showInteractions(element)" (click)="editEvent.emit(element['id'])" id="edit">Edit</button>
