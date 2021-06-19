@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "kanban-advanced-javascript": {
-      "hosting": {
-        "kanban": [
-          "kanban-advanced-javascript"
-        ]
-      }
-    }
-  }
   "projects": {
     "default": "kanban-advanced-javascript"
   }
