@@ -1,19 +1,25 @@
-<div class="padding-vertical">
-  <button mat-raised-button color="primary" [disabled]="activeSprint" (click)="navigateToSprint()">Current sprint</button> &nbsp;
-  <button mat-raised-button color="primary" (click)="navigateCreateSprint()">Create new sprint</button>
-</div>
-<app-table [data$]="sprints$" [hiddenColumns]="['id']" (editEvent)="navigateEditSprint($event)"></app-table>
-
-<div class="padding-vertical">
-  <div class="padding-vertical">
-    <button mat-raised-button color="primary" (click)="navigateToCreate()">Create new item</button> &nbsp;
-    <button mat-raised-button color="primary" (click)="navigateToArchivedUserStories()">Archived user stories</button>
+<div class="wrapper">
+  <div class="column">
+    <h1>Sprints</h1>
+    <div class="buttons">
+      <button mat-button color="accent" [disabled]="activeSprint" (click)="navigateToSprint()">View ongoing sprint</button> &nbsp;
+      <button mat-button color="primary" (click)="navigateCreateSprint()">Plan a sprint</button>
+    </div>
+    <app-table [data$]="sprints$" [showColumns]="['title', 'startDate', 'endDate']" (editEvent)="navigateEditSprint($event)"></app-table>
   </div>
-  <app-table [data$]="userStories$" [hiddenColumns]="['archived', 'id']"
-             (editEvent)="navigateEditUserStory($event)"></app-table>
-</div>
 
-<div class="padding-vertical">
-  <button mat-raised-button color="primary" (click)="navigateToMember()">Add new member</button>
+  <div class="column">
+    <h1>Tasks</h1>
+    <div class="buttons">
+      <button mat-button color="primary" (click)="navigateToCreate()">Create a new task</button> &nbsp;
+      <button mat-button color="primary" (click)="navigateToArchivedUserStories()">Archived tasks</button>
+    </div>
+    <app-table [data$]="userStories$" [showColumns]="['title', 'status']" (editEvent)="navigateEditUserStory($event)"></app-table>
+  </div>
+
+  <div class="column">
+    <h1>Members</h1>
+    <button mat-button color="primary" (click)="navigateToMember()">Add a member</button>
+    <app-table [data$]="members$" [showColumns]="['name', 'role']" (editEvent)="navigateToEditMember($event)"></app-table>
+  </div>
 </div>
-<app-table [data$]="members$" [hiddenColumns]="['id']" (editEvent)="navigateToEditMember($event)"></app-table>

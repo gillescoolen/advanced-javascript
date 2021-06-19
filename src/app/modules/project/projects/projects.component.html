@@ -1,2 +1,4 @@
-<a mat-raised-button routerLink="/project/create" routerLinkActive="active" color="primary">Create new project</a>
-<app-table [data$]="projects$" [hiddenColumns]="['archived', 'id', 'ownerId']" [showActions]="showActions" (editEvent)="edit($event)" (viewEvent)="view($event)"></app-table>
+<div class="wrapper">
+  <a mat-flat-button routerLink="/project/create" routerLinkActive="active" color="accent">Create a new project</a>
+</div>
+<app-table [data$]="projects$" [showColumns]="['name', 'owner']" [showInteractions]="showInteract" (editEvent)="edit($event)" (viewEvent)="view($event)"></app-table>

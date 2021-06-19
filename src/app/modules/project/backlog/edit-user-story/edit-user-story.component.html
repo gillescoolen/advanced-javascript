@@ -1,5 +1,5 @@
 <form class="form-column" *ngIf="formGroup.controls['title']" [formGroup]="formGroup" (submit)="edit()">
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Title</mat-label>
     <input type="text" matInput formControlName="title">
     <mat-error *ngIf="formGroup.controls['title'].invalid">
@@ -7,23 +7,23 @@
       {{ this.getErrorMessage('title', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
     <mat-error *ngIf="formGroup.controls['description'].invalid">
       {{ this.getErrorMessage('description', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Assignee</mat-label>
     <mat-select formControlName="selectedAssignee">
-      <mat-option><-- Select --></mat-option>
+      <mat-option>Select an option</mat-option>
       <mat-option *ngFor="let user of projectMembers$ | async" [value]="user.uid">
         {{ user.displayName }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Story points</mat-label>
     <input type="number" matInput formControlName="storyPoints" min="0" max="24">
     <mat-error *ngIf="formGroup.controls['storyPoints'].invalid">
@@ -32,10 +32,10 @@
     </mat-error>
   </mat-form-field>
   <div>
-    <mat-checkbox formControlName="archived">Archived</mat-checkbox>
+    <mat-slide-toggle formControlName="archived">Archived</mat-slide-toggle>
     <mat-error *ngIf="formGroup.controls['archived'].invalid">
       {{ this.getErrorMessage('archived', 'required') }}
     </mat-error>
   </div>
-  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Save</button>
+  <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">Save</button>
 </form>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class NotLoggedInGuard implements CanActivate {
 
     return this.fireAuth.user.pipe(map((user) => {
       if (user === undefined || user == null) return true;
-      
+
       this.router.navigate(['/project']);
 
       return false;

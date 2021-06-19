@@ -6,7 +6,7 @@ import { map, mergeMap } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { User } from './user';
 import { AuthService } from './auth.service';
-import { MemberRole } from '../types/member-role.enum';
+import { Role } from '../types/role.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,11 @@ export class ProjectService {
   }
 
   async create(user: User, project: Partial<Project>) {
-    const ref = this.authService.getCurrentUserRef(user);
+    const ref = this.authService.getUserRef(user);
 
     return this.firestore.collection<Project>('projects').doc().set({
       name: project.name,
-      members: [{ user: ref, role: MemberRole.MANAGER }],
+      members: [{ user: ref, role: Role.MANAGER }],
       flatMembers: [ref.id],
       description: project.description ?? '',
       status: project.status ?? '',
@@ -37,9 +37,9 @@ export class ProjectService {
     return this.firestore.collection<Project>('projects', query => {
       return query
         .where('members', 'array-contains-any', [
-          { user: this.authService.getCurrentUserRef(user), role: MemberRole.MANAGER },
-          { user: this.authService.getCurrentUserRef(user), role: MemberRole.DEVELOPER },
-          { user: this.authService.getCurrentUserRef(user), role: MemberRole.CUSTOMER }
+          { user: this.authService.getUserRef(user), role: Role.MANAGER },
+          { user: this.authService.getUserRef(user), role: Role.DEVELOPER },
+          { user: this.authService.getUserRef(user), role: Role.CUSTOMER }
         ])
         .where('archived', '==', archived);
     })

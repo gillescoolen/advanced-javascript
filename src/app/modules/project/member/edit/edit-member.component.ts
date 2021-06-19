@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MemberRole } from '../../../../core/types/member-role.enum';
+import { Role } from '../../../../core/types/role.enum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MemberService } from '../../../../core/services/member.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,7 +34,7 @@ export class EditMemberComponent {
   }
 
   getRoles(): string[] {
-    return Object.values(MemberRole);
+    return Object.values(Role);
   }
 
   async update() {

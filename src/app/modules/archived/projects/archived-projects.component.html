@@ -1,1 +1,1 @@
-<app-table [data$]="projects$" [hiddenColumns]="['archived', 'id']" (editEvent)="edit($event)"></app-table>
+<app-table [data$]="projects$" [showColumns]="['title', 'startDate', 'endDate']" (editEvent)="edit($event)"></app-table>

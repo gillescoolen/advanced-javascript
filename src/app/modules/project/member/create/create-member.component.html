@@ -1,21 +1,21 @@
 <form class="form-column" [formGroup]="formGroup" (submit)="add()">
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>User</mat-label>
     <mat-select formControlName="user">
-      <mat-option><-- Select --></mat-option>
+      <mat-option>Select an option</mat-option>
       <mat-option *ngFor="let user of users$ | async" [value]="user.uid">
         {{ user.displayName }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Role</mat-label>
     <mat-select formControlName="role">
-      <mat-option><-- Select --></mat-option>
+      <mat-option>Select an option</mat-option>
       <mat-option *ngFor="let role of getRoles()" [value]="role">
         {{ role }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Add</button>
+  <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">Add</button>
 </form>

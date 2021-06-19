@@ -4,7 +4,7 @@ import { UserService } from './user.service';
 import { Project } from '../types/project.type';
 import { UserStoryStatus } from '../types/user-story-status.enum';
 import { map, mergeMap } from 'rxjs/operators';
-import { combineLatest, merge, Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import {
   AbstractUserStory,
   EditableUserStory,
@@ -15,8 +15,8 @@ import {
 import { ProjectService } from './project.service';
 import { User } from './user';
 import firebase from 'firebase';
-import Timestamp = firebase.firestore.Timestamp;
 import { Sprint } from '../types/sprint.type';
+import Timestamp = firebase.firestore.Timestamp;
 
 @Injectable({
   providedIn: 'root'

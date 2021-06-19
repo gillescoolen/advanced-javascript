@@ -1,5 +1,5 @@
 <form class="form-column" *ngIf="formGroup.controls['name']" [formGroup]="formGroup" (submit)="create()">
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
     <input type="text" matInput formControlName="name">
     <mat-error *ngIf="formGroup.controls['name'].invalid">
@@ -7,24 +7,23 @@
       {{ this.getErrorMessage('name', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"></textarea>
     <mat-error *ngIf="formGroup.controls['description'].invalid">
       {{ this.getErrorMessage('description', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-form-field appearance="standard">
+  <mat-form-field appearance="outline">
     <mat-label>Status</mat-label>
     <input type="text" matInput formControlName="status">
     <mat-error *ngIf="formGroup.controls['status'].invalid">
       {{ this.getErrorMessage('status', 'maxLength') }}
     </mat-error>
   </mat-form-field>
-  <mat-checkbox formControlName="archived">Archived</mat-checkbox>
+  <mat-slide-toggle formControlName="archived">Archived</mat-slide-toggle>
   <mat-error *ngIf="formGroup.controls['archived'].invalid">
     {{ this.getErrorMessage('archived', 'required') }}
   </mat-error>
-  <button [disabled]="formGroup.invalid" type="submit" mat-raised-button color="primary">Create</button>
+  <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">Create</button>
 </form>
-

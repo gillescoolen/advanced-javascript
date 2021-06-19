@@ -1,8 +1,7 @@
-import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,20 +11,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TableComponent<T> implements AfterContentInit {
   @Input() data$: Observable<T[]> = of([]);
-  @Input() hiddenColumns: string[] = [];
+  @Input() showColumns: string[] = [];
   @Output() deleteEvent = new EventEmitter();
   @Output() editEvent = new EventEmitter();
-  @Input() showActions: (data: T) => boolean = this.show;
+  @Input() showInteractions: (data: T) => boolean = this.show;
   @Output() viewEvent = new EventEmitter();
-
   columns: string[] = [];
-  private dataSource: MatTableDataSource<T> | null = null;
+  private source: MatTableDataSource<T> | null = null;
 
   @ViewChild(MatSort)
   private sort: MatSort | null = null;
 
-  @ViewChild(MatPaginator)
-  private paginator: MatPaginator | null = null;
+  constructor(private readonly activatedRoute: ActivatedRoute) { }
 
   show(data: T) {
     return true;
@@ -34,37 +31,34 @@ export class TableComponent<T> implements AfterContentInit {
   ngAfterContentInit() {
     this.data$.subscribe(data => {
       this.columns = data.length === 0 ? [] : Object.getOwnPropertyNames(data[0]);
-      this.columns = this.columns.filter(value => !this.hiddenColumns.includes(value));
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.columns = this.columns.filter(value => this.showColumns.includes(value));
+      this.source = new MatTableDataSource(data);
+      this.source.sort = this.sort;
     });
   }
 
-  get source() {
-    return this.dataSource ? this.dataSource : [];
+  toUpperCase(name: string) {
+    return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
   }
 
-  get hasDeleteEvent() {
+  get data() {
+    return this.source ? this.source : [];
+  }
+
+  get canDelete() {
     return this.deleteEvent.observers.length > 0;
   }
 
-  get hasEditEvent() {
+  get canEdit() {
     return this.editEvent.observers.length > 0;
   }
 
-  get hasViewEvent() {
+  get canView() {
     return this.viewEvent.observers.length > 0;
   }
 
-  get hasAction() {
-    return this.hasDeleteEvent || this.hasViewEvent || this.hasEditEvent;
+  get canInteract() {
+    return this.canDelete || this.canView || this.canEdit;
   }
 
-  correctColumnName(column: string) {
-    return `${column.charAt(0).toUpperCase()}${column.slice(1)}`;
-  }
-
-  constructor(private readonly activatedRoute: ActivatedRoute) {
-  }
 }

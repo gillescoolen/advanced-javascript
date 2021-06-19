@@ -1,1 +1,9 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
 
+  a {
+    margin: 1rem 0.5rem;
+  }
+}
