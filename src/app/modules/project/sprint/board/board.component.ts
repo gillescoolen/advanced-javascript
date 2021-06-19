@@ -58,22 +58,23 @@ export class BoardComponent implements OnInit {
       }
     }
   };
+
   public lineChartColors: Color[] = [
     {
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
+      backgroundColor: '#00000000',
+      borderColor: '#4D5360FF',
+      pointBackgroundColor: '#00000000',
+      pointBorderColor: '#00000000',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      pointHoverBorderColor: '#949FB1CC'
     },
     {
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
+      backgroundColor: '#00000000',
+      borderColor: '#3F51B5FF',
+      pointBackgroundColor: '#949FB1',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
+      pointHoverBorderColor: '#949FB1CC'
     }
   ];
 
@@ -117,7 +118,7 @@ export class BoardComponent implements OnInit {
         }
       });
 
-      this.chartDataSets.push({ data: estimatedData, label: 'Estimated Effort' });
+      this.chartDataSets.push({ data: estimatedData, label: 'Estimated Effort', borderDash: [5, 5] });
       this.chartDataSets.push({ data: actualData, label: 'Actual Effort', lineTension: 0.0 });
     });
 
