@@ -7,9 +7,9 @@
     <ng-container *ngIf="canInteract" matColumnDef="interactions">
       <th mat-header mat-header-cell *matHeaderCellDef>Interact</th>
       <td mat-cell *matCellDef="let element">
+        <button mat-button *ngIf="canView" (click)="viewEvent.emit(element['id'])">View</button>
         <button mat-button *ngIf="canEdit && showInteractions(element)" (click)="editEvent.emit(element['id'])" id="edit">Edit</button>
         <button mat-button *ngIf="canDelete && showInteractions(element)" (click)="deleteEvent.emit(element['id'])">Delete</button>
-        <button mat-button *ngIf="canView" (click)="viewEvent.emit(element['id'])">View</button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="canInteract ? columns.concat('interactions') : columns"></tr>
