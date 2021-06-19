@@ -68,8 +68,8 @@ export class CreateSprintComponent {
       await this.sprintService.create({
         title: values.title,
         description: values.description,
-        startAt: Timestamp.fromDate(moment(values.start).toDate()),
-        endAt: Timestamp.fromDate(moment(values.end).toDate()),
+        startDate: Timestamp.fromDate(moment(values.start).toDate()),
+        endDate: Timestamp.fromDate(moment(values.end).toDate()),
         active: values.active,
         tasks: values.tasks,
       }, this.id);
