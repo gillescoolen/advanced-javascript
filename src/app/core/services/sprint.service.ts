@@ -31,9 +31,9 @@ export class SprintService {
         return {
           title: data.title,
           description: data.description,
-          startDate: moment(sprint.payload.doc.data().startDate.toDate()).format('YYYY-MM-DD H:mm'),
-          endDate: sprint.payload.doc.data().endDate ? moment(sprint.payload.doc.data().endDate.toDate()).format('YYYY-MM-DD H:mm') : 'No end',
-          active: sprint.payload.doc.data().active,
+          startDate: moment(data.startDate.toDate()).format('YYYY-MM-DD'),
+          endDate: moment(data.endDate.toDate()).format('YYYY-MM-DD'),
+          active: data.active,
           id: sprint.payload.doc.id
         };
       });
