@@ -62,7 +62,7 @@ export class EditSprintComponent implements OnInit {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
 
-      await this.sprintService.update({
+      await this.sprintService.updateSprint({
         title: values.title,
         description: values.description,
         startDate: Timestamp.fromDate(moment(values.start).toDate()),

@@ -92,9 +92,9 @@ export class ChartComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute
   ) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.members$ = sprintService.getMembersAndTasks(projectId);
+    this.members$ = sprintService.getUsersAndTasks(projectId);
     this.sprint$ = sprintService.getActiveSprint(projectId);
-    this.tasks$ = sprintService.getTasksBySprint(projectId);
+    this.tasks$ = sprintService.getTasks(projectId);
     this.sprint$.subscribe(sprint => this.title = sprint[0].title);
   }
 

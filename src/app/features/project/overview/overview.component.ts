@@ -30,7 +30,7 @@ export class OverviewComponent {
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.tasks$ = this.taskService.getTasksByProject(this.id);
-    this.sprints$ = this.sprintService.getAllSprints(this.id);
+    this.sprints$ = this.sprintService.getAll(this.id);
     this.members$ = this.memberService.getByProject(this.id);
     this.sprints$.subscribe(sprints => this.activeSprint = !sprints.find(s => s.active));
   }
