@@ -26,6 +26,7 @@ export class ProjectService {
     const payload = {
       name: project.name,
       members: [{ user: ref, role: Role.MANAGER }],
+      flatMembers: [ref.id],
       description: project.description ?? '',
       status: project.status ?? '',
       owner: ref,

@@ -5,6 +5,7 @@ export type Project = {
   name: string,
   owner: DocumentReference<User>,
   members: { user: DocumentReference<User>, role: string }[],
+  flatMembers: string[],
   description: string,
   status: string,
   archived: boolean
