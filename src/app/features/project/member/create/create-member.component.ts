@@ -54,7 +54,7 @@ export class CreateMemberComponent {
   async add() {
     if (!this.formGroup.invalid) {
       const form = this.formGroup.value;
-      await this.memberService.adDtoProject(this.id, form.user, form.role);
+      await this.memberService.addToProject(this.id, form.user, form.role);
       await this.router.navigate([`/project/${this.id}`]);
     }
   }
