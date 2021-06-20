@@ -22,10 +22,10 @@ export class CreateMemberComponent {
 
   private readonly errorMessages = {
     user: {
-      required: 'Title is required!'
+      required: 'Title is required'
     },
     role: {
-      required: 'Role is required!'
+      required: 'Role is required'
     }
   };
 

@@ -18,8 +18,8 @@ export class CreateSprintComponent {
   private readonly id;
   pickAbleTasks$: Observable<UserStory[]> = of([]);
   formGroup = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-    description: new FormControl('', [Validators.maxLength(500)]),
+    title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+    description: new FormControl('', [Validators.maxLength(192)]),
     start: new FormControl('', [Validators.required]),
     end: new FormControl('', [Validators.required]),
     tasks: new FormControl('', [Validators.required]),
@@ -29,10 +29,10 @@ export class CreateSprintComponent {
   private readonly errorMessages = {
     title : {
       required: 'Title is required',
-      maxLength: 'Title can not exceed 255 characters'
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters'
+      maxLength: 'The maximum allowed length is 192'
     },
     start: {
       required: 'Start date is required'

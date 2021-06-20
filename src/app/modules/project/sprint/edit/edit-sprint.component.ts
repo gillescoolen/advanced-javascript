@@ -24,10 +24,10 @@ export class EditSprintComponent implements OnInit {
   private readonly errorMessages = {
     title : {
       required: 'Title is required',
-      maxLength: 'Title can not exceed 255 characters'
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters'
+      maxLength: 'The maximum allowed length is 192'
     },
     start: {
       required: 'Start date is required'
@@ -74,8 +74,8 @@ export class EditSprintComponent implements OnInit {
   ngOnInit(): void {
    this.sprint$.subscribe(sprint => {
       this.formGroup = new FormGroup({
-        title: new FormControl(sprint.title, [Validators.required, Validators.maxLength(60)]),
-        description: new FormControl(sprint.description, [Validators.maxLength(500)]),
+        title: new FormControl(sprint.title, [Validators.required, Validators.maxLength(64)]),
+        description: new FormControl(sprint.description, [Validators.maxLength(192)]),
         start: new FormControl(moment(sprint.startDate.toDate()), [Validators.required]),
         end: new FormControl(moment(sprint.endDate.toDate()), [Validators.required]),
         tasks: new FormControl(sprint.tasks.map(t => t.id), [Validators.required]),

@@ -16,8 +16,8 @@ export class CreateUserStoryComponent {
   private readonly id;
   pickAbleMembers$: Observable<(User | undefined)[]> = of([]);
   formGroup = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    description: new FormControl('', [Validators.maxLength(1024)]),
+    title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+    description: new FormControl('', [Validators.maxLength(192)]),
     selectedAssignee: new FormControl(''),
     storyPoints: new FormControl(null, [Validators.min(0), Validators.max(24)]),
     archived: new FormControl(false)
@@ -25,15 +25,15 @@ export class CreateUserStoryComponent {
 
   private readonly errorMessages = {
     title : {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters!'
+      maxLength: 'The maximum allowed length is 192'
     },
     storyPoints: {
-      min: 'Story points can not have a value lower than 0!',
-      max: 'Story points can not have a value higher than 24!'
+      min: 'Story points must be between 0 and 24',
+      max: 'Story points must be between 0 and 24'
     }
   };
 

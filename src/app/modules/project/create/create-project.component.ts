@@ -10,22 +10,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CreateProjectComponent {
   formGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-    description: new FormControl('', [Validators.maxLength(300)]),
-    status: new FormControl('', [Validators.maxLength(30)]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+    description: new FormControl('', [Validators.maxLength(192)]),
+    status: new FormControl('', [Validators.maxLength(64)]),
     archived: new FormControl(false)
   });
 
   private readonly errorMessages = {
     name: {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 300 characters!'
+      maxLength: 'The maximum allowed length is 192'
     },
     status: {
-      maxLength: 'Status can not exceed 30 characters!'
+      maxLength: 'The maximum allowed length is 64'
     }
   };
 
