@@ -20,11 +20,11 @@ export class MemberService {
 
   getByProject(projectId: string) {
     return this.projectService
-      .oneById(projectId)
+      .getProjectById(projectId)
       .pipe(mergeMap(project =>
         combineLatest(project.members.map(m => {
           return this.userService
-            .one(m.user.id)
+            .getUserById(m.user.id)
             .pipe(map(user => ({
               id: m.user.id,
               name: user.displayName,
@@ -35,13 +35,13 @@ export class MemberService {
       ));
   }
 
-  async addToProject(projectId: string, userId: string, role: string) {
+  async adDtoProject(projectId: string, userId: string, role: string) {
     const project = await this.firestore
       .collection<Project>('projects')
       .doc(projectId)
       .ref.get();
     
-    const members = [...project.data().members, { user: this.userService.getUserRef(userId), role }];
+    const members = [...project.data().members, { user: this.userService.getRef(userId), role }];
     const flatMembers = [...project.data().flatMembers, userId];
 
     await this.firestore
@@ -63,7 +63,7 @@ export class MemberService {
     const members = [
       ...otherMembers,
       {
-        user: this.userService.getUserRef(userId),
+        user: this.userService.getRef(userId),
         role
       }
     ]

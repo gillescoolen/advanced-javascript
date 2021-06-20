@@ -36,7 +36,7 @@ export class CreateMemberComponent {
     private readonly memberService: MemberService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.users$ = this.projectService.allAvailableUsers(this.id);
+    this.users$ = this.projectService.getNonMembers(this.id);
   }
 
   getErrorMessage(field: string, error: string): string {
@@ -54,7 +54,7 @@ export class CreateMemberComponent {
   async add() {
     if (!this.formGroup.invalid) {
       const form = this.formGroup.value;
-      await this.memberService.addToProject(this.id, form.user, form.role);
+      await this.memberService.adDtoProject(this.id, form.user, form.role);
       await this.router.navigate([`/project/${this.id}`]);
     }
   }

@@ -29,7 +29,7 @@ export class EditMemberComponent {
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId') ?? '';
-    this.user$ = this.userService.one(this.userId);
+    this.user$ = this.userService.getUserById(this.userId);
     this.user$.subscribe(u => this.displayName = u.displayName);
   }
 
