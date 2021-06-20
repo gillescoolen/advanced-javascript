@@ -17,7 +17,7 @@ import { Task } from '../../../../shared/types/task.type';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  statusEnum = Status;
+  status = Status;
   members$: Observable<Member[]> = of([]);
   tasks$: Observable<Task[]> = of([]);
   sprint$: Observable<Sprint[]> = of([]);
@@ -85,7 +85,6 @@ export class ChartComponent implements OnInit {
     }
   ];
 
-
   constructor(
     private readonly sprintService: SprintService,
     private readonly userService: UserService,
@@ -102,40 +101,33 @@ export class ChartComponent implements OnInit {
     this.tasks$.subscribe(tasks => {
       this.dataSets = [];
 
-      const totalPoints = tasks.reduce((sum, u) => u.points + sum, 0);
-      const estimated = [totalPoints];
-      const actual = [totalPoints];
+      const totalAmount = tasks.reduce((sum, u) => u.points + sum, 0);
+      const estimated = [totalAmount];
+      const actual = [totalAmount];
       const finishedTasks = [];
 
-      for (let i = 0; i < this.labels.length - 1; ++i)
-        estimated.push(i + 1 === this.labels.length - 1
-          ? 0
-          : estimated[i] - totalPoints / (this.labels.length - 1)
-        );
+      for (let i = 0; i < this.labels.length - 1; ++i) 
+        estimated
+          .push(i + 1 === this.labels.length - 1 ? 0 : estimated[i] - totalAmount / (this.labels.length - 1));
 
       this.getRange(this.startDate, this.endDate, 'days').forEach(date => {
-        const currentTasks = tasks.filter(task => {
-          if (!task || task.status !== 'Done') return;
+        const currentStories = tasks.filter(task => {
+          if (!task || task.status !== this.status.DONE) return;
 
-          const taskDate = moment(task.updatedAt.toDate());
+          const date = moment(task.updatedAt.toDate());
 
-          if (taskDate.isSame(date, 'day')) return task;
+          if (date.isSame(date, 'day')) return task;
         });
 
-        const totalPoints = currentTasks
-          .reduce((sum, u) => u.points + sum, 0);
+        const totalPoints = currentStories.reduce((sum, task) => task.points + sum, 0);
 
         if (date.isBefore(moment())) {
-          const data = totalPoints - totalPoints < totalPoints
-            ? actual[actual.length - 1] - totalPoints
-            : totalPoints > actual[actual.length - 1]
-              ? actual[actual.length - 1]
-              : totalPoints;
-          
-          actual.push(data);
+          totalAmount - totalPoints < totalAmount
+            ? actual.push(actual[actual.length - 1] - totalPoints)
+            : actual.push(totalAmount > actual[actual.length - 1] ? actual[actual.length - 1] : totalAmount);
         }
 
-        finishedTasks.push(currentTasks.length);
+        finishedTasks.push(currentStories.length);
       });
 
       this.dataSets.push({ data: estimated, label: 'Estimated Effort', borderDash: [5, 5] });
@@ -148,11 +140,13 @@ export class ChartComponent implements OnInit {
       this.startDate = sprint[0].startDate.toDate();
       this.endDate = sprint[0].endDate.toDate();
 
-      this.getRange(this.startDate, this.endDate, 'days').forEach(date => this.labels.push(date.format('MMMM Do')));
+      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
+        this.labels.push(d.format('MMMM Do'));
+      });
     });
   }
 
-  private getRange(startDate, endDate, type): moment.Moment[] {
+  getRange(startDate, endDate, type): moment.Moment[] {
     const fromDate = moment(startDate)
     const toDate = moment(endDate)
     const diff = toDate.diff(fromDate, type)
