@@ -15,8 +15,4 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  async goToRegisterPage() {
-    return this.router.navigate(['/auth/register']);
-  }
 }
