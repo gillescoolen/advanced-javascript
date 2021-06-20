@@ -11,7 +11,7 @@ export type Project = {
   archived: boolean
 };
 
-export type AbstractProject = {
+export type ProjectDto = {
   name: string,
   owner: string,
   ownerId: string,

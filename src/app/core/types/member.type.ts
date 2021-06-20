@@ -6,7 +6,7 @@ export type Member = {
   assigned: Task[]
 };
 
-export type AbstractMember = {
+export type MemberDto = {
   id: string,
   name: string,
   role: string
