@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './core/common/shared.module';
 import { ChartsModule } from 'ng2-charts';
-import { ArchivedModule } from './modules/archived/archived.module';
-import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { ArchivedModule } from './features/archived/archived.module';
+import { NotFoundComponent } from './features/not-found/not-found.component';
 
 @NgModule({
   declarations: [
