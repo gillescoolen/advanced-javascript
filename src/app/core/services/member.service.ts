@@ -10,31 +10,69 @@ import { Project } from '../types/project.type';
   providedIn: 'root'
 })
 export class MemberService {
-  constructor(@Inject(AngularFirestore) private firestore: AngularFirestore, private readonly projectService: ProjectService, private readonly userService: UserService) {
+  constructor(
+    @Inject(AngularFirestore)
+    private firestore: AngularFirestore,
+    private readonly projectService: ProjectService,
+    private readonly userService: UserService
+  )
+  {}
+
+  getByProject(projectId: string) {
+    return this.projectService
+      .oneById(projectId)
+      .pipe(mergeMap(project =>
+        combineLatest(project.members.map(m => {
+          return this.userService
+            .one(m.user.id)
+            .pipe(map(user => ({
+              id: m.user.id,
+              name: user.displayName,
+              role: m.role
+            })
+          ));
+        }))
+      ));
   }
 
-  allAbstractFromProject(id: string) {
-    return this.projectService.oneById(id).pipe(mergeMap(project => combineLatest(project.members.map(m => {
-      return this.userService.one(m.user.id).pipe(map(user => ({
-        id: m.user.id,
-        name: user.displayName,
-        role: m.role
-      })));
-    }))));
+  async addToProject(projectId: string, userId: string, role: string) {
+    const project = await this.firestore
+      .collection<Project>('projects')
+      .doc(projectId)
+      .ref.get();
+    
+    const members = [...project.data().members, { user: this.userService.getUserRef(userId), role }];
+    const flatMembers = [...project.data().flatMembers, userId];
+
+    await this.firestore
+      .collection<Project>('projects')
+      .doc(projectId)
+      .update({
+        members,
+        flatMembers
+      });
   }
 
-  async addToProject(id: string, userId: string, role: string) {
-    const project = await this.firestore.collection<Project>('projects').doc(id).ref.get();
-    await this.firestore.collection<Project>('projects').doc(id).update({
-      members: [...project.data().members, { user: this.userService.getUserRef(userId), role }],
-      flatMembers: [...project.data().flatMembers, userId]
-    });
-  }
-
-  async updateInProject(id: string, userId: string, role: string) {
-    const project = await this.firestore.collection<Project>('projects').doc(id).ref.get();
-    await this.firestore.collection<Project>('projects').doc(id).update({
-      members: [...project.data().members.filter(m => m.user.id !== userId), { user: this.userService.getUserRef(userId), role }]
-    });
+  async updateInProject(projectId: string, userId: string, role: string) {
+    const project = await this.firestore
+      .collection<Project>('projects')
+      .doc(projectId)
+      .ref.get();
+    
+    const otherMembers = project.data().members.filter(m => m.user.id !== userId);
+    const members = [
+      ...otherMembers,
+      {
+        user: this.userService.getUserRef(userId),
+        role
+      }
+    ]
+    
+    await this.firestore
+      .collection<Project>('projects')
+      .doc(projectId)
+      .update({
+        members
+      });
   }
 }

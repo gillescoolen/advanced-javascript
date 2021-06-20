@@ -31,7 +31,7 @@ export class BacklogComponent {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.userStories$ = this.backlogService.getByProjectAbstract(this.id);
     this.sprints$ = this.sprintService.getAll(this.id);
-    this.members$ = this.memberService.allAbstractFromProject(this.id);
+    this.members$ = this.memberService.getByProject(this.id);
     this.sprints$.subscribe(sprints => this.activeSprint = !sprints.find(s => s.active));
   }
 
