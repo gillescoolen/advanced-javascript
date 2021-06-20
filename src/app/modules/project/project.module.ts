@@ -4,7 +4,7 @@ import { SharedModule } from '../../core/shared/shared.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { CreateProjectComponent } from './create/create-project.component';
-import { BoardComponent } from './sprint/board/board.component';
+import { SprintComponent } from './sprint/page/sprint.component';
 import { FlexModule } from '@angular/flex-layout';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { BacklogComponent } from './backlog/backlog.component';
@@ -25,7 +25,7 @@ import { ChartComponent } from './sprint/chart/chart.component';
     CreateProjectComponent,
     EditProjectComponent,
     CreateProjectComponent,
-    BoardComponent,
+    SprintComponent,
     BacklogComponent,
     CreateUserStoryComponent,
     CreateSprintComponent,

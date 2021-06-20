@@ -1,0 +1,36 @@
+<div class="wrapper">
+  <h1 class="title">Sprint: {{title}}</h1>
+  <div class="row">
+    <div class="column users">
+      <p>{{description}}</p>
+    </div>
+    <div class="column chart">
+      <app-chart></app-chart>
+    </div>
+  </div>
+
+  <div class="row" cdkDropListGroup>
+    <div class="todo" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="{status: '', member: null}">
+      <h1>Tasks</h1>
+      <div *ngFor="let task of stories$ | async">
+        <mat-card class="task" *ngIf="task.status.length === 0" cdkDrag [cdkDragData]="task">
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>{{ task.description }}</mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="column">
+      <div class="lanes" *ngFor="let member of members$ | async">
+        <div class="lane" *ngFor="let status of getStatuses()">
+          <h2>{{ status }} for {{ member.name }}</h2>
+          <div class="drop" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="{status: status, member: member}">
+            <mat-card *ngFor="let task of getTasksByStatus(status, member.assigned)" cdkDrag [cdkDragData]="task">
+              <mat-card-title>{{ task.title }}</mat-card-title>
+              <mat-card-content>{{ task.description }}</mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

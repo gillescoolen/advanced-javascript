@@ -4,7 +4,6 @@ import { SprintService } from '../../../../core/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Member } from '../../../../core/types/member.type';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { UserService } from '../../../../core/services/user.service';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
@@ -29,6 +28,9 @@ export class ChartComponent implements OnInit {
   public chartDataSets: ChartDataSets[] = [];
   public chartLabels: Label[] = [];
 
+  private startDate: Date;
+  private endDate: Date;
+  
   public chartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -85,8 +87,6 @@ export class ChartComponent implements OnInit {
     }
   ];
 
-  private startDate: Date;
-  private endDate: Date;
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';

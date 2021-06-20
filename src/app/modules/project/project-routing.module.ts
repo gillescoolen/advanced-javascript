@@ -4,7 +4,7 @@ import { LayoutComponent } from '../../core/layout/layout.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create/create-project.component';
 import { EditProjectComponent } from './edit/edit-project.component';
-import { BoardComponent } from './sprint/board/board.component';
+import { SprintComponent } from './sprint/page/sprint.component';
 import { BacklogComponent } from './backlog/backlog.component';
 import { CreateUserStoryComponent } from './backlog/create-user-story/create-user-story.component';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
@@ -43,7 +43,7 @@ const routes: Routes = [
       },
       {
         path: ':id/sprint',
-        component: BoardComponent
+        component: SprintComponent
       },
       {
         path: ':id/sprint/create',

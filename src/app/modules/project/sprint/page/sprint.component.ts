@@ -10,15 +10,16 @@ import { Sprint } from '../../../../core/types/sprint.type';
 import { UserStory } from '../../../../core/types/user-story.type';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  selector: 'app-sprint',
+  templateUrl: './sprint.component.html',
+  styleUrls: ['./sprint.component.scss']
 })
-export class BoardComponent implements OnInit {
+export class SprintComponent implements OnInit {
   members$: Observable<Member[]> = of([]);
   stories$: Observable<UserStory[]> = of([]);
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
+  description = '';
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
@@ -26,13 +27,14 @@ export class BoardComponent implements OnInit {
     this.sprint$ = sprintService.active(projectId);
     this.stories$ = sprintService.getStories(projectId);
     this.sprint$.subscribe(sprint => this.title = sprint[0].title);
+    this.sprint$.subscribe(sprint => this.description = sprint[0].description);
   }
 
   ngOnInit(): void {
   }
 
-  getByStatus(status: string, tasks: UserStory[]) {
-    return tasks.filter(t => t.status.toLowerCase() === status.toLowerCase());
+  getTasksByStatus(status: string, tasks: UserStory[]) {
+    return tasks.filter(task => task.status.toLowerCase() === status.toLowerCase());
   }
 
   async drop(event: CdkDragDrop<{ status: string, member: Member }>) {
