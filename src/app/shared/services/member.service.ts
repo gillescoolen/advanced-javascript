@@ -35,7 +35,7 @@ export class MemberService {
       ));
   }
 
-  async adDtoProject(projectId: string, userId: string, role: string) {
+  async addToProject(projectId: string, userId: string, role: string) {
     const project = await this.firestore
       .collection<Project>('projects')
       .doc(projectId)
