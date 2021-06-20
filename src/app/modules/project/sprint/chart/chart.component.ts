@@ -23,10 +23,10 @@ export class ChartComponent implements OnInit {
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
 
-  public lineChartLegend = true;
-  public lineChartType: ChartType = 'line';
-  public chartDataSets: ChartDataSets[] = [];
-  public chartLabels: Label[] = [];
+  public showLegend = true;
+  public chartType: ChartType = 'line';
+  public dataSets: ChartDataSets[] = [];
+  public labels: Label[] = [];
 
   private startDate: Date;
   private endDate: Date;
@@ -48,9 +48,7 @@ export class ChartComponent implements OnInit {
         label: function (tooltipItem, data) {
           let label = data.datasets[tooltipItem.datasetIndex].label || '';
 
-          if (label) {
-            label += ': ';
-          }
+          if (label) label += ': ';
 
           label += +(Math.round(Number(Number(tooltipItem.yLabel) + "e+" + 1)) + "e-" + 1);
 
@@ -102,64 +100,66 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.tasks$.subscribe(tasks => {
-      this.chartDataSets = [];
+      this.dataSets = [];
 
       const totalPoints = tasks.reduce((sum, u) => u.points + sum, 0);
-      const estimatedData = [totalPoints];
-      const actualData = [totalPoints];
+      const estimated = [totalPoints];
+      const actual = [totalPoints];
       const finishedTasks = [];
 
-      for (let i = 0; i < this.chartLabels.length - 1; ++i)
-        estimatedData.push(i + 1 === this.chartLabels.length - 1
+      for (let i = 0; i < this.labels.length - 1; ++i)
+        estimated.push(i + 1 === this.labels.length - 1
           ? 0
-          : estimatedData[i] - totalPoints / (this.chartLabels.length - 1)
+          : estimated[i] - totalPoints / (this.labels.length - 1)
         );
 
-      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
+      this.getRange(this.startDate, this.endDate, 'days').forEach(date => {
         const currentTasks = tasks.filter(task => {
           if (!task || task.status !== 'Done') return;
 
           const taskDate = moment(task.updatedAt.toDate());
-          if (taskDate.isSame(d, 'day')) return task;
+
+          if (taskDate.isSame(date, 'day')) return task;
         });
 
-        const totalPoints = currentTasks.reduce((sum, u) => u.points + sum, 0);
-        if (d.isBefore(moment())) {
-          if (totalPoints - totalPoints < totalPoints) {
-            actualData.push(actualData[actualData.length - 1] - totalPoints);
-          } else {
-            actualData.push(totalPoints > actualData[actualData.length - 1] ? actualData[actualData.length - 1] : totalPoints);
-          }
+        const totalPoints = currentTasks
+          .reduce((sum, u) => u.points + sum, 0);
+
+        if (date.isBefore(moment())) {
+          const data = totalPoints - totalPoints < totalPoints
+            ? actual[actual.length - 1] - totalPoints
+            : totalPoints > actual[actual.length - 1]
+              ? actual[actual.length - 1]
+              : totalPoints;
+          
+          actual.push(data);
         }
 
         finishedTasks.push(currentTasks.length);
       });
 
-      this.chartDataSets.push({ data: estimatedData, label: 'Estimated Effort', borderDash: [5, 5] });
-      this.chartDataSets.push({ data: actualData, label: 'Actual Effort', lineTension: 0.0 });
-      this.chartDataSets.push({ data: finishedTasks, label: 'Finished Tasks', lineTension: 0.0 });
+      this.dataSets.push({ data: estimated, label: 'Estimated Effort', borderDash: [5, 5] });
+      this.dataSets.push({ data: actual, label: 'Actual Effort', lineTension: 0.0 });
+      this.dataSets.push({ data: finishedTasks, label: 'Finished Tasks', lineTension: 0.0 });
     });
 
     this.sprint$.subscribe(sprint => {
-      this.chartLabels = [];
+      this.labels = [];
       this.startDate = sprint[0].startDate.toDate();
       this.endDate = sprint[0].endDate.toDate();
 
-      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
-        this.chartLabels.push(d.format('MMMM Do'));
-      });
+      this.getRange(this.startDate, this.endDate, 'days').forEach(date => this.labels.push(date.format('MMMM Do')));
     });
   }
 
-  getRange(startDate, endDate, type): moment.Moment[] {
-    let fromDate = moment(startDate)
-    let toDate = moment(endDate)
-    let diff = toDate.diff(fromDate, type)
-    let range = []
+  private getRange(startDate, endDate, type): moment.Moment[] {
+    const fromDate = moment(startDate)
+    const toDate = moment(endDate)
+    const diff = toDate.diff(fromDate, type)
+    const range = []
 
-    for (let i = 0; i <= diff; i++) {
-      range.push(moment(startDate).add(i, type))
-    }
+    for (let i = 0; i <= diff; i++) range.push(moment(startDate).add(i, type))
+    
     return range;
   }
 }
