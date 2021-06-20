@@ -31,10 +31,10 @@ describe('BackButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should be clickable', () => {
+  it('should go back', () => {
     const location = fixture.debugElement.injector.get(Location);
     const comp = new BackButtonComponent(location);
-    
+
     comp.goBack();
 
     expect(location.back).toHaveBeenCalled();
