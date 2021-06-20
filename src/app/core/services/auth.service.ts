@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { User } from './user';
+import { User } from '../types/user';
 import firebase from 'firebase';
 import { EMPTY, Observable, of } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
@@ -20,28 +20,14 @@ export class AuthService {
     private readonly firestore: AngularFirestore
   ) {
     this.user$ = this.fireAuth.authState.pipe(
-      switchMap((user) => {
-        if (user) {
-          return this.firestore.doc<User>(`users/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
-        }
-      })
+      switchMap((user) => user ? this.firestore.doc<User>(`users/${user.uid}`).valueChanges() : of(null))
     );
   }
 
-  async emailLogin() {
-    return this.login(new auth.EmailAuthProvider());
-  }
+  private async emailLogin() {
+    const user = await this.fireAuth.signInWithPopup(new auth.EmailAuthProvider());
 
-  async googleSignIn() {
-    return this.login(new auth.GoogleAuthProvider());
-  }
-
-  private async login(provider) {
-    const credential = await this.fireAuth.signInWithPopup(provider);
-
-    return this.updateUserData(credential.user);
+    return this.updateUser(user.user);
   }
 
   async logout() {
@@ -49,18 +35,16 @@ export class AuthService {
     return this.router.navigate(['/auth/login']);
   }
 
-  public updateUserData({uid, email, displayName}: User) {
-    const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${uid}`);
+  public updateUser({uid, email, displayName}: User) {
+    const ref: AngularFirestoreDocument<User> = this.firestore.doc(`users/${uid}`);
 
-    const data: User = {
+    const user = {
       uid,
       email,
       displayName
     };
 
-    return userRef.set(data, {
-      merge: true
-    });
+    return ref.set(user, { merge: true });
   }
 
   public getUser(userId: string): Observable<User | undefined> {
@@ -68,14 +52,10 @@ export class AuthService {
   }
 
   public getCurrentUser() {
-    return this.fireAuth.authState.pipe(first(), switchMap(user => {
-      if (user) return this.getUser(user.uid).pipe(first()).toPromise();
-
-      return EMPTY;
-    })).toPromise();
+    return this.fireAuth.authState.pipe(first(), switchMap(user => user ? this.getUser(user.uid).pipe(first()).toPromise() : EMPTY)).toPromise();
   }
 
-  public getUserRef(user: User) {
+  public getRef(user: User) {
     return this.firestore.collection<User>('users').doc(user?.uid).ref;
   }
 }
