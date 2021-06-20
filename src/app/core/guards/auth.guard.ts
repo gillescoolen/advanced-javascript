@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class NotLoggedInGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private fireAuth: AngularFireAuth, private router: Router) {}
 
   canActivate(
