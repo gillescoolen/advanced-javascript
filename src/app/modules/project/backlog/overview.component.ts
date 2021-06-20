@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BacklogService } from '../../../core/services/backlog.service';
+import { OverviewService } from '../../../core/services/overview.service';
 import { BaseTask } from '../../../core/types/task.type';
 import { AbstractSprint } from '../../../core/types/sprint.type';
 import { SprintService } from '../../../core/services/sprint.service';
@@ -9,9 +9,9 @@ import { MemberService } from '../../../core/services/member.service';
 import { AbstractMember } from '../../../core/types/member.type';
 
 @Component({
-  selector: 'app-backlog',
-  templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.scss']
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss']
 })
 export class BacklogComponent {
   userStories$: Observable<BaseTask[]> = of([]);
@@ -24,7 +24,7 @@ export class BacklogComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly backlogService: BacklogService,
+    private readonly backlogService: OverviewService,
     private readonly sprintService: SprintService,
     private readonly memberService: MemberService
   ) {
