@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { combineLatest, Observable } from 'rxjs';
-import { AbstractProject, Project } from '../types/project.type';
+import { ProjectDto, Project } from '../types/project.type';
 import { map, mergeMap } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { User } from '../types/user';
@@ -12,13 +12,18 @@ import { Role } from '../types/role.enum';
   providedIn: 'root'
 })
 export class ProjectService {
-  constructor(@Inject(AngularFirestore) private readonly firestore: AngularFirestore, private readonly authService: AuthService, private readonly userService: UserService) {
-  }
+  constructor(
+    @Inject(AngularFirestore)
+    private readonly firestore: AngularFirestore,
+    private readonly authService: AuthService,
+    private readonly userService: UserService
+  )
+  {}
 
-  async create(user: User, project: Partial<Project>) {
+  async createProject(user: User, project: Partial<Project>) {
     const ref = this.authService.getRef(user);
 
-    return this.firestore.collection<Project>('projects').doc().set({
+    const payload = {
       name: project.name,
       members: [{ user: ref, role: Role.MANAGER }],
       flatMembers: [ref.id],
@@ -26,54 +31,72 @@ export class ProjectService {
       status: project.status ?? '',
       owner: ref,
       archived: false
-    });
+    }
+
+    return this.firestore
+      .collection<Project>('projects')
+      .doc()
+      .set(payload);
   }
 
-  async update(id: string, project: Partial<Project>) {
-    return this.firestore.collection<Project>('projects').doc(id).update(project);
+  async updateProject(projectId: string, project: Partial<Project>) {
+    return this.firestore
+      .collection<Project>('projects')
+      .doc(projectId)
+      .update(project);
   }
 
-  allAbstract(user: User, archived = false): Observable<AbstractProject[]> {
+  getProjects(user: User, archived: boolean): Observable<ProjectDto[]> {
+    const roles = [
+      { user: this.authService.getRef(user), role: Role.MANAGER },
+      { user: this.authService.getRef(user), role: Role.DEVELOPER },
+      { user: this.authService.getRef(user), role: Role.CUSTOMER }
+    ]
+    
     return this.firestore.collection<Project>('projects', query => {
       return query
-        .where('members', 'array-contains-any', [
-          { user: this.authService.getRef(user), role: Role.MANAGER },
-          { user: this.authService.getRef(user), role: Role.DEVELOPER },
-          { user: this.authService.getRef(user), role: Role.CUSTOMER }
-        ])
+        .where('members', 'array-contains-any', roles)
         .where('archived', '==', archived);
     })
       .snapshotChanges()
       .pipe(mergeMap(projects => {
         return combineLatest(projects.map(project => {
-          const data = project.payload.doc.data();
-          return this.userService.one(project.payload.doc.data().owner.id).pipe(map(owner => ({
+          const projectData = project.payload.doc.data();
+
+          const data = {
             id: project.payload.doc.id,
-            name: data.name,
-            owner: owner?.displayName ?? 'Unknown',
-            ownerId: owner.uid,
-            description: data.description,
-            status: data.status,
-            archived: data.archived
-          })));
+            name: projectData.name,
+            description: projectData.description,
+            status: projectData.status,
+            archived: projectData.archived
+          }
+
+          return this.userService
+            .getUserById(projectData.owner.id).pipe(map(owner => ({
+              ...data,
+              owner: owner?.displayName ?? '',
+              ownerId: owner.uid,
+            })
+          ));
         }));
       }));
   }
 
-  oneById(id: string): Observable<Project | undefined> {
-    return this.firestore.collection<Project>('projects')
-      .doc(id)
+  getProjectById(projectId: string): Observable<Project | undefined> {
+    return this.firestore
+      .collection<Project>('projects')
+      .doc(projectId)
       .valueChanges();
   }
 
-  allAvailableUsers(id: string) {
-    return this.oneById(id).pipe(mergeMap(project => {
+  getNonMembers(projectId: string) {
+    return this.getProjectById(projectId).pipe(mergeMap(project => {
       const memberIds = project.members.map(m => m.user.id);
-      return this.userService.all().pipe(map(user => user.filter(u => !memberIds.includes(u.uid))));
+      return this.userService.getAllUsers().pipe(map(user => user.filter(u => !memberIds.includes(u.uid))));
     }));
   }
 
-  getOwner(id: string) {
-    return this.oneById(id).pipe(map(project => project.owner));
+  getProjectOwner(projectId: string) {
+    return this.getProjectById(projectId).pipe(map(project => project.owner));
   }
 }

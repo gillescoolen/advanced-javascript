@@ -8,19 +8,30 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(@Inject(AngularFirestore) private firestore: AngularFirestore, @Inject(AngularFireAuth) private fireAuth: AngularFireAuth) {
+  constructor(
+    @Inject(AngularFirestore)
+    private firestore: AngularFirestore,
+    @Inject(AngularFireAuth)
+    private fireAuth: AngularFireAuth
+  )
+  {}
+
+  getUserById(userId: string): Observable<User | undefined> {
+    return this.firestore
+      .collection<User>('users')
+      .doc(userId)
+      .valueChanges();
   }
 
-  one(id: string): Observable<User | undefined> {
-    return this.firestore.collection<User>('users').doc(id).valueChanges();
+  getRef(userId: string) {
+    return this.firestore
+      .collection<User>('users')
+      .doc(userId).ref;
   }
 
-
-  public getUserRef(id: string) {
-    return this.firestore.collection<User>('users').doc(id).ref;
-  }
-
-  all() {
-    return this.firestore.collection<User>('users').valueChanges();
+  getAllUsers() {
+    return this.firestore
+      .collection<User>('users')
+      .valueChanges();
   }
 }
