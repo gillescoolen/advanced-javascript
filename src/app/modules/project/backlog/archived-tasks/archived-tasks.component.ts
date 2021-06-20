@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BacklogService } from '../../../../core/services/backlog.service';
+import { OverviewService } from '../../../../core/services/overview.service';
 import { Observable, of } from 'rxjs';
 import { BaseTask } from '../../../../core/types/task.type';
 
@@ -16,7 +16,7 @@ export class ArchivedComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly backlogService: BacklogService
+    private readonly backlogService: OverviewService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.userStories$ = this.backlogService.getByProjectAbstract(this.id, true);

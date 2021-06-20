@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { User } from '../../../../core/services/user';
+import { User } from '../../../../core/types/user';
 import { Role } from '../../../../core/types/role.enum';
 import { ProjectService } from '../../../../core/services/project.service';
 import { MemberService } from '../../../../core/services/member.service';

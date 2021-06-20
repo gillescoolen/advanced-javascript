@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BacklogService } from '../../../../core/services/backlog.service';
+import { OverviewService } from '../../../../core/services/overview.service';
 import { ProjectService } from '../../../../core/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { TaskFormDTO } from '../../../../core/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../../core/services/user';
+import { User } from '../../../../core/types/user';
 
 @Component({
   selector: 'app-edit-task',
@@ -37,7 +37,7 @@ export class EditTaskComponent implements OnInit {
   formGroup = new FormGroup({});
 
   constructor(
-    private readonly backlogService: BacklogService,
+    private readonly backlogService: OverviewService,
     private readonly projectService: ProjectService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute

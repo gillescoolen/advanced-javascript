@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BacklogService } from '../../../../core/services/backlog.service';
+import { OverviewService } from '../../../../core/services/overview.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { User } from '../../../../core/services/user';
+import { User } from '../../../../core/types/user';
 import { ProjectService } from '../../../../core/services/project.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskCreateDTO } from '../../../../core/types/task.type';
@@ -37,7 +37,7 @@ export class CreateTaskComponent {
   };
 
   constructor(
-    private readonly backlogService: BacklogService,
+    private readonly backlogService: OverviewService,
     private readonly projectService: ProjectService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute

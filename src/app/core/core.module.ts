@@ -12,7 +12,7 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { ProjectService } from './services/project.service';
 import { UserService } from './services/user.service';
 import { UserResolver } from './resolvers/user.resolver';
-import { BacklogService } from './services/backlog.service';
+import { OverviewService } from './services/overview.service';
 import { MemberService } from './services/member.service';
 
 @NgModule({
@@ -33,7 +33,7 @@ import { MemberService } from './services/member.service';
       authGuardLoggedInURL: 'project'
     })
   ],
-  providers: [AuthService, ProjectService, UserService, BacklogService, MemberService],
+  providers: [AuthService, ProjectService, UserService, OverviewService, MemberService],
   exports: [LayoutModule, AngularFireModule, AngularFirestoreModule, AngularFireAuthModule],
   declarations: []
 })

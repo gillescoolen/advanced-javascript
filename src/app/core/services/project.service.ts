@@ -4,7 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { AbstractProject, Project } from '../types/project.type';
 import { map, mergeMap } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { User } from './user';
+import { User } from '../types/user';
 import { AuthService } from './auth.service';
 import { Role } from '../types/role.enum';
 
@@ -16,7 +16,7 @@ export class ProjectService {
   }
 
   async create(user: User, project: Partial<Project>) {
-    const ref = this.authService.getUserRef(user);
+    const ref = this.authService.getRef(user);
 
     return this.firestore.collection<Project>('projects').doc().set({
       name: project.name,
@@ -37,9 +37,9 @@ export class ProjectService {
     return this.firestore.collection<Project>('projects', query => {
       return query
         .where('members', 'array-contains-any', [
-          { user: this.authService.getUserRef(user), role: Role.MANAGER },
-          { user: this.authService.getUserRef(user), role: Role.DEVELOPER },
-          { user: this.authService.getUserRef(user), role: Role.CUSTOMER }
+          { user: this.authService.getRef(user), role: Role.MANAGER },
+          { user: this.authService.getRef(user), role: Role.DEVELOPER },
+          { user: this.authService.getRef(user), role: Role.CUSTOMER }
         ])
         .where('archived', '==', archived);
     })

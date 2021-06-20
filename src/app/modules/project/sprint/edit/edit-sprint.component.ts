@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Task } from '../../../../core/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SprintService } from '../../../../core/services/sprint.service';
-import { BacklogService } from '../../../../core/services/backlog.service';
+import { OverviewService } from '../../../../core/services/overview.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import firebase from 'firebase';
@@ -43,7 +43,7 @@ export class EditSprintComponent implements OnInit {
     }
   };
 
-  constructor(private readonly sprintService: SprintService, private readonly backlogService: BacklogService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  constructor(private readonly sprintService: SprintService, private readonly backlogService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.pickAbleTasks$ = backlogService.getByProject(this.id, false, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
     this.sprint$ = sprintService.getOne(this.id, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');

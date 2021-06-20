@@ -7,7 +7,7 @@ import { CreateProjectComponent } from './create/create-project.component';
 import { SprintComponent } from './sprint/page/sprint.component';
 import { FlexModule } from '@angular/flex-layout';
 import { EditProjectComponent } from './edit/edit-project.component';
-import { BacklogComponent } from './backlog/backlog.component';
+import { BacklogComponent } from './backlog/overview.component';
 import { CreateTaskComponent } from './backlog/create-task/create-task.component';
 import { ChartsModule } from 'ng2-charts';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';

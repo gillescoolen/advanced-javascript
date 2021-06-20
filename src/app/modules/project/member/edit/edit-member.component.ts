@@ -5,7 +5,7 @@ import { MemberService } from '../../../../core/services/member.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../core/services/user.service';
 import { Observable, of } from 'rxjs';
-import { User } from '../../../../core/services/user';
+import { User } from '../../../../core/types/user';
 
 @Component({
   selector: 'app-edit-member',

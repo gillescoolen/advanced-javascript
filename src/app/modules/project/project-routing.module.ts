@@ -5,7 +5,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create/create-project.component';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { SprintComponent } from './sprint/page/sprint.component';
-import { BacklogComponent } from './backlog/backlog.component';
+import { BacklogComponent } from './backlog/overview.component';
 import { CreateTaskComponent } from './backlog/create-task/create-task.component';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';

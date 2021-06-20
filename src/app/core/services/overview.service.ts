@@ -13,7 +13,7 @@ import {
   TaskEditDTO
 } from '../types/task.type';
 import { ProjectService } from './project.service';
-import { User } from './user';
+import { User } from '../types/user';
 import firebase from 'firebase';
 import { Sprint } from '../types/sprint.type';
 import Timestamp = firebase.firestore.Timestamp;
@@ -21,9 +21,10 @@ import Timestamp = firebase.firestore.Timestamp;
 @Injectable({
   providedIn: 'root'
 })
-export class BacklogService {
+export class OverviewService {
   constructor(
-    @Inject(AngularFirestore) private readonly firestore: AngularFirestore,
+    @Inject(AngularFirestore)
+    private readonly firestore: AngularFirestore,
     private readonly userService: UserService,
     private readonly projectService: ProjectService) {
   }

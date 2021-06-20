@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
 import { UserResolver } from './core/resolvers/user.resolver';
-import { NotFoundComponent } from './modules/page-not-found/not-found.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { LayoutComponent } from './core/layout/layout.component';
 
 const routes: Routes = [

@@ -1,4 +1,4 @@
-import { User } from '../services/user';
+import { User } from './user';
 import { DocumentReference } from '@angular/fire/firestore';
 import { Status } from './task.enum';
 import firebase from 'firebase';

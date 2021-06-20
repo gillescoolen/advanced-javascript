@@ -7,7 +7,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './core/shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
 import { ArchivedModule } from './modules/archived/archived.module';
-import { NotFoundComponent } from './modules/page-not-found/not-found.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 @NgModule({
   declarations: [
