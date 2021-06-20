@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .column {
+    padding: 1rem;
+    width: calc(100% - 2rem);
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  button {
+    margin: 0.2rem 0;
+  }
+}

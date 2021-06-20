@@ -1,0 +1,69 @@
+import { Component } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OverviewService } from '../../../core/services/overview.service';
+import { BaseTask } from '../../../core/types/task.type';
+import { SprintDto } from '../../../core/types/sprint.type';
+import { SprintService } from '../../../core/services/sprint.service';
+import { MemberService } from '../../../core/services/member.service';
+import { MemberDto } from '../../../core/types/member.type';
+
+@Component({
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss']
+})
+export class BacklogComponent {
+  tasks$: Observable<BaseTask[]> = of([]);
+  sprints$: Observable<SprintDto[]> = of([]);
+  members$: Observable<MemberDto[]> = of([]);
+  activeSprint = false;
+
+  private readonly id: string;
+
+  constructor(
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly backlogService: OverviewService,
+    private readonly sprintService: SprintService,
+    private readonly memberService: MemberService
+  ) {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
+    this.tasks$ = this.backlogService.getTasksByProject(this.id);
+    this.sprints$ = this.sprintService.getAllSprints(this.id);
+    this.members$ = this.memberService.getByProject(this.id);
+    this.sprints$.subscribe(sprints => this.activeSprint = !sprints.find(s => s.active));
+  }
+
+  async navigateToCreate() {
+    await this.router.navigate([`project/${this.id}/backlog/create`]);
+  }
+
+  async navigateToMember() {
+    await this.router.navigate([`project/${this.id}/member/add`]);
+  }
+
+  async navigateToEditMember(id: string) {
+    await this.router.navigate([`project/${this.id}/member/edit/${id}`]);
+  }
+
+  async navigateToSprint() {
+    await this.router.navigate([`project/${this.id}/sprint`]);
+  }
+
+  async navigateCreateSprint() {
+    await this.router.navigate([`project/${this.id}/sprint/create`]);
+  }
+
+  async navigateEditSprint(id: string) {
+    await this.router.navigate([`project/${this.id}/sprint/edit/${id}`]);
+  }
+
+  async navigateEditTask(id: string) {
+    await this.router.navigate([`project/${this.id}/backlog/${id}/edit`]);
+  }
+
+  async navigateToArchivedTasks() {
+    await this.router.navigate([`project/${this.id}/backlog/archived`]);
+  }
+}

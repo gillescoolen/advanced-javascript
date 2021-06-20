@@ -1,0 +1,35 @@
+<form class="form-column" [formGroup]="formGroup" (submit)="create()">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input type="text" matInput formControlName="title">
+    <mat-error *ngIf="formGroup.controls['title'].invalid">
+      {{ this.getErrorMessage('title', 'required') }}
+      {{ this.getErrorMessage('title', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+    <mat-error *ngIf="formGroup.controls['description'].invalid">
+      {{ this.getErrorMessage('description', 'maxLength') }}
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Assigned</mat-label>
+    <mat-select formControlName="selectedAssigned">
+      <mat-option>Select an option</mat-option>
+      <mat-option *ngFor="let user of pickAbleMembers$ | async" [value]="user.uid">
+        {{ user.displayName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Story points</mat-label>
+    <input type="number" matInput formControlName="storyPoints" min="0" max="24">
+    <mat-error *ngIf="formGroup.controls['storyPoints'].invalid">
+      {{ this.getErrorMessage('storyPoints', 'min') }}
+      {{ this.getErrorMessage('storyPoints', 'max') }}
+    </mat-error>
+  </mat-form-field>
+  <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">Create</button>
+</form>
