@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { OverviewService } from '../../../../core/services/overview.service';
+import { OverviewService } from '../../../../shared/services/overview.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { User } from '../../../../core/types/user';
-import { ProjectService } from '../../../../core/services/project.service';
+import { User } from '../../../../shared/types/user';
+import { ProjectService } from '../../../../shared/services/project.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TaskCreateDto } from '../../../../core/types/task.type';
+import { TaskCreateDto } from '../../../../shared/types/task.type';
 
 @Component({
   selector: 'app-create-task',

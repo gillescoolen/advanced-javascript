@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
-import { UserResolver } from './core/resolvers/user.resolver';
+import { UserResolver } from './shared/resolvers/user.resolver';
 import { NotFoundComponent } from './features/not-found/not-found.component';
-import { LayoutComponent } from './core/layout/layout.component';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 const routes: Routes = [
   {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../../../core/services/project.service';
+import { ProjectService } from '../../../shared/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from '../../core/layout/layout.component';
+import { LayoutComponent } from '../../shared/layout/layout.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create/create-project.component';
 import { EditProjectComponent } from './edit/edit-project.component';
@@ -13,7 +13,7 @@ import { EditTaskComponent } from './overview/edit-task/edit-task.component';
 import { ArchivedComponent } from './overview/archived-tasks/archived-tasks.component';
 import { CreateMemberComponent } from './member/create/create-member.component';
 import { EditMemberComponent } from './member/edit/edit-member.component';
-import { UserResolver } from '../../core/resolvers/user.resolver';
+import { UserResolver } from '../../shared/resolvers/user.resolver';
 
 const routes: Routes = [
   {

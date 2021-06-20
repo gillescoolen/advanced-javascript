@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from '../../../../core/types/task.enum';
-import { SprintService } from '../../../../core/services/sprint.service';
+import { Status } from '../../../../shared/types/task.enum';
+import { SprintService } from '../../../../shared/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Member } from '../../../../core/types/member.type';
-import { UserService } from '../../../../core/services/user.service';
+import { Member } from '../../../../shared/types/member.type';
+import { UserService } from '../../../../shared/services/user.service';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { Sprint } from '../../../../core/types/sprint.type';
+import { Sprint } from '../../../../shared/types/sprint.type';
 import * as moment from 'moment/moment';
-import { Task } from '../../../../core/types/task.type';
+import { Task } from '../../../../shared/types/task.type';
 
 @Component({
   selector: 'app-chart',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OverviewService } from '../../../../core/services/overview.service';
+import { OverviewService } from '../../../../shared/services/overview.service';
 import { Observable, of } from 'rxjs';
-import { BaseTask } from '../../../../core/types/task.type';
+import { BaseTask } from '../../../../shared/types/task.type';
 
 @Component({
   selector: 'app-archived-tasks',

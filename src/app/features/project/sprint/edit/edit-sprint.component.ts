@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Task } from '../../../../core/types/task.type';
+import { Task } from '../../../../shared/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SprintService } from '../../../../core/services/sprint.service';
-import { OverviewService } from '../../../../core/services/overview.service';
+import { SprintService } from '../../../../shared/services/sprint.service';
+import { OverviewService } from '../../../../shared/services/overview.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import firebase from 'firebase';
-import { Sprint } from '../../../../core/types/sprint.type';
+import { Sprint } from '../../../../shared/types/sprint.type';
 import Timestamp = firebase.firestore.Timestamp;
 
 @Component({

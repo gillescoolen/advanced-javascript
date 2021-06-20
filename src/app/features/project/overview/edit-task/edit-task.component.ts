@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { OverviewService } from '../../../../core/services/overview.service';
-import { ProjectService } from '../../../../core/services/project.service';
+import { OverviewService } from '../../../../shared/services/overview.service';
+import { ProjectService } from '../../../../shared/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { TaskFormDto } from '../../../../core/types/task.type';
+import { TaskFormDto } from '../../../../shared/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../../core/types/user';
+import { User } from '../../../../shared/types/user';
 
 @Component({
   selector: 'app-edit-task',

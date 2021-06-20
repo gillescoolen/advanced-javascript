@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OverviewService } from '../../../core/services/overview.service';
-import { BaseTask } from '../../../core/types/task.type';
-import { SprintDto } from '../../../core/types/sprint.type';
-import { SprintService } from '../../../core/services/sprint.service';
-import { MemberService } from '../../../core/services/member.service';
-import { MemberDto } from '../../../core/types/member.type';
+import { OverviewService } from '../../../shared/services/overview.service';
+import { BaseTask } from '../../../shared/types/task.type';
+import { SprintDto } from '../../../shared/types/sprint.type';
+import { SprintService } from '../../../shared/services/sprint.service';
+import { MemberService } from '../../../shared/services/member.service';
+import { MemberDto } from '../../../shared/types/member.type';
 
 @Component({
   selector: 'app-overview',

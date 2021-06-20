@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from '../../core/layout/layout.component';
+import { LayoutComponent } from '../../shared/layout/layout.component';
 import { ArchivedProjectsComponent } from './projects/archived-projects.component';
-import { UserResolver } from '../../core/resolvers/user.resolver';
+import { UserResolver } from '../../shared/resolvers/user.resolver';
 
 const archivedRoutes: Routes = [
   {

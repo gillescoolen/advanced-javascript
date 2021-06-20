@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ProjectService } from '../../../core/services/project.service';
+import { ProjectService } from '../../../shared/services/project.service';
 import { Observable, of } from 'rxjs';
-import { ProjectDto } from '../../../core/types/project.type';
+import { ProjectDto } from '../../../shared/types/project.type';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

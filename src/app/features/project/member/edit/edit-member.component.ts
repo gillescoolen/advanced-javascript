@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Role } from '../../../../core/types/role.enum';
+import { Role } from '../../../../shared/types/role.enum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MemberService } from '../../../../core/services/member.service';
+import { MemberService } from '../../../../shared/services/member.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../../../core/services/user.service';
+import { UserService } from '../../../../shared/services/user.service';
 import { Observable, of } from 'rxjs';
-import { User } from '../../../../core/types/user';
+import { User } from '../../../../shared/types/user';
 
 @Component({
   selector: 'app-edit-member',

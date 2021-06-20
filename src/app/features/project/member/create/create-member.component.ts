@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { User } from '../../../../core/types/user';
-import { Role } from '../../../../core/types/role.enum';
-import { ProjectService } from '../../../../core/services/project.service';
-import { MemberService } from '../../../../core/services/member.service';
+import { User } from '../../../../shared/types/user';
+import { Role } from '../../../../shared/types/role.enum';
+import { ProjectService } from '../../../../shared/services/project.service';
+import { MemberService } from '../../../../shared/services/member.service';
 
 @Component({
   selector: 'app-create-member',

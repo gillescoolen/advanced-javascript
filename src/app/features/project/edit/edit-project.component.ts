@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../../../core/services/project.service';
+import { ProjectService } from '../../../shared/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Project } from '../../../core/types/project.type';
-import { Status } from '../../../core/types/task.enum';
+import { Project } from '../../../shared/types/project.type';
+import { Status } from '../../../shared/types/task.enum';
 
 @Component({
   selector: 'app-edit-project',

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from '../../../../core/types/task.enum';
-import { SprintService } from '../../../../core/services/sprint.service';
+import { Status } from '../../../../shared/types/task.enum';
+import { SprintService } from '../../../../shared/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Member } from '../../../../core/types/member.type';
+import { Member } from '../../../../shared/types/member.type';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { UserService } from '../../../../core/services/user.service';
-import { Sprint } from '../../../../core/types/sprint.type';
-import { Task } from '../../../../core/types/task.type';
+import { UserService } from '../../../../shared/services/user.service';
+import { Sprint } from '../../../../shared/types/sprint.type';
+import { Task } from '../../../../shared/types/task.type';
 
 @Component({
   selector: 'app-sprint',

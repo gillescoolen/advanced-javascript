@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SprintService } from '../../../../core/services/sprint.service';
+import { SprintService } from '../../../../shared/services/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Task } from '../../../../core/types/task.type';
-import { OverviewService } from '../../../../core/services/overview.service';
+import { Task } from '../../../../shared/types/task.type';
+import { OverviewService } from '../../../../shared/services/overview.service';
 import * as moment from "moment";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;

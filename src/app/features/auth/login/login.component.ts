@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProvider } from 'ngx-auth-firebaseui';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',

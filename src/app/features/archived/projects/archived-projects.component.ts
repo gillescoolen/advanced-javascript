@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ProjectDto } from '../../../core/types/project.type';
+import { ProjectDto } from '../../../shared/types/project.type';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from '../../../core/services/project.service';
+import { ProjectService } from '../../../shared/services/project.service';
 
 @Component({
   selector: 'app-archived-projects',
