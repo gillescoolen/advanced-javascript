@@ -3,11 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './core/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
-import { ArchivedModule } from './modules/archived/archived.module';
-import { NotFoundComponent } from './modules/page-not-found/not-found.component';
+import { ArchivedModule } from './features/archived/archived.module';
+import { NotFoundComponent } from './features/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,7 @@ import { NotFoundComponent } from './modules/page-not-found/not-found.component'
     ArchivedModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
-    CoreModule.forRoot()
+    SharedModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

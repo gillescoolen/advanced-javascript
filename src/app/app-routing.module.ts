@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotLoggedInGuard } from './core/guards/not-logged-in.guard';
+import { LoginGuard } from './shared/guards/login.guard';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
-import { UserResolver } from './core/resolvers/user.resolver';
-import { NotFoundComponent } from './modules/page-not-found/not-found.component';
-import { LayoutComponent } from './core/layout/layout.component';
+import { UserResolver } from './shared/resolvers/user.resolver';
+import { NotFoundComponent } from './features/not-found/not-found.component';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 const routes: Routes = [
   {
@@ -14,19 +14,19 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./modules/auth/auth.module').then((module) => module.AuthModule),
-    canActivate: [NotLoggedInGuard]
+    loadChildren: () => import('./features/auth/auth.module').then((module) => module.AuthModule),
+    canActivate: [LoginGuard]
   },
   {
     path: 'project',
     resolve: { user: UserResolver },
-    loadChildren: () => import('./modules/project/project.module').then((module) => module.ProjectModule),
+    loadChildren: () => import('./features/project/project.module').then((module) => module.ProjectModule),
     canActivate: [LoggedInGuard]
   },
   {
     path: 'archived',
     resolve: { user: UserResolver },
-    loadChildren: () => import('./modules/archived/archived.module').then((module) => module.ArchivedModule),
+    loadChildren: () => import('./features/archived/archived.module').then((module) => module.ArchivedModule),
     canActivate: [LoggedInGuard]
   },
   {
