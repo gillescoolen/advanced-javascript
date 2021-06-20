@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from './shared/core.module';
-import { SharedModule } from './shared/common/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
 import { ArchivedModule } from './features/archived/archived.module';
 import { NotFoundComponent } from './features/not-found/not-found.component';
@@ -21,7 +20,7 @@ import { NotFoundComponent } from './features/not-found/not-found.component';
     ArchivedModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
-    CoreModule.forRoot()
+    SharedModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })

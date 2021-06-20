@@ -45,9 +45,9 @@ export class CreateSprintComponent {
     }
   };
 
-  constructor(private readonly sprintService: SprintService, private readonly backlogService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  constructor(private readonly sprintService: SprintService, private readonly overviewService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.pickAbleTasks$ = backlogService.getByProject(this.id);
+    this.pickAbleTasks$ = overviewService.getByProject(this.id);
   }
 
   getErrorMessage(field: string, error: string): string {

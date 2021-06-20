@@ -8,12 +8,26 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { SharedModule } from '../common/shared.module';
+import { SharedComponentsModule } from '../common/shared-components.module';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent],
-  imports: [RouterModule, CommonModule, AngularLayoutModule, MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule, SharedModule.forRoot()],
-  exports: [LayoutComponent]
+  declarations: [
+    LayoutComponent,
+    HeaderComponent
+  ],
+  imports: [
+    RouterModule,
+    CommonModule,
+    AngularLayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    SharedComponentsModule.forRoot()
+  ],
+  exports: [
+    LayoutComponent
+  ]
 })
 export class LayoutModule {
   static forRoot(): ModuleWithProviders<LayoutModule> {

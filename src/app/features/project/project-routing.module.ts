@@ -5,7 +5,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create/create-project.component';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { SprintComponent } from './sprint/page/sprint.component';
-import { BacklogComponent } from './overview/overview.component';
+import { OverviewComponent } from './overview/overview.component';
 import { CreateTaskComponent } from './overview/create-task/create-task.component';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';
@@ -55,18 +55,18 @@ const routes: Routes = [
       },
       {
         path: ':id',
-        component: BacklogComponent
+        component: OverviewComponent
       },
       {
-        path: ':id/backlog/archived',
+        path: ':id/overview/archived',
         component: ArchivedComponent
       },
       {
-        path: ':id/backlog/create',
+        path: ':id/overview/create',
         component: CreateTaskComponent
       },
       {
-        path: ':id/backlog/:taskId/edit',
+        path: ':id/overview/:taskId/edit',
         component: EditTaskComponent
       }
     ]

@@ -13,7 +13,7 @@ import { MemberDto } from '../../../shared/types/member.type';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class BacklogComponent {
+export class OverviewComponent {
   tasks$: Observable<BaseTask[]> = of([]);
   sprints$: Observable<SprintDto[]> = of([]);
   members$: Observable<MemberDto[]> = of([]);
@@ -24,19 +24,19 @@ export class BacklogComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly backlogService: OverviewService,
+    private readonly overviewService: OverviewService,
     private readonly sprintService: SprintService,
     private readonly memberService: MemberService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.tasks$ = this.backlogService.getTasksByProject(this.id);
+    this.tasks$ = this.overviewService.getTasksByProject(this.id);
     this.sprints$ = this.sprintService.getAllSprints(this.id);
     this.members$ = this.memberService.getByProject(this.id);
     this.sprints$.subscribe(sprints => this.activeSprint = !sprints.find(s => s.active));
   }
 
   async navigateToCreate() {
-    await this.router.navigate([`project/${this.id}/backlog/create`]);
+    await this.router.navigate([`project/${this.id}/overview/create`]);
   }
 
   async navigateToMember() {
@@ -60,10 +60,10 @@ export class BacklogComponent {
   }
 
   async navigateEditTask(id: string) {
-    await this.router.navigate([`project/${this.id}/backlog/${id}/edit`]);
+    await this.router.navigate([`project/${this.id}/overview/${id}/edit`]);
   }
 
   async navigateToArchivedTasks() {
-    await this.router.navigate([`project/${this.id}/backlog/archived`]);
+    await this.router.navigate([`project/${this.id}/overview/archived`]);
   }
 }

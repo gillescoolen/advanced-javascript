@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from '../../shared/core.module';
-import { SharedModule } from '../../shared/common/shared.module';
+import { SharedModule } from '../../shared/shared.module';
+import { SharedComponentsModule } from '../../shared/common/shared-components.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { CreateProjectComponent } from './create/create-project.component';
 import { SprintComponent } from './sprint/page/sprint.component';
 import { FlexModule } from '@angular/flex-layout';
 import { EditProjectComponent } from './edit/edit-project.component';
-import { BacklogComponent } from './overview/overview.component';
+import { OverviewComponent } from './overview/overview.component';
 import { CreateTaskComponent } from './overview/create-task/create-task.component';
 import { ChartsModule } from 'ng2-charts';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
@@ -26,7 +26,7 @@ import { ChartComponent } from './sprint/chart/chart.component';
     EditProjectComponent,
     CreateProjectComponent,
     SprintComponent,
-    BacklogComponent,
+    OverviewComponent,
     CreateTaskComponent,
     CreateSprintComponent,
     EditSprintComponent,
@@ -38,8 +38,8 @@ import { ChartComponent } from './sprint/chart/chart.component';
   ],
   imports: [
     ProjectRoutingModule,
-    CoreModule.forRoot(),
     SharedModule.forRoot(),
+    SharedComponentsModule.forRoot(),
     FlexModule,
     ChartsModule,
     FormsModule
