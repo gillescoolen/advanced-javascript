@@ -50,11 +50,11 @@ export class EditTaskComponent implements OnInit {
       if (!task) return;
 
       this.formGroup = new FormGroup({
-        title: new FormControl(userStory.title, [Validators.required, Validators.maxLength(255)]),
-        description: new FormControl(userStory.description, [Validators.maxLength(1024)]),
-        selectedAssignee: new FormControl(userStory.assignee == null ? '' : userStory.assignee.uid),
-        storyPoints: new FormControl(userStory.storyPoints, [Validators.min(0), Validators.max(24)]),
-        archived: new FormControl(userStory.archived)
+        title: new FormControl(task.title, [Validators.required, Validators.maxLength(255)]),
+        description: new FormControl(task.description, [Validators.maxLength(1024)]),
+        selectedAssignee: new FormControl(task.assigned == null ? '' : task.assigned.uid),
+        storyPoints: new FormControl(task.points, [Validators.min(0), Validators.max(24)]),
+        archived: new FormControl(task.archived)
       });
     });
   }

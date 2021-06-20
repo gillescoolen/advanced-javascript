@@ -62,8 +62,8 @@ export class CreateTaskComponent {
       const story: TaskCreateDto = {
         title: form.title,
         description: form.description,
-        assignee: form.selectedAssignee === '' ? undefined : form.selectedAssignee,
-        storyPoints: form.storyPoints,
+        assigned: form.selectedAssignee === '' ? undefined : form.selectedAssignee,
+        points: form.storyPoints,
         archived: form.archived
       };
 

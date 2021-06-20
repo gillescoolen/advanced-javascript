@@ -3,9 +3,9 @@
     <h1>Tasks</h1>
     <div class="buttons">
       <button mat-button color="primary" (click)="navigateToCreate()">Create a new task</button> &nbsp;
-      <button mat-button color="primary" (click)="navigateToArchivedUserStories()">Archived tasks</button>
+      <button mat-button color="primary" (click)="navigateToArchivedTasks()">Archived tasks</button>
     </div>
-    <app-table [data$]="userStories$" [showColumns]="['title', 'status']" (editEvent)="navigateEditUserStory($event)"></app-table>
+    <app-table [data$]="tasks$" [showColumns]="['title', 'status']" (editEvent)="navigateEditTask($event)"></app-table>
   </div>
 
   <div class="column">
