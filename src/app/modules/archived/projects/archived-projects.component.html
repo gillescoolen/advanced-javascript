@@ -1,4 +1,5 @@
 <div class="wrapper">
+  <h1>Project Archive</h1>
   <a mat-flat-button routerLink="/project/create" routerLinkActive="active" color="accent">Create a new project</a>
 </div>
 <app-table [data$]="projects$" [showColumns]="['name', 'owner']" (editEvent)="edit($event)"></app-table>

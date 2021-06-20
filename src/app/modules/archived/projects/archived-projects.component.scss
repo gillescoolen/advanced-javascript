@@ -1,7 +1,12 @@
 .wrapper {
   width: 100%;
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    margin: unset;
+  }
 
   a {
     margin: 1rem 0.5rem;
