@@ -111,7 +111,7 @@ export class ChartComponent implements OnInit {
           .push(i + 1 === this.labels.length - 1 ? 0 : estimated[i] - totalAmount / (this.labels.length - 1));
 
       this.getRange(this.startDate, this.endDate, 'days').forEach(date => {
-        const currentStories = tasks.filter(task => {
+        const currentTasks = tasks.filter(task => {
           if (!task || task.status !== this.status.DONE) return;
 
           const date = moment(task.updatedAt.toDate());
@@ -119,7 +119,7 @@ export class ChartComponent implements OnInit {
           if (date.isSame(date, 'day')) return task;
         });
 
-        const totalPoints = currentStories.reduce((sum, task) => task.points + sum, 0);
+        const totalPoints = currentTasks.reduce((sum, task) => task.points + sum, 0);
 
         if (date.isBefore(moment())) {
           totalAmount - totalPoints < totalAmount
@@ -127,7 +127,7 @@ export class ChartComponent implements OnInit {
             : actual.push(totalAmount > actual[actual.length - 1] ? actual[actual.length - 1] : totalAmount);
         }
 
-        finishedTasks.push(currentStories.length);
+        finishedTasks.push(currentTasks.length);
       });
 
       this.dataSets.push({ data: estimated, label: 'Estimated Effort', borderDash: [5, 5] });
