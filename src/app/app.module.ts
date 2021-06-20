@@ -3,11 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './core/shared/shared.module';
+import { CoreModule } from './shared/core.module';
+import { SharedModule } from './shared/common/shared.module';
 import { ChartsModule } from 'ng2-charts';
-import { ArchivedModule } from './modules/archived/archived.module';
-import { NotFoundComponent } from './modules/page-not-found/not-found.component';
+import { ArchivedModule } from './features/archived/archived.module';
+import { NotFoundComponent } from './features/not-found/not-found.component';
 
 @NgModule({
   declarations: [
