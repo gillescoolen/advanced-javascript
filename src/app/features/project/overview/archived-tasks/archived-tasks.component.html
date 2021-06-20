@@ -1,2 +1,2 @@
-<button mat-flat-button (click)="navigateBack()">Back</button>
+<app-back-button></app-back-button>
 <app-table [data$]="tasks$" [showColumns]="['title', 'status']" (editEvent)="navigateEditTask($event)"></app-table>

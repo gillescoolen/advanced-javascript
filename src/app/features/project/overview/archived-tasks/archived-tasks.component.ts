@@ -22,10 +22,6 @@ export class ArchivedComponent {
     this.tasks$ = this.taskService.getTasksByProject(this.id, true);
   }
 
-  async navigateBack() {
-    await this.router.navigate([`project/${this.id}`]);
-  }
-
   async navigateEditTask(id: string) {
     await this.router.navigate([`project/${this.id}/overview/${id}/edit`]);
   }
