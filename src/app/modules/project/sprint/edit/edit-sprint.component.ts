@@ -46,7 +46,7 @@ export class EditSprintComponent implements OnInit {
   constructor(private readonly sprintService: SprintService, private readonly backlogService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.pickAbleTasks$ = backlogService.getByProject(this.id, false, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
-    this.sprint$ = sprintService.getOne(this.id, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
+    this.sprint$ = sprintService.getSprintById(this.id, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
   }
 
   getErrorMessage(field: string, error: string): string {

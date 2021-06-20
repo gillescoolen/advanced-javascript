@@ -12,7 +12,7 @@ export type Sprint = {
   active: boolean
 };
 
-export type AbstractSprint = {
+export type SprintDto = {
   id: string,
   title: string,
   description: string,

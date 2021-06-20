@@ -65,7 +65,7 @@ export class CreateSprintComponent {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
 
-      await this.sprintService.create({
+      await this.sprintService.createSprint({
         title: values.title,
         description: values.description,
         startDate: Timestamp.fromDate(moment(values.start).toDate()),

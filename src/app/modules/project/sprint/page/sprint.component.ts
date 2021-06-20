@@ -23,9 +23,9 @@ export class SprintComponent implements OnInit {
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.members$ = sprintService.getUsersAndStories(projectId);
-    this.sprint$ = sprintService.active(projectId);
-    this.stories$ = sprintService.getStories(projectId);
+    this.members$ = sprintService.getMembersAndTasks(projectId);
+    this.sprint$ = sprintService.getActiveSprint(projectId);
+    this.stories$ = sprintService.getTasksBySprint(projectId);
     this.sprint$.subscribe(sprint => this.title = sprint[0].title);
     this.sprint$.subscribe(sprint => this.description = sprint[0].description);
   }
@@ -41,12 +41,12 @@ export class SprintComponent implements OnInit {
     const task = {
       ...event.item.data,
       status: event.container.data.status,
-      assignee: event.container.data.member ? this.userService.getUserRef(event.container.data.member.id) : null
+      assigned: event.container.data.member ? this.userService.getRef(event.container.data.member.id) : null
     }
 
     const id = this.activatedRoute.snapshot.paramMap.get('id') ?? ''
     
-    await this.sprintService.updateStory(task, id);
+    await this.sprintService.updateTask(task, id);
   }
 
   getStatuses(): string[] {

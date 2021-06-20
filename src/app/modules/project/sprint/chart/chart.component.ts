@@ -90,9 +90,9 @@ export class ChartComponent implements OnInit {
 
   constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.members$ = sprintService.getUsersAndStories(projectId);
-    this.sprint$ = sprintService.active(projectId);
-    this.stories$ = sprintService.getStories(projectId);
+    this.members$ = sprintService.getMembersAndTasks(projectId);
+    this.sprint$ = sprintService.getActiveSprint(projectId);
+    this.stories$ = sprintService.getTasksBySprint(projectId);
     this.sprint$.subscribe(sprint => this.title = sprint[0].title);
   }
 
@@ -100,7 +100,7 @@ export class ChartComponent implements OnInit {
     this.stories$.subscribe(stories => {
       this.chartDataSets = [];
 
-      const total = stories.reduce((sum, u) => u.storyPoints + sum, 0);
+      const total = stories.reduce((sum, u) => u.points + sum, 0);
       const estimatedData = [total];
       const actualData = [total];
       const finishedTasks = [];
@@ -119,7 +119,7 @@ export class ChartComponent implements OnInit {
           }
         });
 
-        const totalPoints = currentStories.reduce((sum, u) => u.storyPoints + sum, 0);
+        const totalPoints = currentStories.reduce((sum, u) => u.points + sum, 0);
         if (d.isBefore(moment())) {
           if (total - totalPoints < total) {
             actualData.push(actualData[actualData.length - 1] - totalPoints);
