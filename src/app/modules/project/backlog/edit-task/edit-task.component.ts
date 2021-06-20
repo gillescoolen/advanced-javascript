@@ -8,11 +8,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../core/services/user';
 
 @Component({
-  selector: 'app-edit-user-story',
-  templateUrl: './edit-user-story.component.html',
-  styleUrls: ['./edit-user-story.component.scss']
+  selector: 'app-edit-task',
+  templateUrl: './edit-task.component.html',
+  styleUrls: ['./edit-task.component.scss']
 })
-export class EditUserStoryComponent implements OnInit {
+export class EditTaskComponent implements OnInit {
   private readonly projectId;
   private readonly userStoryId;
   private readonly errorMessages = {

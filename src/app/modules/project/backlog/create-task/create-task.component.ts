@@ -8,9 +8,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskCreateDTO } from '../../../../core/types/task.type';
 
 @Component({
-  selector: 'app-create-user-story',
-  templateUrl: './create-user-story.component.html',
-  styleUrls: ['./create-user-story.component.scss']
+  selector: 'app-create-task',
+  templateUrl: './create-task.component.html',
+  styleUrls: ['./create-task.component.scss']
 })
 export class CreateTaskComponent {
   private readonly id;

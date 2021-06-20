@@ -5,9 +5,9 @@ import { Observable, of } from 'rxjs';
 import { BaseTask } from '../../../../core/types/task.type';
 
 @Component({
-  selector: 'app-archived',
-  templateUrl: './archived.component.html',
-  styleUrls: ['./archived.component.scss']
+  selector: 'app-archived-tasks',
+  templateUrl: './archived-tasks.component.html',
+  styleUrls: ['./archived-tasks.component.scss']
 })
 export class ArchivedComponent {
   private readonly id;

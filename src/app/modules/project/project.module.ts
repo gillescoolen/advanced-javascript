@@ -8,13 +8,13 @@ import { SprintComponent } from './sprint/page/sprint.component';
 import { FlexModule } from '@angular/flex-layout';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { BacklogComponent } from './backlog/backlog.component';
-import { CreateTaskComponent } from './backlog/create-user-story/create-user-story.component';
+import { CreateTaskComponent } from './backlog/create-task/create-task.component';
 import { ChartsModule } from 'ng2-charts';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';
-import { EditUserStoryComponent } from './backlog/edit-user-story/edit-user-story.component';
+import { EditTaskComponent } from './backlog/edit-task/edit-task.component';
 import { FormsModule } from '@angular/forms';
-import { ArchivedComponent } from './backlog/archived/archived.component';
+import { ArchivedComponent } from './backlog/archived-tasks/archived-tasks.component';
 import { CreateMemberComponent } from './member/create/create-member.component';
 import { EditMemberComponent } from './member/edit/edit-member.component';
 import { ChartComponent } from './sprint/chart/chart.component';
@@ -30,7 +30,7 @@ import { ChartComponent } from './sprint/chart/chart.component';
     CreateTaskComponent,
     CreateSprintComponent,
     EditSprintComponent,
-    EditUserStoryComponent,
+    EditTaskComponent,
     ArchivedComponent,
     CreateMemberComponent,
     EditMemberComponent,

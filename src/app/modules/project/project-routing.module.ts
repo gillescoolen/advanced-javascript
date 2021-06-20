@@ -6,11 +6,11 @@ import { CreateProjectComponent } from './create/create-project.component';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { SprintComponent } from './sprint/page/sprint.component';
 import { BacklogComponent } from './backlog/backlog.component';
-import { CreateTaskComponent } from './backlog/create-user-story/create-user-story.component';
+import { CreateTaskComponent } from './backlog/create-task/create-task.component';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';
-import { EditUserStoryComponent } from './backlog/edit-user-story/edit-user-story.component';
-import { ArchivedComponent } from './backlog/archived/archived.component';
+import { EditTaskComponent } from './backlog/edit-task/edit-task.component';
+import { ArchivedComponent } from './backlog/archived-tasks/archived-tasks.component';
 import { CreateMemberComponent } from './member/create/create-member.component';
 import { EditMemberComponent } from './member/edit/edit-member.component';
 import { UserResolver } from '../../core/resolvers/user.resolver';
@@ -67,7 +67,7 @@ const routes: Routes = [
       },
       {
         path: ':id/backlog/:userStoryId/edit',
-        component: EditUserStoryComponent
+        component: EditTaskComponent
       }
     ]
   }
