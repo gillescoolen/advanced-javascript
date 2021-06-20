@@ -1,5 +1,3 @@
-import { Component, OnInit } from '@angular/core';
-import { Status } from '../../../../shared/types/status.enum';
 import { SprintService } from '../../../../shared/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +7,9 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Sprint } from '../../../../shared/types/sprint.type';
 import * as moment from 'moment/moment';
-import { Task } from '../../../../shared/types/task.type';
+import { Component, OnInit } from "@angular/core";
+import { Status } from "../../../../shared/types/task.enum";
+import { Task } from "../../../../shared/types/task.type";
 
 @Component({
   selector: 'app-chart',
@@ -17,7 +17,7 @@ import { Task } from '../../../../shared/types/task.type';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  status = Status;
+  statusEnum = Status;
   members$: Observable<Member[]> = of([]);
   tasks$: Observable<Task[]> = of([]);
   sprint$: Observable<Sprint[]> = of([]);
@@ -28,9 +28,6 @@ export class ChartComponent implements OnInit {
   public dataSets: ChartDataSets[] = [];
   public labels: Label[] = [];
 
-  private startDate: Date;
-  private endDate: Date;
-  
   public chartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -48,7 +45,9 @@ export class ChartComponent implements OnInit {
         label: function (tooltipItem, data) {
           let label = data.datasets[tooltipItem.datasetIndex].label || '';
 
-          if (label) label += ': ';
+          if (label) {
+            label += ': ';
+          }
 
           label += +(Math.round(Number(Number(tooltipItem.yLabel) + "e+" + 1)) + "e-" + 1);
 
@@ -85,11 +84,10 @@ export class ChartComponent implements OnInit {
     }
   ];
 
-  constructor(
-    private readonly sprintService: SprintService,
-    private readonly userService: UserService,
-    private readonly activatedRoute: ActivatedRoute
-  ) {
+  private startDate: Date;
+  private endDate: Date;
+
+  constructor(private readonly sprintService: SprintService, private readonly userService: UserService, private readonly activatedRoute: ActivatedRoute) {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.members$ = sprintService.getUsersAndTasks(projectId);
     this.sprint$ = sprintService.getActiveSprint(projectId);
@@ -101,37 +99,39 @@ export class ChartComponent implements OnInit {
     this.tasks$.subscribe(tasks => {
       this.dataSets = [];
 
-      const totalAmount = tasks.reduce((sum, u) => u.points + sum, 0);
-      const estimated = [totalAmount];
-      const actual = [totalAmount];
+      const total = tasks.reduce((sum, u) => u.points + sum, 0);
+      const estimatedData = [total];
+      const actualData = [total];
       const finishedTasks = [];
 
-      for (let i = 0; i < this.labels.length - 1; ++i) 
-        estimated
-          .push(i + 1 === this.labels.length - 1 ? 0 : estimated[i] - totalAmount / (this.labels.length - 1));
+      for (let i = 0; i < this.labels.length - 1; ++i) {
+        estimatedData.push(i + 1 === this.labels.length - 1 ? 0 : estimatedData[i] - total / (this.labels.length - 1));
+      }
 
-      this.getRange(this.startDate, this.endDate, 'days').forEach(date => {
-        const currentTasks = tasks.filter(task => {
-          if (!task || task.status !== this.status.DONE) return;
+      this.getRange(this.startDate, this.endDate, 'days').forEach(d => {
+        const currTasks = tasks.filter(s => {
+          if (!s || s.status !== Status.DONE) return;
 
-          const date = moment(task.updatedAt.toDate());
-
-          if (date.isSame(date, 'day')) return task;
+          const taskDate = moment(s.updatedAt.toDate());
+          if (taskDate.isSame(d, 'day')) {
+            return s;
+          }
         });
 
-        const totalPoints = currentTasks.reduce((sum, task) => task.points + sum, 0);
-
-        if (date.isBefore(moment())) {
-          totalAmount - totalPoints < totalAmount
-            ? actual.push(actual[actual.length - 1] - totalPoints)
-            : actual.push(totalAmount > actual[actual.length - 1] ? actual[actual.length - 1] : totalAmount);
+        const totalPoints = currTasks.reduce((sum, u) => u.points + sum, 0);
+        if (d.isBefore(moment())) {
+          if (total - totalPoints < total) {
+            actualData.push(actualData[actualData.length - 1] - totalPoints);
+          } else {
+            actualData.push(total > actualData[actualData.length - 1] ? actualData[actualData.length - 1] : total);
+          }
         }
 
-        finishedTasks.push(currentTasks.length);
+        finishedTasks.push(currTasks.length);
       });
 
-      this.dataSets.push({ data: estimated, label: 'Estimated Effort', borderDash: [5, 5] });
-      this.dataSets.push({ data: actual, label: 'Actual Effort', lineTension: 0.0 });
+      this.dataSets.push({ data: estimatedData, label: 'Estimated Effort', borderDash: [5, 5] });
+      this.dataSets.push({ data: actualData, label: 'Actual Effort', lineTension: 0.0 });
       this.dataSets.push({ data: finishedTasks, label: 'Finished Tasks', lineTension: 0.0 });
     });
 
@@ -147,13 +147,13 @@ export class ChartComponent implements OnInit {
   }
 
   getRange(startDate, endDate, type): moment.Moment[] {
-    const fromDate = moment(startDate)
-    const toDate = moment(endDate)
-    const diff = toDate.diff(fromDate, type)
-    const range = []
+    let fromDate = moment(startDate)
+    let toDate = moment(endDate)
+    let diff = toDate.diff(fromDate, type)
+    let range = []
 
     for (let i = 0; i <= diff; i++) range.push(moment(startDate).add(i, type))
-    
+
     return range;
   }
 }
