@@ -1,6 +1,6 @@
 import { User } from './user';
 import { DocumentReference } from '@angular/fire/firestore';
-import { Status } from './task.enum';
+import { Status } from './status.enum';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 

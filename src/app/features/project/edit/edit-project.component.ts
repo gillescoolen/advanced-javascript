@@ -4,7 +4,7 @@ import { ProjectService } from '../../../shared/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Project } from '../../../shared/types/project.type';
-import { Status } from '../../../shared/types/task.enum';
+import { Status } from '../../../shared/types/status.enum';
 
 @Component({
   selector: 'app-edit-project',

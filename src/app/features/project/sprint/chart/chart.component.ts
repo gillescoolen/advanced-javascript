@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Status } from '../../../../shared/types/task.enum';
+import { Status } from '../../../../shared/types/status.enum';
 import { SprintService } from '../../../../shared/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';

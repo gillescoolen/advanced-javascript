@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { Project } from '../types/project.type';
-import { Status } from '../types/task.enum';
+import { Status } from '../types/status.enum';
 import { map, mergeMap } from 'rxjs/operators';
 import { combineLatest, Observable, of } from 'rxjs';
 import {
