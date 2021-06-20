@@ -19,9 +19,6 @@ export class TableComponent<T> implements AfterContentInit {
   columns: string[] = [];
   private source: MatTableDataSource<T> | null = null;
 
-  @ViewChild(MatSort)
-  private sort: MatSort | null = null;
-
   constructor(private readonly activatedRoute: ActivatedRoute) { }
 
   show(data: T) {
@@ -33,7 +30,6 @@ export class TableComponent<T> implements AfterContentInit {
       this.columns = data.length === 0 ? [] : Object.getOwnPropertyNames(data[0]);
       this.columns = this.columns.filter(value => this.showColumns.includes(value));
       this.source = new MatTableDataSource(data);
-      this.source.sort = this.sort;
     });
   }
 
@@ -53,12 +49,12 @@ export class TableComponent<T> implements AfterContentInit {
     return this.editEvent.observers.length > 0;
   }
 
-  get canView() {
+  get canOpen() {
     return this.viewEvent.observers.length > 0;
   }
 
   get canInteract() {
-    return this.canDelete || this.canView || this.canEdit;
+    return this.canDelete || this.canOpen || this.canEdit;
   }
 
 }
