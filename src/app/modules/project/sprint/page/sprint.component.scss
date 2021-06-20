@@ -7,10 +7,15 @@
     margin-top: 3rem;
   }
 
+  .description {
+    width: 30rem;
+  }
+
   .row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 5rem;
 
     .column {
       width: 100%;
@@ -21,9 +26,13 @@
     width: 20rem;
   }
 
-  .mat-card {
+  .task {
     box-shadow: none;
     margin-bottom: 1rem;
+
+    .mat-card-title {
+      font-size: 1.2rem;
+    }
   }
 
   .lanes {
@@ -37,7 +46,7 @@
       .drop {
         min-height: 5rem;
         border-top: 1px solid #0000001f;
-        padding: 1rem;
+        padding: 0.2rem;
       }
     }
   }
