@@ -4,7 +4,7 @@ import { SharedModule } from '../../core/shared/shared.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { CreateProjectComponent } from './create/create-project.component';
-import { BoardComponent } from './sprint/board/board.component';
+import { SprintComponent } from './sprint/page/sprint.component';
 import { FlexModule } from '@angular/flex-layout';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { BacklogComponent } from './backlog/backlog.component';
@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ArchivedComponent } from './backlog/archived/archived.component';
 import { CreateMemberComponent } from './member/create/create-member.component';
 import { EditMemberComponent } from './member/edit/edit-member.component';
+import { ChartComponent } from './sprint/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { EditMemberComponent } from './member/edit/edit-member.component';
     CreateProjectComponent,
     EditProjectComponent,
     CreateProjectComponent,
-    BoardComponent,
+    SprintComponent,
     BacklogComponent,
     CreateUserStoryComponent,
     CreateSprintComponent,
@@ -32,7 +33,8 @@ import { EditMemberComponent } from './member/edit/edit-member.component';
     EditUserStoryComponent,
     ArchivedComponent,
     CreateMemberComponent,
-    EditMemberComponent
+    EditMemberComponent,
+    ChartComponent
   ],
   imports: [
     ProjectRoutingModule,

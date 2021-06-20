@@ -1,0 +1,53 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-size: 2rem;
+    margin-top: 3rem;
+  }
+
+  .description {
+    width: 30rem;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5rem;
+
+    .column {
+      width: 100%;
+    }
+  }
+
+  .todo {
+    width: 20rem;
+  }
+
+  .task {
+    box-shadow: none;
+    margin-bottom: 1rem;
+
+    .mat-card-title {
+      font-size: 1.2rem;
+    }
+  }
+
+  .lanes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .lane {
+      width: 100%;
+
+      .drop {
+        min-height: 5rem;
+        border-top: 1px solid #0000001f;
+        padding: 0.2rem;
+      }
+    }
+  }
+}
