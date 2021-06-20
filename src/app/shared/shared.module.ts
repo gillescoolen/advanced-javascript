@@ -33,14 +33,24 @@ import { MemberService } from './services/member.service';
       authGuardLoggedInURL: 'project'
     })
   ],
-  providers: [AuthService, ProjectService, UserService, OverviewService, MemberService],
-  exports: [LayoutModule, AngularFireModule, AngularFirestoreModule, AngularFireAuthModule],
+  providers: [
+    AuthService,
+    ProjectService,
+    UserService,
+    OverviewService,
+    MemberService],
+  exports: [
+    LayoutModule,
+    AngularFireModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule
+  ],
   declarations: []
 })
-export class CoreModule {
-  static forRoot(): ModuleWithProviders<CoreModule> {
+export class SharedModule {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
-      ngModule: CoreModule,
+      ngModule: SharedModule,
       providers: [
         UserResolver
       ]

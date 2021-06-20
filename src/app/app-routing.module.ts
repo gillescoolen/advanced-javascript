@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './shared/guards/auth.guard';
+import { LoginGuard } from './shared/guards/login.guard';
 import { LoggedInGuard } from 'ngx-auth-firebaseui';
 import { UserResolver } from './shared/resolvers/user.resolver';
 import { NotFoundComponent } from './features/not-found/not-found.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then((module) => module.AuthModule),
-    canActivate: [AuthGuard]
+    canActivate: [LoginGuard]
   },
   {
     path: 'project',

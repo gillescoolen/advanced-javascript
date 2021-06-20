@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
-import { CoreModule } from '../../shared/core.module';
+import { SharedModule } from '../../shared/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
-import { SharedModule } from '../../shared/common/shared.module';
+import { SharedComponentsModule } from '../../shared/common/shared-components.module';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @NgModule({
@@ -11,8 +11,8 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
   ],
   imports: [
     AuthRoutingModule,
-    CoreModule.forRoot(),
     SharedModule.forRoot(),
+    SharedComponentsModule.forRoot(),
     NgxAuthFirebaseUIModule
   ]
 })

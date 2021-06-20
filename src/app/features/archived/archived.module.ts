@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from '../../shared/core.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ArchivedRoutingModule } from './archived-routing.module';
-import { SharedModule } from '../../shared/common/shared.module';
+import { SharedComponentsModule } from '../../shared/common/shared-components.module';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { ArchivedProjectsComponent } from './projects/archived-projects.component';
 
@@ -11,8 +11,8 @@ import { ArchivedProjectsComponent } from './projects/archived-projects.componen
   ],
   imports: [
     ArchivedRoutingModule,
-    CoreModule.forRoot(),
     SharedModule.forRoot(),
+    SharedComponentsModule.forRoot(),
     NgxAuthFirebaseUIModule
   ]
 })

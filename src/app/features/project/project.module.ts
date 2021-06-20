@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CoreModule } from '../../shared/core.module';
-import { SharedModule } from '../../shared/common/shared.module';
+import { SharedModule } from '../../shared/shared.module';
+import { SharedComponentsModule } from '../../shared/common/shared-components.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { CreateProjectComponent } from './create/create-project.component';
@@ -38,8 +38,8 @@ import { ChartComponent } from './sprint/chart/chart.component';
   ],
   imports: [
     ProjectRoutingModule,
-    CoreModule.forRoot(),
     SharedModule.forRoot(),
+    SharedComponentsModule.forRoot(),
     FlexModule,
     ChartsModule,
     FormsModule

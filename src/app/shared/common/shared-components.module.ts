@@ -22,10 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ]
 })
-export class SharedModule {
-  static forRoot(): ModuleWithProviders<SharedModule> {
+export class SharedComponentsModule {
+  static forRoot(): ModuleWithProviders<SharedComponentsModule> {
     return {
-      ngModule: SharedModule,
+      ngModule: SharedComponentsModule,
       providers: []
     };
   }
