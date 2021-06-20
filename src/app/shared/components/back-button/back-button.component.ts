@@ -10,7 +10,7 @@ export class BackButtonComponent implements OnInit {
 
   constructor(private location: Location) { }
 
-  async goBack() {
+  goBack() {
     this.location.back();
   }
 

@@ -12,7 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProjectsComponent {
   projects$: Observable<ProjectDto[] | []> = of([]);
 
-  constructor(private readonly router: Router, private readonly projectService: ProjectService, private readonly activatedRoute: ActivatedRoute) {
+  constructor(
+    private readonly router: Router,
+    private readonly projectService: ProjectService,
+    private readonly activatedRoute: ActivatedRoute
+  ) {
     this.projects$ = this.projectService.getProjects(this.activatedRoute.snapshot.data.user, false);
   }
 

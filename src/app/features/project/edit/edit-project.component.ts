@@ -29,7 +29,11 @@ export class EditProjectComponent implements OnInit {
     }
   };
 
-  constructor(private readonly projectService: ProjectService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  constructor(
+    private readonly projectService: ProjectService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
+  ) {
     this.project$ = this.projectService.getProjectById(this.activatedRoute.snapshot.paramMap.get('id') ?? '');
   }
 
@@ -42,9 +46,7 @@ export class EditProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.project$.subscribe(project => {
-      if (!project) {
-        return;
-      }
+      if (!project) return;
 
       this.formGroup = new FormGroup({
         name: new FormControl(project.name, [Validators.required, Validators.maxLength(64)]),
@@ -56,9 +58,8 @@ export class EditProjectComponent implements OnInit {
   }
 
   getErrorMessage(field: string, error: string): string {
-    if (this.formGroup.controls[field].hasError(error)) {
+    if (this.formGroup.controls[field].hasError(error))
       return this.errorMessages[field][error] ?? '';
-    }
 
     return '';
   }
