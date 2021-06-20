@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Task } from '../../../../shared/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SprintService } from '../../../../shared/services/sprint.service';
-import { OverviewService } from '../../../../shared/services/overview.service';
+import { TaskService } from '../../../../shared/services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import firebase from 'firebase';
@@ -40,16 +40,20 @@ export class EditSprintComponent implements OnInit {
     }
   };
 
-  constructor(private readonly sprintService: SprintService, private readonly overviewService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  constructor(
+    private readonly sprintService: SprintService,
+    private readonly taskService: TaskService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
+  ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.pickAbleTasks$ = overviewService.getByProject(this.id, false, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
+    this.pickAbleTasks$ = taskService.getByProject(this.id, false, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
     this.sprint$ = sprintService.getSprintById(this.id, this.activatedRoute.snapshot.paramMap.get('sprintId') ?? '');
   }
 
   getErrorMessage(field: string, error: string): string {
-    if (this.formGroup.controls[field].hasError(error)) {
+    if (this.formGroup.controls[field].hasError(error))
       return this.errorMessages[field][error] ?? '';
-    }
 
     return '';
   }
@@ -78,7 +82,7 @@ export class EditSprintComponent implements OnInit {
         description: new FormControl(sprint.description, [Validators.maxLength(192)]),
         start: new FormControl(moment(sprint.startDate.toDate()), [Validators.required]),
         end: new FormControl(moment(sprint.endDate.toDate()), [Validators.required]),
-        tasks: new FormControl(sprint.tasks.map(t => t.id), [Validators.required]),
+        tasks: new FormControl(sprint.tasks.map(task => task.id), [Validators.required]),
         active: new FormControl(sprint.active)
       });
     });

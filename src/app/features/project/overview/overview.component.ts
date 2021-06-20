@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OverviewService } from '../../../shared/services/overview.service';
+import { TaskService } from '../../../shared/services/task.service';
 import { BaseTask } from '../../../shared/types/task.type';
 import { SprintDto } from '../../../shared/types/sprint.type';
 import { SprintService } from '../../../shared/services/sprint.service';
@@ -24,12 +24,12 @@ export class OverviewComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly overviewService: OverviewService,
+    private readonly taskService:TaskService,
     private readonly sprintService: SprintService,
     private readonly memberService: MemberService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.tasks$ = this.overviewService.getTasksByProject(this.id);
+    this.tasks$ = this.taskService.getTasksByProject(this.id);
     this.sprints$ = this.sprintService.getAllSprints(this.id);
     this.members$ = this.memberService.getByProject(this.id);
     this.sprints$.subscribe(sprints => this.activeSprint = !sprints.find(s => s.active));

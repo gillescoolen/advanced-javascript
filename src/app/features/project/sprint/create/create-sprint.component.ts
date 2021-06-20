@@ -4,7 +4,7 @@ import { SprintService } from '../../../../shared/services/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Task } from '../../../../shared/types/task.type';
-import { OverviewService } from '../../../../shared/services/overview.service';
+import { TaskService } from '../../../../shared/services/task.service';
 import * as moment from "moment";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
@@ -45,9 +45,14 @@ export class CreateSprintComponent {
     }
   };
 
-  constructor(private readonly sprintService: SprintService, private readonly overviewService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  constructor(
+    private readonly sprintService: SprintService,
+    private readonly taskService: TaskService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
+  ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.pickAbleTasks$ = overviewService.getByProject(this.id);
+    this.pickAbleTasks$ = taskService.getByProject(this.id);
   }
 
   getErrorMessage(field: string, error: string): string {

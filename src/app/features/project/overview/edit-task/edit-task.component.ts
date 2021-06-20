@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OverviewService } from '../../../../shared/services/overview.service';
+import { TaskService } from '../../../../shared/services/task.service';
 import { ProjectService } from '../../../../shared/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -34,15 +34,15 @@ export class EditTaskComponent implements OnInit {
   formGroup = new FormGroup({});
 
   constructor(
-    private readonly overviewService: OverviewService,
+    private readonly taskService: TaskService,
     private readonly projectService: ProjectService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
   ) {
     this.projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.taskId = this.activatedRoute.snapshot.paramMap.get('taskId') ?? '';
-    this.task$ = this.overviewService.getOneWithUserData(this.projectId, this.taskId);
-    this.projectMembers$ = this.overviewService.getProjectMembers(this.projectId);
+    this.task$ = this.taskService.getOneWithUserData(this.projectId, this.taskId);
+    this.projectMembers$ = this.taskService.getProjectMembers(this.projectId);
   }
 
   ngOnInit(): void {
@@ -80,7 +80,7 @@ export class EditTaskComponent implements OnInit {
         archived: values.archived
       }
 
-      await this.overviewService.editTask(this.projectId, this.taskId, task);
+      await this.taskService.editTask(this.projectId, this.taskId, task);
       await this.router.navigate([`project/${this.projectId}`]);
     }
   }
