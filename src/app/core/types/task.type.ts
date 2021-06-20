@@ -9,8 +9,8 @@ export type Task = {
   title: string,
   description: string,
   status: Status
-  assignee?: DocumentReference<User> | null,
-  storyPoints: number,
+  assigned?: DocumentReference<User> | null,
+  points: number,
   archived: boolean,
   updatedAt: Timestamp
 };
@@ -19,32 +19,32 @@ export type BaseTask = {
   title: string,
   description: string,
   status: Status
-  assignee?: string | null,
-  storyPoints: number,
+  assigned?: string | null,
+  points: number,
   archived: boolean
 };
 
-export type TaskCreateDTO = {
+export type TaskCreateDto = {
   title: string,
   description: string
-  assignee: string | undefined,
-  storyPoints: number
+  assigned: string | undefined,
+  points: number
 };
 
-export type TaskFormDTO = {
+export type TaskFormDto = {
   id: string,
   title: string,
   description: string,
-  assignee?: User | null
-  storyPoints: number,
+  assigned?: User | null
+  points: number,
   archived: boolean,
   updatedAt: Timestamp
 };
 
-export type TaskEditDTO = {
+export type TaskEditDto = {
   title: string,
   description: string
-  assignee: string | undefined,
-  storyPoints: number,
+  assigned: string | undefined,
+  points: number,
   archived: boolean,
 };

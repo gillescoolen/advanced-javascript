@@ -19,7 +19,7 @@ export class ArchivedComponent {
     private readonly backlogService: OverviewService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.userStories$ = this.backlogService.getByProjectAbstract(this.id, true);
+    this.userStories$ = this.backlogService.getTasksByProject(this.id, true);
   }
 
   async navigateBack() {

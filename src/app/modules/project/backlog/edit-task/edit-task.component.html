@@ -15,8 +15,8 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Assignee</mat-label>
-    <mat-select formControlName="selectedAssignee">
+    <mat-label>Assigned</mat-label>
+    <mat-select formControlName="selectedAssigned">
       <mat-option>Select an option</mat-option>
       <mat-option *ngFor="let user of projectMembers$ | async" [value]="user.uid">
         {{ user.displayName }}

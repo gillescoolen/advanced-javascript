@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { User } from '../../../../core/types/user';
 import { ProjectService } from '../../../../core/services/project.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TaskCreateDTO } from '../../../../core/types/task.type';
+import { TaskCreateDto } from '../../../../core/types/task.type';
 
 @Component({
   selector: 'app-create-task',
@@ -18,7 +18,7 @@ export class CreateTaskComponent {
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     description: new FormControl('', [Validators.maxLength(1024)]),
-    selectedAssignee: new FormControl(''),
+    selectedAssigned: new FormControl(''),
     storyPoints: new FormControl(0, [Validators.min(0), Validators.max(24)])
   });
 
@@ -58,11 +58,11 @@ export class CreateTaskComponent {
     const form = this.formGroup.value;
 
     if (!this.formGroup.invalid) {
-      const story: TaskCreateDTO = {
+      const story: TaskCreateDto = {
         title: form.title,
         description: form.description,
-        assignee: form.selectedAssignee === '' ? undefined : form.selectedAssignee,
-        storyPoints: form.storyPoints
+        assigned: form.selectedAssigned === '' ? undefined : form.selectedAssigned,
+        points: form.storyPoints
       };
 
       await this.backlogService.create(this.id, story);

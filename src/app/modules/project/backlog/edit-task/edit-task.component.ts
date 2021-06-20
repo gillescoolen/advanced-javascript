@@ -3,7 +3,7 @@ import { OverviewService } from '../../../../core/services/overview.service';
 import { ProjectService } from '../../../../core/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { TaskFormDTO } from '../../../../core/types/task.type';
+import { TaskFormDto } from '../../../../core/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../core/types/user';
 
@@ -32,7 +32,7 @@ export class EditTaskComponent implements OnInit {
     }
   };
 
-  userStory$: Observable<TaskFormDTO | undefined> = of();
+  userStory$: Observable<TaskFormDto | undefined> = of();
   projectMembers$: Observable<(User | undefined)[]> = of([]);
   formGroup = new FormGroup({});
 
@@ -57,8 +57,8 @@ export class EditTaskComponent implements OnInit {
       this.formGroup = new FormGroup({
         title: new FormControl(userStory.title, [Validators.required, Validators.maxLength(255)]),
         description: new FormControl(userStory.description, [Validators.maxLength(1024)]),
-        selectedAssignee: new FormControl(userStory.assignee == null ? '' : userStory.assignee.uid),
-        storyPoints: new FormControl(userStory.storyPoints, [Validators.min(0), Validators.max(24)]),
+        selectedAssigned: new FormControl(userStory.assigned == null ? '' : userStory.assigned.uid),
+        storyPoints: new FormControl(userStory.points, [Validators.min(0), Validators.max(24)]),
         archived: new FormControl(userStory.archived, [Validators.required])
       });
     });
@@ -75,11 +75,11 @@ export class EditTaskComponent implements OnInit {
   async edit() {
     if (!this.formGroup.invalid) {
       const values = this.formGroup.value;
-      await this.backlogService.editUserStory(this.projectId, this.userStoryId, {
+      await this.backlogService.editTask(this.projectId, this.userStoryId, {
         title: values.title,
         description: values.description,
-        assignee: values.selectedAssignee === '' ? undefined : values.selectedAssignee,
-        storyPoints: values.storyPoints,
+        assigned: values.selectedAssigned === '' ? undefined : values.selectedAssigned,
+        points: values.storyPoints,
         archived: values.archived
       });
 
