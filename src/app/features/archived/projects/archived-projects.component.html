@@ -1,1 +1,4 @@
-<app-table [data$]="projects$" [showColumns]="['title', 'startDate', 'endDate']" (editEvent)="edit($event)"></app-table>
+<div class="wrapper">
+  <a mat-flat-button routerLink="/project/create" routerLinkActive="active" color="accent">Create a new project</a>
+</div>
+<app-table [data$]="projects$" [showColumns]="['name', 'owner']" (editEvent)="edit($event)"></app-table>

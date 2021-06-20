@@ -26,9 +26,6 @@ export class EditProjectComponent implements OnInit {
     },
     status: {
       maxLength: 'Status can not exceed 30 characters!'
-    },
-    archived: {
-      required: 'Archived is required to be set on either true/false!',
     }
   };
 

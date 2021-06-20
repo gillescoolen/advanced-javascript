@@ -103,7 +103,7 @@ export class OverviewService {
 
     const project = {
       title: task.title,
-      archived: false,
+      archived: task.archived,
       status: Status.BACKLOG,
       description: task.description,
       assigned: userRef,

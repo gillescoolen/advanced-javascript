@@ -26,9 +26,6 @@ export class EditTaskComponent implements OnInit {
     storyPoints: {
       min: 'Story points can not have a value lower than 0!',
       max: 'Story points can not have a value higher than 24!'
-    },
-    archived: {
-      required: 'Archived is required to be set on either true/false!',
     }
   };
 
@@ -53,11 +50,11 @@ export class EditTaskComponent implements OnInit {
       if (!task) return;
 
       this.formGroup = new FormGroup({
-        title: new FormControl(task.title, [Validators.required, Validators.maxLength(255)]),
-        description: new FormControl(task.description, [Validators.maxLength(1024)]),
-        selectedAssigned: new FormControl(task.assigned == null ? '' : task.assigned.uid),
-        storyPoints: new FormControl(task.points, [Validators.min(0), Validators.max(24)]),
-        archived: new FormControl(task.archived, [Validators.required])
+        title: new FormControl(userStory.title, [Validators.required, Validators.maxLength(255)]),
+        description: new FormControl(userStory.description, [Validators.maxLength(1024)]),
+        selectedAssignee: new FormControl(userStory.assignee == null ? '' : userStory.assignee.uid),
+        storyPoints: new FormControl(userStory.storyPoints, [Validators.min(0), Validators.max(24)]),
+        archived: new FormControl(userStory.archived)
       });
     });
   }

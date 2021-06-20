@@ -18,8 +18,9 @@ export class CreateTaskComponent {
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     description: new FormControl('', [Validators.maxLength(1024)]),
-    selectedAssigned: new FormControl(''),
-    storyPoints: new FormControl(0, [Validators.min(0), Validators.max(24)])
+    selectedAssignee: new FormControl(''),
+    storyPoints: new FormControl(0, [Validators.min(0), Validators.max(24)]),
+    archived: new FormControl(false)
   });
 
   private readonly errorMessages = {
@@ -61,8 +62,9 @@ export class CreateTaskComponent {
       const story: TaskCreateDto = {
         title: form.title,
         description: form.description,
-        assigned: form.selectedAssigned === '' ? undefined : form.selectedAssigned,
-        points: form.storyPoints
+        assignee: form.selectedAssignee === '' ? undefined : form.selectedAssignee,
+        storyPoints: form.storyPoints,
+        archived: form.archived
       };
 
       await this.backlogService.create(this.id, story);

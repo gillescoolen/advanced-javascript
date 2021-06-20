@@ -13,3 +13,14 @@ body {
     background-color: unset;
   }
 }
+
+.grouped-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .ml {
+    margin-left: 1rem;
+  }
+}

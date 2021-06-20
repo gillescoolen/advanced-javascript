@@ -23,7 +23,7 @@ export class CreateSprintComponent {
     start: new FormControl('', [Validators.required]),
     end: new FormControl('', [Validators.required]),
     tasks: new FormControl('', [Validators.required]),
-    active: new FormControl(false, [Validators.required])
+    active: new FormControl(false)
   });
 
   private readonly errorMessages = {
@@ -42,9 +42,6 @@ export class CreateSprintComponent {
     },
     tasks: {
       required: 'You need to select at least one task'
-    },
-    active: {
-      required: 'Archived is required',
     }
   };
 

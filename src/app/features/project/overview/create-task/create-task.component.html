@@ -31,5 +31,8 @@
       {{ this.getErrorMessage('storyPoints', 'max') }}
     </mat-error>
   </mat-form-field>
-  <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">Create</button>
+  <div class="grouped-button">
+    <mat-slide-toggle formControlName="archived">Archived</mat-slide-toggle>
+    <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary" class="ml">Create</button>
+  </div>
 </form>

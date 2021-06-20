@@ -28,7 +28,8 @@ export type TaskCreateDto = {
   title: string,
   description: string
   assigned: string | undefined,
-  points: number
+  points: number,
+  archived: boolean,
 };
 
 export type TaskFormDto = {
