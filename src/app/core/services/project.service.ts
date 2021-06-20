@@ -25,7 +25,7 @@ export class ProjectService {
       description: project.description ?? '',
       status: project.status ?? '',
       owner: ref,
-      archived: false
+      archived: project.archived
     });
   }
 

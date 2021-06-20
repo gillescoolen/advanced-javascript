@@ -7,12 +7,17 @@
     <ng-container *ngIf="canInteract" matColumnDef="interactions">
       <th mat-header mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button *ngIf="canView" (click)="viewEvent.emit(element['id'])">View</button>
+        <button mat-button *ngIf="canView" (click)="viewEvent.emit(element['id'])">Open</button>
         <button mat-button *ngIf="canEdit && showInteractions(element)" (click)="editEvent.emit(element['id'])" id="edit">Edit</button>
         <button mat-button *ngIf="canDelete && showInteractions(element)" (click)="deleteEvent.emit(element['id'])">Delete</button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="canInteract ? columns.concat('interactions') : columns"></tr>
     <tr mat-row *matRowDef="let row; columns: canInteract ? columns.concat('interactions') : columns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="9999">
+        No data available yet, start adding some!
+      </td>
+    </tr>
   </table>
 </div>

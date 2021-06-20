@@ -13,7 +13,7 @@ export class CreateProjectComponent {
     name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
     description: new FormControl('', [Validators.maxLength(300)]),
     status: new FormControl('', [Validators.maxLength(30)]),
-    archived: new FormControl(false, [Validators.required])
+    archived: new FormControl(false)
   });
 
   private readonly errorMessages = {
@@ -26,9 +26,6 @@ export class CreateProjectComponent {
     },
     status: {
       maxLength: 'Status can not exceed 30 characters!'
-    },
-    archived: {
-      required: 'Archived is required to be set on either true/false!',
     }
   };
 

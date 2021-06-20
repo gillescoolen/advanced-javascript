@@ -90,7 +90,7 @@ export class BacklogService {
       .doc()
       .set({
         title: userStory.title,
-        archived: false,
+        archived: userStory.archived,
         status: UserStoryStatus.NO_STATUS,
         description: userStory.description,
         assignee: userRef,

@@ -28,7 +28,8 @@ export type UserStoryCreateDTO = {
   title: string,
   description: string
   assignee: string | undefined,
-  storyPoints: number
+  storyPoints: number,
+  archived: boolean,
 };
 
 export type EditableUserStory = {
