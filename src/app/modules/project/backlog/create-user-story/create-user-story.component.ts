@@ -19,7 +19,7 @@ export class CreateUserStoryComponent {
     title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
     description: new FormControl('', [Validators.maxLength(1024)]),
     selectedAssignee: new FormControl(''),
-    storyPoints: new FormControl(0, [Validators.min(0), Validators.max(24)]),
+    storyPoints: new FormControl(null, [Validators.min(0), Validators.max(24)]),
     archived: new FormControl(false)
   });
 
