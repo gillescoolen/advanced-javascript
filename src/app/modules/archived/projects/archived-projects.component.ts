@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AbstractProject } from '../../../core/types/project.type';
+import { ProjectDto } from '../../../core/types/project.type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
 
@@ -10,10 +10,10 @@ import { ProjectService } from '../../../core/services/project.service';
   styleUrls: ['./archived-projects.component.scss']
 })
 export class ArchivedProjectsComponent {
-  projects$: Observable<AbstractProject[]> = of([]);
+  projects$: Observable<ProjectDto[]> = of([]);
 
   constructor(private readonly router: Router, private readonly projectService: ProjectService, private readonly activatedRoute: ActivatedRoute) {
-    this.projects$ = this.projectService.allAbstract(this.activatedRoute.snapshot.data.user, true);
+    this.projects$ = this.projectService.getProjects(this.activatedRoute.snapshot.data.user, true);
   }
 
   async edit(id: string) {

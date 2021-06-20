@@ -16,7 +16,7 @@ import { Task } from '../../../../core/types/task.type';
 })
 export class SprintComponent implements OnInit {
   members$: Observable<Member[]> = of([]);
-  stories$: Observable<Task[]> = of([]);
+  tasks$: Observable<Task[]> = of([]);
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
   description = '';
@@ -25,7 +25,7 @@ export class SprintComponent implements OnInit {
     const projectId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
     this.members$ = sprintService.getMembersAndTasks(projectId);
     this.sprint$ = sprintService.getActiveSprint(projectId);
-    this.stories$ = sprintService.getTasksBySprint(projectId);
+    this.tasks$ = sprintService.getTasksBySprint(projectId);
     this.sprint$.subscribe(sprint => this.title = sprint[0].title);
     this.sprint$.subscribe(sprint => this.description = sprint[0].description);
   }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login.component';
 import { CoreModule } from '../../core/core.module';
 import { AuthRoutingModule } from './auth-routing.module';
-import { SharedModule } from '../../core/shared/shared.module';
+import { SharedModule } from '../../core/common/shared.module';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 
 @NgModule({
