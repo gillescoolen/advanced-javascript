@@ -79,7 +79,7 @@ export class EditSprintComponent implements OnInit {
         start: new FormControl(moment(sprint.startDate.toDate()), [Validators.required]),
         end: new FormControl(moment(sprint.endDate.toDate()), [Validators.required]),
         tasks: new FormControl(sprint.tasks.map(t => t.id), [Validators.required]),
-        active: new FormControl(sprint.active, [Validators.required])
+        active: new FormControl(sprint.active)
       });
     });
   }

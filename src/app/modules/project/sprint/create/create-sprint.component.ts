@@ -22,7 +22,8 @@ export class CreateSprintComponent {
     description: new FormControl('', [Validators.maxLength(500)]),
     start: new FormControl('', [Validators.required]),
     end: new FormControl('', [Validators.required]),
-    tasks: new FormControl('', [Validators.required])
+    tasks: new FormControl('', [Validators.required]),
+    active: new FormControl(false)
   });
 
   private readonly errorMessages = {

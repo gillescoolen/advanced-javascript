@@ -56,7 +56,7 @@ export class EditUserStoryComponent implements OnInit {
         description: new FormControl(userStory.description, [Validators.maxLength(1024)]),
         selectedAssignee: new FormControl(userStory.assignee == null ? '' : userStory.assignee.uid),
         storyPoints: new FormControl(userStory.storyPoints, [Validators.min(0), Validators.max(24)]),
-        archived: new FormControl(userStory.archived, [Validators.required])
+        archived: new FormControl(userStory.archived)
       });
     });
   }
