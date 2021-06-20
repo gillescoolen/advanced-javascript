@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProjectService } from '../../../core/services/project.service';
 import { Observable, of } from 'rxjs';
-import { AbstractProject } from '../../../core/types/project.type';
+import { ProjectDto } from '../../../core/types/project.type';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,13 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent {
-  projects$: Observable<AbstractProject[] | []> = of([]);
+  projects$: Observable<ProjectDto[] | []> = of([]);
 
   constructor(private readonly router: Router, private readonly projectService: ProjectService, private readonly activatedRoute: ActivatedRoute) {
-    this.projects$ = this.projectService.allAbstract(this.activatedRoute.snapshot.data.user);
+    this.projects$ = this.projectService.getProjects(this.activatedRoute.snapshot.data.user, false);
   }
 
-  showInteract(project: AbstractProject) {
+  showInteract(project: ProjectDto) {
     return this.activatedRoute.snapshot.data.user.uid === project.ownerId;
   }
 

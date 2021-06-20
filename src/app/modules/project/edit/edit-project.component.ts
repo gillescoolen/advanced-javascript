@@ -33,12 +33,12 @@ export class EditProjectComponent implements OnInit {
   };
 
   constructor(private readonly projectService: ProjectService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
-    this.project$ = this.projectService.oneById(this.activatedRoute.snapshot.paramMap.get('id') ?? '');
+    this.project$ = this.projectService.getProjectById(this.activatedRoute.snapshot.paramMap.get('id') ?? '');
   }
 
   async edit() {
     if (!this.formGroup.invalid) {
-      await this.projectService.update(this.activatedRoute.snapshot.paramMap.get('id') ?? '', this.formGroup.value);
+      await this.projectService.updateProject(this.activatedRoute.snapshot.paramMap.get('id') ?? '', this.formGroup.value);
       await this.router.navigate(['/project']);
     }
   }

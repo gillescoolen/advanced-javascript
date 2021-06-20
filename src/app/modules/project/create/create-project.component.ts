@@ -37,7 +37,7 @@ export class CreateProjectComponent {
 
   async create() {
     if (!this.formGroup.invalid) {
-      await this.projectService.create(this.activatedRoute.snapshot.data.user, this.formGroup.value);
+      await this.projectService.createProject(this.activatedRoute.snapshot.data.user, this.formGroup.value);
       await this.router.navigate(['/project']);
     }
   }
