@@ -35,22 +35,18 @@ export class MemberService {
       ));
   }
 
-  async adDtoProject(projectId: string, userId: string, role: string) {
+  async addToProject(projectId: string, userId: string, role: string) {
     const project = await this.firestore
       .collection<Project>('projects')
       .doc(projectId)
       .ref.get();
     
     const members = [...project.data().members, { user: this.userService.getRef(userId), role }];
-    const flatMembers = [...project.data().flatMembers, userId];
 
     await this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .update({
-        members,
-        flatMembers
-      });
+      .update({ members });
   }
 
   async updateInProject(projectId: string, userId: string, role: string) {
