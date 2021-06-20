@@ -37,9 +37,6 @@ export class EditSprintComponent implements OnInit {
     },
     tasks: {
       required: 'You need to select at least one task'
-    },
-    active: {
-      required: 'Archived is required',
     }
   };
 

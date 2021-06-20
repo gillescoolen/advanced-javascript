@@ -26,9 +26,6 @@ export class EditUserStoryComponent implements OnInit {
     storyPoints: {
       min: 'Story points can not have a value lower than 0!',
       max: 'Story points can not have a value higher than 24!'
-    },
-    archived: {
-      required: 'Archived is required to be set on either true/false!',
     }
   };
 

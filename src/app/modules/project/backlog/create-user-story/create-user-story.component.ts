@@ -20,7 +20,7 @@ export class CreateUserStoryComponent {
     description: new FormControl('', [Validators.maxLength(1024)]),
     selectedAssignee: new FormControl(''),
     storyPoints: new FormControl(0, [Validators.min(0), Validators.max(24)]),
-    archived: new FormControl(false, [Validators.required])
+    archived: new FormControl(false)
   });
 
   private readonly errorMessages = {
@@ -34,9 +34,6 @@ export class CreateUserStoryComponent {
     storyPoints: {
       min: 'Story points can not have a value lower than 0!',
       max: 'Story points can not have a value higher than 24!'
-    },
-    archived: {
-      required: 'Archived is required to be set on either true/false!',
     }
   };
 

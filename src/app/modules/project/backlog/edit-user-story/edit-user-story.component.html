@@ -33,9 +33,6 @@
   </mat-form-field>
   <div class="grouped-button">
     <mat-slide-toggle formControlName="archived">Archived</mat-slide-toggle>
-    <mat-error *ngIf="formGroup.controls['archived'].invalid">
-      {{ this.getErrorMessage('archived', 'required') }}
-    </mat-error>
     <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary" class="ml">Save</button>
   </div>
 </form>
