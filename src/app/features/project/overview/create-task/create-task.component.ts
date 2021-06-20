@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OverviewService } from '../../../../shared/services/overview.service';
+import { TaskService } from '../../../../shared/services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { User } from '../../../../shared/types/user';
@@ -16,35 +16,35 @@ export class CreateTaskComponent {
   private readonly id;
   pickAbleMembers$: Observable<(User | undefined)[]> = of([]);
   formGroup = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-    description: new FormControl('', [Validators.maxLength(1024)]),
-    selectedAssignee: new FormControl(''),
-    storyPoints: new FormControl(0, [Validators.min(0), Validators.max(24)]),
+    title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+    description: new FormControl('', [Validators.maxLength(192)]),
+    selectedAssigned: new FormControl(''),
+    storyPoints: new FormControl(null, [Validators.min(0), Validators.max(24)]),
     archived: new FormControl(false)
   });
 
   private readonly errorMessages = {
     title : {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters!'
+      maxLength: 'The maximum allowed length is 192'
     },
     storyPoints: {
-      min: 'Story points can not have a value lower than 0!',
-      max: 'Story points can not have a value higher than 24!'
+      min: 'Story points must be between 0 and 24',
+      max: 'Story points must be between 0 and 24'
     }
   };
 
   constructor(
-    private readonly overviewService: OverviewService,
+    private readonly taskService: TaskService,
     private readonly projectService: ProjectService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.pickAbleMembers$ = this.overviewService.getProjectMembers(this.id);
+    this.pickAbleMembers$ = this.taskService.getProjectMembers(this.id);
   }
 
   getErrorMessage(field: string, error: string): string {
@@ -62,12 +62,12 @@ export class CreateTaskComponent {
       const story: TaskCreateDto = {
         title: form.title,
         description: form.description,
-        assigned: form.selectedAssignee === '' ? undefined : form.selectedAssignee,
+        assigned: form.selectedAssigned === '' ? undefined : form.selectedAssigned,
         points: form.storyPoints,
         archived: form.archived
       };
 
-      await this.overviewService.create(this.id, story);
+      await this.taskService.create(this.id, story);
       await this.router.navigate([`project/${this.id}`]);
     }
   }

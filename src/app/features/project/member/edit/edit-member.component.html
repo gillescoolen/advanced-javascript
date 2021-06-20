@@ -1,3 +1,4 @@
+<app-back-button></app-back-button>
 <form class="form-column" [formGroup]="formGroup" (submit)="update()">
   <mat-form-field appearance="outline">
     <mat-label>Role</mat-label>
@@ -7,6 +8,9 @@
         {{ role }}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="formGroup.controls['role'].invalid">
+      {{ this.getErrorMessage('role', 'required') }}
+    </mat-error>
   </mat-form-field>
   <button [disabled]="formGroup.invalid" type="submit" mat-flat-button color="primary">
     Update role for {{displayName}}

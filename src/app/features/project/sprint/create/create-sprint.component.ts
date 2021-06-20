@@ -4,7 +4,7 @@ import { SprintService } from '../../../../shared/services/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Task } from '../../../../shared/types/task.type';
-import { OverviewService } from '../../../../shared/services/overview.service';
+import { TaskService } from '../../../../shared/services/task.service';
 import * as moment from "moment";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
@@ -18,8 +18,8 @@ export class CreateSprintComponent {
   private readonly id;
   pickAbleTasks$: Observable<Task[]> = of([]);
   formGroup = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-    description: new FormControl('', [Validators.maxLength(500)]),
+    title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
+    description: new FormControl('', [Validators.maxLength(192)]),
     start: new FormControl('', [Validators.required]),
     end: new FormControl('', [Validators.required]),
     tasks: new FormControl('', [Validators.required]),
@@ -29,10 +29,10 @@ export class CreateSprintComponent {
   private readonly errorMessages = {
     title : {
       required: 'Title is required',
-      maxLength: 'Title can not exceed 255 characters'
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 1024 characters'
+      maxLength: 'The maximum allowed length is 192'
     },
     start: {
       required: 'Start date is required'
@@ -45,9 +45,14 @@ export class CreateSprintComponent {
     }
   };
 
-  constructor(private readonly sprintService: SprintService, private readonly overviewService: OverviewService, private readonly activatedRoute: ActivatedRoute, private readonly router: Router) {
+  constructor(
+    private readonly sprintService: SprintService,
+    private readonly taskService: TaskService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
+  ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.pickAbleTasks$ = overviewService.getByProject(this.id);
+    this.pickAbleTasks$ = taskService.getByProject(this.id);
   }
 
   getErrorMessage(field: string, error: string): string {

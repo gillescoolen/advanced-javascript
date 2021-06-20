@@ -12,7 +12,7 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { ProjectService } from './services/project.service';
 import { UserService } from './services/user.service';
 import { UserResolver } from './resolvers/user.resolver';
-import { OverviewService } from './services/overview.service';
+import { TaskService } from './services/task.service';
 import { MemberService } from './services/member.service';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { MemberService } from './services/member.service';
     AuthService,
     ProjectService,
     UserService,
-    OverviewService,
+    TaskService,
     MemberService],
   exports: [
     LayoutModule,

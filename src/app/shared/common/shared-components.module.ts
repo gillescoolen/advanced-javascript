@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { TableComponent } from '../components/table/table.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BackButtonComponent } from "../components/back-button/back-button.component";
 
 
 @NgModule({
-  declarations: [TableComponent],
+  declarations: [TableComponent, BackButtonComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     MaterialModule,
     TableComponent,
+    BackButtonComponent,
     ReactiveFormsModule
   ]
 })

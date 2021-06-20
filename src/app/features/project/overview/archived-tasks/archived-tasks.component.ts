@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OverviewService } from '../../../../shared/services/overview.service';
+import { TaskService } from '../../../../shared/services/task.service';
 import { Observable, of } from 'rxjs';
 import { BaseTask } from '../../../../shared/types/task.type';
 
@@ -16,10 +16,10 @@ export class ArchivedComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly overviewService: OverviewService
+    private readonly taskService:TaskService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.tasks$ = this.overviewService.getTasksByProject(this.id, true);
+    this.tasks$ = this.taskService.getTasksByProject(this.id, true);
   }
 
   async navigateBack() {

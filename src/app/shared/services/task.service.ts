@@ -21,7 +21,7 @@ import Timestamp = firebase.firestore.Timestamp;
 @Injectable({
   providedIn: 'root'
 })
-export class OverviewService {
+export class TaskService {
   constructor(
     @Inject(AngularFirestore)
     private readonly firestore: AngularFirestore,
@@ -46,7 +46,7 @@ export class OverviewService {
         return this.firestore
           .collection<Project>('projects')
           .doc(id)
-          .collection<Task>('overview', query => {
+          .collection<Task>('tasks', query => {
             return query
               .where('archived', '==', archived)
               .where(firebase.firestore.FieldPath.documentId(), 'not-in', flat);
@@ -63,7 +63,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(id)
-      .collection<Task>('overview', query => {
+      .collection<Task>('tasks', query => {
         return query
           .where('archived', '==', archived);
       })
@@ -104,7 +104,7 @@ export class OverviewService {
     const project = {
       title: task.title,
       archived: task.archived,
-      status: Status.OVERVIEW,
+      status: Status.BACKLOG,
       description: task.description,
       assigned: userRef,
       points: task.points,
@@ -114,7 +114,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Partial<Task>>('overview')
+      .collection<Partial<Task>>('tasks')
       .doc()
       .set(project);
   }
@@ -123,7 +123,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Task>('overview')
+      .collection<Task>('tasks')
       .doc(taskId)
       .valueChanges()
       .pipe(mergeMap(task =>
@@ -153,7 +153,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Task>('overview')
+      .collection<Task>('tasks')
       .doc(taskId)
       .update({
         title: data.title,

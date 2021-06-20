@@ -10,14 +10,14 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/projects/$(project));
     }
 
-    function isManager(project) {
-      let projectData = getProject(project);
-      return authenticated() && projectData != null ? get(projectData.data.owner).id == request.auth.uid : authenticated();
+    function isOwner(project) {
+      let data = getProject(project);
+      return authenticated() && data != null ? get(data.data.owner).id == request.auth.uid : authenticated();
     }
 
-    function isMemberOfProject(project) {
-      let projectData = getProject(project);
-      return authenticated() && data != null ? (request.auth.uid in projectData.data.flatMembers && !projectData.data.archived) : authenticated();
+		function isMember(project) {
+      let data = getProject(project);
+      return authenticated() && data != null ? (request.auth.uid in data.data.flatMembers && !data.data.archived) : authenticated();
     }
 
     match /users/{user} {
@@ -28,14 +28,14 @@ service cloud.firestore {
 
     match /projects/{project} {
       allow read;
-      allow write: if isManager(project);
+      allow write: if isOwner(project);
 
       match /sprints/{sprint} {
-        allow read, write: if isMemberOfProject(project);
+        allow read, write: if isMember(project);
       }
 
-      match /overview/{task} {
-        allow read, write: if isMemberOfProject(project);
+      match /tasks/{task} {
+        allow read, write: if isMember(project);
       }
     }
   }

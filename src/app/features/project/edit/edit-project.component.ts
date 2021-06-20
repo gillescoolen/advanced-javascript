@@ -18,14 +18,14 @@ export class EditProjectComponent implements OnInit {
 
   private readonly errorMessages = {
     name: {
-      required: 'Title is required!',
-      maxLength: 'Title can not exceed 255 characters!'
+      required: 'Title is required',
+      maxLength: 'The maximum allowed length is 64'
     },
     description: {
-      maxLength: 'Description can not exceed 300 characters!'
+      maxLength: 'The maximum allowed length is 192'
     },
     status: {
-      maxLength: 'Status can not exceed 30 characters!'
+      maxLength: 'The maximum allowed length is 64'
     }
   };
 
@@ -47,10 +47,10 @@ export class EditProjectComponent implements OnInit {
       }
 
       this.formGroup = new FormGroup({
-        name: new FormControl(project.name, [Validators.required, Validators.maxLength(30)]),
-        description: new FormControl(project.description, [Validators.maxLength(300)]),
-        status: new FormControl(project.status, [Validators.maxLength(30)]),
-        archived: new FormControl(project.archived, [Validators.required])
+        name: new FormControl(project.name, [Validators.required, Validators.maxLength(64)]),
+        description: new FormControl(project.description, [Validators.maxLength(192)]),
+        status: new FormControl(project.status, [Validators.maxLength(64)]),
+        archived: new FormControl(project.archived)
       });
     });
   }

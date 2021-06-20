@@ -21,6 +21,12 @@ export class EditMemberComponent {
     role: new FormControl('', [Validators.required])
   });
 
+  private readonly errorMessages = {
+    role: {
+      required: 'Role is required'
+    }
+  };
+
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
@@ -31,6 +37,14 @@ export class EditMemberComponent {
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId') ?? '';
     this.user$ = this.userService.getUserById(this.userId);
     this.user$.subscribe(u => this.displayName = u.displayName);
+  }
+
+  getErrorMessage(field: string, error: string): string {
+    if (this.formGroup.controls[field].hasError(error)) {
+      return this.errorMessages[field][error] ?? '';
+    }
+
+    return '';
   }
 
   getRoles(): string[] {

@@ -30,7 +30,7 @@ export class ProjectService {
       description: project.description ?? '',
       status: project.status ?? '',
       owner: ref,
-      archived: false
+      archived: project.archived
     }
 
     return this.firestore
@@ -52,7 +52,7 @@ export class ProjectService {
       { user: this.authService.getRef(user), role: Role.DEVELOPER },
       { user: this.authService.getRef(user), role: Role.CUSTOMER }
     ]
-    
+
     return this.firestore.collection<Project>('projects', query => {
       return query
         .where('members', 'array-contains-any', roles)
