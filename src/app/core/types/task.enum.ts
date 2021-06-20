@@ -1,5 +1,5 @@
-export enum UserStoryStatus {
-  NO_STATUS = '',
+export enum Status {
+  BACKLOG = '',
   TODO = 'Todo',
   IN_PROGRESS = 'In progress',
   IN_REVIEW = 'In review',

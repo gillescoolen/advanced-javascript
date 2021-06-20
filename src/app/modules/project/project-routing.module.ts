@@ -6,7 +6,7 @@ import { CreateProjectComponent } from './create/create-project.component';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { SprintComponent } from './sprint/page/sprint.component';
 import { BacklogComponent } from './backlog/backlog.component';
-import { CreateUserStoryComponent } from './backlog/create-user-story/create-user-story.component';
+import { CreateTaskComponent } from './backlog/create-user-story/create-user-story.component';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';
 import { EditUserStoryComponent } from './backlog/edit-user-story/edit-user-story.component';
@@ -63,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: ':id/backlog/create',
-        component: CreateUserStoryComponent
+        component: CreateTaskComponent
       },
       {
         path: ':id/backlog/:userStoryId/edit',

@@ -3,7 +3,7 @@ import { BacklogService } from '../../../../core/services/backlog.service';
 import { ProjectService } from '../../../../core/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { EditableUserStory } from '../../../../core/types/user-story.type';
+import { TaskFormDTO } from '../../../../core/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../core/services/user';
 
@@ -32,7 +32,7 @@ export class EditUserStoryComponent implements OnInit {
     }
   };
 
-  userStory$: Observable<EditableUserStory | undefined> = of();
+  userStory$: Observable<TaskFormDTO | undefined> = of();
   projectMembers$: Observable<(User | undefined)[]> = of([]);
   formGroup = new FormGroup({});
 

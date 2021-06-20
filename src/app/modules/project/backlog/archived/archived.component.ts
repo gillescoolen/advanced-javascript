@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BacklogService } from '../../../../core/services/backlog.service';
 import { Observable, of } from 'rxjs';
-import { AbstractUserStory } from '../../../../core/types/user-story.type';
+import { BaseTask } from '../../../../core/types/task.type';
 
 @Component({
   selector: 'app-archived',
@@ -11,7 +11,7 @@ import { AbstractUserStory } from '../../../../core/types/user-story.type';
 })
 export class ArchivedComponent {
   private readonly id;
-  userStories$: Observable<AbstractUserStory[]> = of([]);
+  userStories$: Observable<BaseTask[]> = of([]);
 
   constructor(
     private readonly router: Router,

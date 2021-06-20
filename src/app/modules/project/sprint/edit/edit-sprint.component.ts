@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { UserStory } from '../../../../core/types/user-story.type';
+import { Task } from '../../../../core/types/task.type';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SprintService } from '../../../../core/services/sprint.service';
 import { BacklogService } from '../../../../core/services/backlog.service';
@@ -17,7 +17,7 @@ import Timestamp = firebase.firestore.Timestamp;
 })
 export class EditSprintComponent implements OnInit {
   private readonly id;
-  pickAbleTasks$: Observable<UserStory[]> = of([]);
+  pickAbleTasks$: Observable<Task[]> = of([]);
   formGroup = new FormGroup({});
   sprint$: Observable<Sprint> = of();
 

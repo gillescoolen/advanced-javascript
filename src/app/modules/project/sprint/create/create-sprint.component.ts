@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SprintService } from '../../../../core/services/sprint.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { UserStory } from '../../../../core/types/user-story.type';
+import { Task } from '../../../../core/types/task.type';
 import { BacklogService } from '../../../../core/services/backlog.service';
 import * as moment from "moment";
 import firebase from "firebase";
@@ -16,7 +16,7 @@ import Timestamp = firebase.firestore.Timestamp;
 })
 export class CreateSprintComponent {
   private readonly id;
-  pickAbleTasks$: Observable<UserStory[]> = of([]);
+  pickAbleTasks$: Observable<Task[]> = of([]);
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(60)]),
     description: new FormControl('', [Validators.maxLength(500)]),

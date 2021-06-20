@@ -8,7 +8,7 @@ import { Project } from '../types/project.type';
 import { Member } from '../types/member.type';
 import { AbstractSprint, CreateSprint, Sprint } from '../types/sprint.type';
 import firebase from 'firebase';
-import { UserStory } from '../types/user-story.type';
+import { Task } from '../types/task.type';
 import * as moment from 'moment';
 import Timestamp = firebase.firestore.Timestamp;
 import DocumentReference = firebase.firestore.DocumentReference;
@@ -40,7 +40,7 @@ export class SprintService {
     }));
   }
 
-  getStories(id: string): Observable<UserStory[]> {
+  getStories(id: string): Observable<Task[]> {
     return this.active(id)
       .pipe(mergeMap(sprint => {
         if (!sprint) {
@@ -48,7 +48,7 @@ export class SprintService {
         }
 
         return combineLatest(sprint[0].tasks.map(ref => {
-          const tasks = this.firestore.collection<Project>('projects').doc(id).collection<UserStory>('backlog').doc(ref.id)
+          const tasks = this.firestore.collection<Project>('projects').doc(id).collection<Task>('backlog').doc(ref.id)
             .valueChanges();
 
           return tasks.pipe(map(task => ({
@@ -83,8 +83,8 @@ export class SprintService {
     }));
   }
 
-  async updateStory(task: UserStory, projectId: string) {
-    await this.firestore.collection<Project>('projects').doc(projectId).collection<Partial<UserStory>>('backlog').doc(task.id).update({
+  async updateStory(task: Task, projectId: string) {
+    await this.firestore.collection<Project>('projects').doc(projectId).collection<Partial<Task>>('backlog').doc(task.id).update({
       title: task.title,
       description: task.description,
       status: task.status,
@@ -103,10 +103,10 @@ export class SprintService {
   }
 
   async create(data: Partial<CreateSprint>, projectId: string) {
-    const tasks: DocumentReference<UserStory>[] = [];
+    const tasks: DocumentReference<Task>[] = [];
 
     for (const task of data.tasks) {
-      tasks.push(this.firestore.collection<Project>('projects').doc(projectId).collection<UserStory>('backlog').doc(task).ref);
+      tasks.push(this.firestore.collection<Project>('projects').doc(projectId).collection<Task>('backlog').doc(task).ref);
     }
 
     if (data.active) {
@@ -124,10 +124,10 @@ export class SprintService {
   }
 
   async update(data: Partial<CreateSprint>, projectId: string, sprintId: string) {
-    const tasks: DocumentReference<UserStory>[] = [];
+    const tasks: DocumentReference<Task>[] = [];
 
     for (const task of data.tasks) {
-      tasks.push(this.firestore.collection('projects').doc(projectId).collection<UserStory>('backlog').doc(task).ref);
+      tasks.push(this.firestore.collection('projects').doc(projectId).collection<Task>('backlog').doc(task).ref);
     }
 
     if (data.active) {

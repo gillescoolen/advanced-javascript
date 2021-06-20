@@ -1,9 +1,9 @@
-import { UserStory } from './user-story.type';
+import { Task } from './task.type';
 
 export type Member = {
   id: string,
   name: string,
-  assigned: UserStory[]
+  assigned: Task[]
 };
 
 export type AbstractMember = {

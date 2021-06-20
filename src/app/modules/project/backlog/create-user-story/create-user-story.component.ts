@@ -5,14 +5,14 @@ import { Observable, of } from 'rxjs';
 import { User } from '../../../../core/services/user';
 import { ProjectService } from '../../../../core/services/project.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserStoryCreateDTO } from '../../../../core/types/user-story.type';
+import { TaskCreateDTO } from '../../../../core/types/task.type';
 
 @Component({
   selector: 'app-create-user-story',
   templateUrl: './create-user-story.component.html',
   styleUrls: ['./create-user-story.component.scss']
 })
-export class CreateUserStoryComponent {
+export class CreateTaskComponent {
   private readonly id;
   pickAbleMembers$: Observable<(User | undefined)[]> = of([]);
   formGroup = new FormGroup({
@@ -58,7 +58,7 @@ export class CreateUserStoryComponent {
     const form = this.formGroup.value;
 
     if (!this.formGroup.invalid) {
-      const story: UserStoryCreateDTO = {
+      const story: TaskCreateDTO = {
         title: form.title,
         description: form.description,
         assignee: form.selectedAssignee === '' ? undefined : form.selectedAssignee,

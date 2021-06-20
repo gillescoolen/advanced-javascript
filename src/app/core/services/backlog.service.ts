@@ -2,16 +2,16 @@ import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from './user.service';
 import { Project } from '../types/project.type';
-import { UserStoryStatus } from '../types/user-story-status.enum';
+import { Status } from '../types/task.enum';
 import { map, mergeMap } from 'rxjs/operators';
 import { combineLatest, Observable, of } from 'rxjs';
 import {
-  AbstractUserStory,
-  EditableUserStory,
-  UserStory,
-  UserStoryCreateDTO,
-  UserStoryEditDTO
-} from '../types/user-story.type';
+  BaseTask,
+  TaskFormDTO,
+  Task,
+  TaskCreateDTO,
+  TaskEditDTO
+} from '../types/task.type';
 import { ProjectService } from './project.service';
 import { User } from './user';
 import firebase from 'firebase';
@@ -42,7 +42,7 @@ export class BacklogService {
         return this.firestore
           .collection<Project>('projects')
           .doc(id)
-          .collection<UserStory>('backlog', q => {
+          .collection<Task>('backlog', q => {
             return q.where('archived', '==', archived)
               .where(firebase.firestore.FieldPath.documentId(), 'not-in', flatten);
           })
@@ -54,11 +54,11 @@ export class BacklogService {
       }));
   }
 
-  getByProjectAbstract(id: string, archived = false): Observable<AbstractUserStory[]> {
+  getByProjectAbstract(id: string, archived = false): Observable<BaseTask[]> {
     return this.firestore
       .collection<Project>('projects')
       .doc(id)
-      .collection<UserStory>('backlog', q => {
+      .collection<Task>('backlog', q => {
         return q.where('archived', '==', archived);
       })
       .snapshotChanges()
@@ -80,18 +80,18 @@ export class BacklogService {
       }));
   }
 
-  async create(id: string, userStory: UserStoryCreateDTO) {
+  async create(id: string, userStory: TaskCreateDTO) {
     const userRef = userStory.assignee === undefined ? null : this.userService.getUserRef(userStory.assignee);
 
     return this.firestore
       .collection<Project>('projects')
       .doc(id)
-      .collection<Partial<UserStory>>('backlog')
+      .collection<Partial<Task>>('backlog')
       .doc()
       .set({
         title: userStory.title,
         archived: false,
-        status: UserStoryStatus.NO_STATUS,
+        status: Status.BACKLOG,
         description: userStory.description,
         assignee: userRef,
         storyPoints: userStory.storyPoints,
@@ -99,11 +99,11 @@ export class BacklogService {
       });
   }
 
-  getOneWithUserData(projectId: string, userStoryId: string): Observable<EditableUserStory> {
+  getOneWithUserData(projectId: string, userStoryId: string): Observable<TaskFormDTO> {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<UserStory>('backlog')
+      .collection<Task>('backlog')
       .doc(userStoryId)
       .valueChanges()
       .pipe(mergeMap(story => {
@@ -121,13 +121,13 @@ export class BacklogService {
       }));
   }
 
-  async editUserStory(projectId: string, userStoryId: string, data: UserStoryEditDTO) {
+  async editUserStory(projectId: string, userStoryId: string, data: TaskEditDTO) {
     const userRef = data.assignee === undefined ? null : this.userService.getUserRef(data.assignee);
 
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<UserStory>('backlog')
+      .collection<Task>('backlog')
       .doc(userStoryId)
       .update({
         title: data.title,

@@ -4,7 +4,7 @@ import { ProjectService } from '../../../core/services/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Project } from '../../../core/types/project.type';
-import { UserStoryStatus } from '../../../core/types/user-story-status.enum';
+import { Status } from '../../../core/types/task.enum';
 
 @Component({
   selector: 'app-edit-project',
@@ -14,7 +14,7 @@ import { UserStoryStatus } from '../../../core/types/user-story-status.enum';
 export class EditProjectComponent implements OnInit {
   formGroup = new FormGroup({});
   project$: Observable<Project | undefined> = of();
-  statuses = UserStoryStatus;
+  statuses = Status;
 
   private readonly errorMessages = {
     name: {

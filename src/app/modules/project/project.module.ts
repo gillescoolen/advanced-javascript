@@ -8,7 +8,7 @@ import { SprintComponent } from './sprint/page/sprint.component';
 import { FlexModule } from '@angular/flex-layout';
 import { EditProjectComponent } from './edit/edit-project.component';
 import { BacklogComponent } from './backlog/backlog.component';
-import { CreateUserStoryComponent } from './backlog/create-user-story/create-user-story.component';
+import { CreateTaskComponent } from './backlog/create-user-story/create-user-story.component';
 import { ChartsModule } from 'ng2-charts';
 import { CreateSprintComponent } from './sprint/create/create-sprint.component';
 import { EditSprintComponent } from './sprint/edit/edit-sprint.component';
@@ -27,7 +27,7 @@ import { ChartComponent } from './sprint/chart/chart.component';
     CreateProjectComponent,
     SprintComponent,
     BacklogComponent,
-    CreateUserStoryComponent,
+    CreateTaskComponent,
     CreateSprintComponent,
     EditSprintComponent,
     EditUserStoryComponent,

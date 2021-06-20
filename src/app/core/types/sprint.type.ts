@@ -1,5 +1,5 @@
 import { DocumentReference } from '@angular/fire/firestore';
-import { UserStory } from './user-story.type';
+import { Task } from './task.type';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 
@@ -8,7 +8,7 @@ export type Sprint = {
   description: string,
   startDate: Timestamp,
   endDate: Timestamp,
-  tasks: DocumentReference<UserStory>[] | undefined,
+  tasks: DocumentReference<Task>[] | undefined,
   active: boolean
 };
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserStoryStatus } from '../../../../core/types/user-story-status.enum';
+import { Status } from '../../../../core/types/task.enum';
 import { SprintService } from '../../../../core/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { Sprint } from '../../../../core/types/sprint.type';
 import * as moment from 'moment/moment';
-import { UserStory } from '../../../../core/types/user-story.type';
+import { Task } from '../../../../core/types/task.type';
 
 @Component({
   selector: 'app-chart',
@@ -17,9 +17,9 @@ import { UserStory } from '../../../../core/types/user-story.type';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-  statusEnum = UserStoryStatus;
+  statusEnum = Status;
   members$: Observable<Member[]> = of([]);
-  stories$: Observable<UserStory[]> = of([]);
+  stories$: Observable<Task[]> = of([]);
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserStoryStatus } from '../../../../core/types/user-story-status.enum';
+import { Status } from '../../../../core/types/task.enum';
 import { SprintService } from '../../../../core/services/sprint.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +7,7 @@ import { Member } from '../../../../core/types/member.type';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { UserService } from '../../../../core/services/user.service';
 import { Sprint } from '../../../../core/types/sprint.type';
-import { UserStory } from '../../../../core/types/user-story.type';
+import { Task } from '../../../../core/types/task.type';
 
 @Component({
   selector: 'app-sprint',
@@ -16,7 +16,7 @@ import { UserStory } from '../../../../core/types/user-story.type';
 })
 export class SprintComponent implements OnInit {
   members$: Observable<Member[]> = of([]);
-  stories$: Observable<UserStory[]> = of([]);
+  stories$: Observable<Task[]> = of([]);
   sprint$: Observable<Sprint[]> = of([]);
   title = '';
   description = '';
@@ -33,7 +33,7 @@ export class SprintComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTasksByStatus(status: string, tasks: UserStory[]) {
+  getTasksByStatus(status: string, tasks: Task[]) {
     return tasks.filter(task => task.status.toLowerCase() === status.toLowerCase());
   }
 
@@ -50,6 +50,6 @@ export class SprintComponent implements OnInit {
   }
 
   getStatuses(): string[] {
-    return Object.values(UserStoryStatus).filter(s => s !== '');
+    return Object.values(Status).filter(s => s !== '');
   }
 }

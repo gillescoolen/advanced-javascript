@@ -1,37 +1,37 @@
 import { User } from '../services/user';
 import { DocumentReference } from '@angular/fire/firestore';
-import { UserStoryStatus } from './user-story-status.enum';
+import { Status } from './task.enum';
 import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
 
-export type UserStory = {
+export type Task = {
   id: string,
   title: string,
   description: string,
-  status: UserStoryStatus
+  status: Status
   assignee?: DocumentReference<User> | null,
   storyPoints: number,
   archived: boolean,
   updatedAt: Timestamp
 };
 
-export type AbstractUserStory = {
+export type BaseTask = {
   title: string,
   description: string,
-  status: UserStoryStatus
+  status: Status
   assignee?: string | null,
   storyPoints: number,
   archived: boolean
 };
 
-export type UserStoryCreateDTO = {
+export type TaskCreateDTO = {
   title: string,
   description: string
   assignee: string | undefined,
   storyPoints: number
 };
 
-export type EditableUserStory = {
+export type TaskFormDTO = {
   id: string,
   title: string,
   description: string,
@@ -41,7 +41,7 @@ export type EditableUserStory = {
   updatedAt: Timestamp
 };
 
-export type UserStoryEditDTO = {
+export type TaskEditDTO = {
   title: string,
   description: string
   assignee: string | undefined,

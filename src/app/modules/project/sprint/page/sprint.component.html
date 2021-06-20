@@ -10,7 +10,7 @@
   </div>
   <div class="row" cdkDropListGroup>
     <div class="todo" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="{status: '', member: null}">
-      <h1>Tasks</h1>
+      <h1>Backlog</h1>
       <div *ngFor="let task of stories$ | async">
         <mat-card class="task" *ngIf="task.status.length === 0" cdkDrag [cdkDragData]="task">
           <mat-card-title>{{ task.title }}</mat-card-title>
