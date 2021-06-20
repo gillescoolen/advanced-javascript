@@ -34,7 +34,7 @@ service cloud.firestore {
         allow read, write: if isMemberOfProject(project);
       }
 
-      match /backlog/{task} {
+      match /overview/{task} {
         allow read, write: if isMemberOfProject(project);
       }
     }

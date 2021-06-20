@@ -38,13 +38,13 @@ export class CreateTaskComponent {
   };
 
   constructor(
-    private readonly backlogService: OverviewService,
+    private readonly overviewService: OverviewService,
     private readonly projectService: ProjectService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.pickAbleMembers$ = this.backlogService.getProjectMembers(this.id);
+    this.pickAbleMembers$ = this.overviewService.getProjectMembers(this.id);
   }
 
   getErrorMessage(field: string, error: string): string {
@@ -67,7 +67,7 @@ export class CreateTaskComponent {
         archived: form.archived
       };
 
-      await this.backlogService.create(this.id, story);
+      await this.overviewService.create(this.id, story);
       await this.router.navigate([`project/${this.id}`]);
     }
   }

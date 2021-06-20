@@ -46,7 +46,7 @@ export class OverviewService {
         return this.firestore
           .collection<Project>('projects')
           .doc(id)
-          .collection<Task>('backlog', query => {
+          .collection<Task>('overview', query => {
             return query
               .where('archived', '==', archived)
               .where(firebase.firestore.FieldPath.documentId(), 'not-in', flat);
@@ -63,7 +63,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(id)
-      .collection<Task>('backlog', query => {
+      .collection<Task>('overview', query => {
         return query
           .where('archived', '==', archived);
       })
@@ -104,7 +104,7 @@ export class OverviewService {
     const project = {
       title: task.title,
       archived: task.archived,
-      status: Status.BACKLOG,
+      status: Status.OVERVIEW,
       description: task.description,
       assigned: userRef,
       points: task.points,
@@ -114,7 +114,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Partial<Task>>('backlog')
+      .collection<Partial<Task>>('overview')
       .doc()
       .set(project);
   }
@@ -123,7 +123,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Task>('backlog')
+      .collection<Task>('overview')
       .doc(taskId)
       .valueChanges()
       .pipe(mergeMap(task =>
@@ -153,7 +153,7 @@ export class OverviewService {
     return this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Task>('backlog')
+      .collection<Task>('overview')
       .doc(taskId)
       .update({
         title: data.title,

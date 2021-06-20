@@ -59,7 +59,7 @@ export class SprintService {
           const tasks = this.firestore
             .collection<Project>('projects')
             .doc(projectId)
-            .collection<Task>('backlog')
+            .collection<Task>('overview')
             .doc(ref.id)
             .valueChanges();
 
@@ -122,7 +122,7 @@ export class SprintService {
     await this.firestore
       .collection<Project>('projects')
       .doc(projectId)
-      .collection<Partial<Task>>('backlog')
+      .collection<Partial<Task>>('overview')
       .doc(task.id)
       .update(taskDto);
   }
@@ -146,7 +146,7 @@ export class SprintService {
       tasks.push(this.firestore
         .collection<Project>('projects')
         .doc(projectId)
-        .collection<Task>('backlog')
+        .collection<Task>('overview')
         .doc(task).ref
       );
 
@@ -175,7 +175,7 @@ export class SprintService {
       tasks.push(this.firestore
         .collection('projects')
         .doc(projectId)
-        .collection<Task>('backlog')
+        .collection<Task>('overview')
         .doc(task)
         .ref
       );

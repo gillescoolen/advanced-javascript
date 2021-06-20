@@ -16,10 +16,10 @@ export class ArchivedComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly backlogService: OverviewService
+    private readonly overviewService: OverviewService
   ) {
     this.id = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.tasks$ = this.backlogService.getTasksByProject(this.id, true);
+    this.tasks$ = this.overviewService.getTasksByProject(this.id, true);
   }
 
   async navigateBack() {
@@ -27,6 +27,6 @@ export class ArchivedComponent {
   }
 
   async navigateEditTask(id: string) {
-    await this.router.navigate([`project/${this.id}/backlog/${id}/edit`]);
+    await this.router.navigate([`project/${this.id}/overview/${id}/edit`]);
   }
 }
