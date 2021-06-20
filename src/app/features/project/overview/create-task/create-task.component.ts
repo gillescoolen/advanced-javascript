@@ -18,7 +18,7 @@ export class CreateTaskComponent {
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(64)]),
     description: new FormControl('', [Validators.maxLength(192)]),
-    selectedAssignee: new FormControl(''),
+    selectedAssigned: new FormControl(''),
     storyPoints: new FormControl(null, [Validators.min(0), Validators.max(24)]),
     archived: new FormControl(false)
   });
@@ -62,7 +62,7 @@ export class CreateTaskComponent {
       const story: TaskCreateDto = {
         title: form.title,
         description: form.description,
-        assigned: form.selectedAssignee === '' ? undefined : form.selectedAssignee,
+        assigned: form.selectedAssigned === '' ? undefined : form.selectedAssigned,
         points: form.storyPoints,
         archived: form.archived
       };
