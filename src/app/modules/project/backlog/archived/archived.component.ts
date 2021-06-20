@@ -22,10 +22,6 @@ export class ArchivedComponent {
     this.userStories$ = this.backlogService.getByProjectAbstract(this.id, true);
   }
 
-  async navigateBack() {
-    await this.router.navigate([`project/${this.id}`]);
-  }
-
   async navigateEditUserStory(id: string) {
     await this.router.navigate([`project/${this.id}/backlog/${id}/edit`]);
   }
