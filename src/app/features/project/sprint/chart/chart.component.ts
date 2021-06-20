@@ -8,8 +8,8 @@ import { Color, Label } from 'ng2-charts';
 import { Sprint } from '../../../../shared/types/sprint.type';
 import * as moment from 'moment/moment';
 import { Component, OnInit } from "@angular/core";
-import { Status } from "../../../../shared/types/task.enum";
 import { Task } from "../../../../shared/types/task.type";
+import { Status } from "../../../../shared/types/status.enum";
 
 @Component({
   selector: 'app-chart',
